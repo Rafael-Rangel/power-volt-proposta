@@ -11,3 +11,4 @@ node_modules/
 
 lighthouse-*.json
 pagespeed-summary.json
+.env*

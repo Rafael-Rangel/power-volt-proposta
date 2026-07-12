@@ -7,14 +7,19 @@
   <meta name="description" content="Menos parada, mais segurança e um responsável do diagnóstico à entrega. Manutenção, elétrica, obra e engenharia sob medida para quem precisa de resultado na planta." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="preload" as="image" href="/lp/img/lp-hero.webp" fetchpriority="high" />
+  <link rel="preload" as="image" href="/lp/img/logo-sm.webp" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all';document.documentElement.classList.add('fonts-ready')" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet" /></noscript>
   <style>
     :root {
       --pv-red: #e3211b;
       --pv-red-deep: #a01512;
       --pv-yellow: #f8d80d;
-      --pv-black: #070707;
-      --pv-ink: #101010;
+      --pv-black: #0a0a0c;
+      --pv-ink: #121214;
+      --pv-surface: #141416;
       --pv-muted: #9a9aa3;
       --pv-text: #f4f4f6;
       --pv-line: rgba(255,255,255,0.12);
@@ -22,6 +27,15 @@
       --font-body: "Outfit", sans-serif;
       --ease: cubic-bezier(0.22, 1, 0.36, 1);
       --wa: #25d366;
+      --noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+      --tex-hatch:
+        repeating-linear-gradient(
+          -32deg,
+          transparent 0 11px,
+          rgba(255,255,255,0.018) 11px 12px
+        );
+      --tex-dots:
+        radial-gradient(rgba(255,255,255,0.045) 0.7px, transparent 0.8px);
       --img-red-overlay:
         radial-gradient(ellipse 72% 62% at 0% 0%, rgba(227,33,27,0.52), transparent 58%),
         radial-gradient(ellipse 68% 58% at 100% 100%, rgba(248,216,13,0.32), transparent 56%),
@@ -34,10 +48,53 @@
     html { scroll-behavior: smooth; }
     body {
       font-family: var(--font-body);
-      background: var(--pv-black);
       color: var(--pv-text);
       line-height: 1.55;
       overflow-x: hidden;
+      position: relative;
+      isolation: isolate;
+      background-color: var(--pv-black);
+      background-image:
+        radial-gradient(ellipse 90% 55% at 8% 12%, rgba(227,33,27,0.14), transparent 52%),
+        radial-gradient(ellipse 70% 50% at 92% 28%, rgba(248,216,13,0.09), transparent 48%),
+        radial-gradient(ellipse 80% 45% at 70% 88%, rgba(227,33,27,0.1), transparent 55%),
+        radial-gradient(ellipse 55% 40% at 20% 75%, rgba(248,216,13,0.06), transparent 50%),
+        linear-gradient(165deg, #121214 0%, #0a0a0c 42%, #0e0c0c 72%, #0a0a0c 100%);
+      background-attachment: fixed;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image: var(--tex-hatch), var(--tex-dots);
+      background-size: auto, 18px 18px;
+      opacity: 0.7;
+    }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.07;
+      background-image: var(--noise);
+      background-size: 180px 180px;
+      mix-blend-mode: overlay;
+    }
+    .site-header,
+    section,
+    footer,
+    .wa-float {
+      position: relative;
+      z-index: 1;
+    }
+    @media (max-width: 960px) {
+      body { background-attachment: scroll; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      body { background-attachment: scroll; }
     }
     img { max-width: 100%; display: block; }
     a { color: inherit; text-decoration: none; }
@@ -57,7 +114,7 @@
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: -0.02em;
-      line-height: 0.92;
+      line-height: 1.08;
     }
     .lead { color: rgba(244,244,246,0.78); font-size: clamp(15px, 1.6vw, 18px); max-width: 56ch; }
 
@@ -123,7 +180,7 @@
     }
     .site-header.is-scrolled,
     .site-header.is-open {
-      background: rgba(7,7,7,0.92);
+      background: rgba(12,10,10,0.88);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--pv-line);
       padding: 10px 0;
@@ -323,14 +380,17 @@
       margin-bottom: 14px;
     }
     .hero h1 {
-      font-family: var(--font-display);
+      font-family: "Arial Narrow", "Helvetica Neue Condensed", Impact, Haettenschweiler, sans-serif;
       font-size: clamp(28px, 4.2vw, 46px);
-      font-weight: 700;
+      font-weight: 800;
       text-transform: uppercase;
       max-width: 18ch;
-      line-height: 0.95;
+      line-height: 1.08;
       margin-bottom: 14px;
       text-shadow: 0 2px 24px rgba(0,0,0,0.35);
+    }
+    .fonts-ready .hero h1 {
+      font-family: var(--font-display);
     }
     .hero .lead {
       margin-left: auto;
@@ -356,7 +416,9 @@
       margin-top: -48px;
       position: relative;
       z-index: 4;
-      background: #050505;
+      background:
+        radial-gradient(ellipse 80% 100% at 50% 0%, rgba(227,33,27,0.1), transparent 55%),
+        linear-gradient(180deg, #080808 0%, #0c0c0e 55%, #0a0a0c 100%);
       border-bottom: 1px solid var(--pv-line);
       overflow: hidden;
     }
@@ -405,8 +467,9 @@
     .stats {
       border-block: 1px solid var(--pv-line);
       background:
-        radial-gradient(ellipse 50% 80% at 50% 0%, rgba(248,216,13,0.06), transparent 55%),
-        linear-gradient(180deg, #0c0c0c, #090909);
+        radial-gradient(ellipse 50% 80% at 50% 0%, rgba(248,216,13,0.1), transparent 55%),
+        radial-gradient(ellipse 40% 50% at 100% 100%, rgba(227,33,27,0.1), transparent 50%),
+        linear-gradient(180deg, #141210, #0d0d0f);
       padding: 56px 0 64px;
     }
     .stats .section-head {
@@ -465,11 +528,56 @@
       font-family: var(--font-display);
       font-size: clamp(34px, 5vw, 56px);
       text-transform: uppercase;
-      line-height: 0.92;
+      line-height: 1.08;
       margin-bottom: 14px;
     }
     .accent { color: var(--pv-red); }
     .accent-y { color: var(--pv-yellow); }
+
+    /* Section atmospheres */
+    #servicos {
+      background:
+        radial-gradient(ellipse 58% 55% at 100% 8%, rgba(227,33,27,0.16), transparent 58%),
+        radial-gradient(ellipse 40% 45% at 0% 70%, rgba(248,216,13,0.06), transparent 55%),
+        linear-gradient(180deg, rgba(18,16,16,0.92) 0%, rgba(10,10,12,0.55) 100%);
+    }
+    .areas {
+      position: relative;
+    }
+    .areas::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, transparent, rgba(248,216,13,0.04), transparent),
+        var(--tex-hatch);
+      opacity: 0.8;
+    }
+    .why {
+      background:
+        radial-gradient(ellipse 55% 50% at 85% 15%, rgba(227,33,27,0.22), transparent 58%),
+        radial-gradient(ellipse 45% 40% at 5% 90%, rgba(248,216,13,0.08), transparent 50%),
+        linear-gradient(160deg, #121010 0%, #0b0b0d 55%, #100e0e 100%);
+    }
+    .process {
+      padding-bottom: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 0% 30%, rgba(227,33,27,0.12), transparent 55%),
+        radial-gradient(ellipse 50% 40% at 100% 80%, rgba(248,216,13,0.07), transparent 50%),
+        linear-gradient(180deg, rgba(12,12,14,0.85), rgba(10,10,12,0.4));
+    }
+    #faq {
+      background:
+        radial-gradient(ellipse 50% 55% at 0% 0%, rgba(248,216,13,0.08), transparent 55%),
+        radial-gradient(ellipse 45% 50% at 100% 100%, rgba(227,33,27,0.12), transparent 55%),
+        linear-gradient(180deg, #100e10 0%, #0a0a0c 100%);
+    }
+    #outros {
+      background:
+        radial-gradient(ellipse 55% 45% at 50% 0%, rgba(227,33,27,0.1), transparent 55%),
+        linear-gradient(180deg, #0e0e10, #0a0a0c);
+    }
 
     /* Offer split */
     .offer-grid {
@@ -619,12 +727,167 @@
     }
     .area-card p { font-size: 13px; color: var(--pv-muted); }
 
-    /* Why */
-    .why {
+    /* Integrate hub (Framer-inspired) */
+    .integrate {
+      padding: 72px 0 96px;
       background:
-        radial-gradient(ellipse 50% 40% at 80% 20%, rgba(227,33,27,0.18), transparent 55%),
-        #090909;
+        radial-gradient(ellipse 55% 50% at 50% 100%, rgba(227,33,27,0.14), transparent 58%),
+        radial-gradient(ellipse 40% 35% at 80% 10%, rgba(248,216,13,0.07), transparent 50%),
+        linear-gradient(180deg, rgba(12,12,14,0.4), rgba(10,10,12,0.85));
+      overflow: hidden;
     }
+    .integrate .section-head {
+      margin-inline: auto;
+      text-align: center;
+    }
+    .integrate .section-head .lead {
+      margin-inline: auto;
+    }
+    .integrate-stage {
+      position: relative;
+      max-width: 920px;
+      margin: 8px auto 0;
+      min-height: 420px;
+      padding: 12px 8px 0;
+    }
+    .integrate-icons {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+      position: relative;
+      z-index: 3;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .integrate-ico {
+      width: 52px;
+      height: 52px;
+      margin-inline: auto;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: linear-gradient(160deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+      box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+      color: var(--pv-yellow);
+    }
+    .integrate-ico.is-hot {
+      color: #ff6b63;
+      border-color: rgba(227,33,27,0.45);
+      background: linear-gradient(160deg, rgba(227,33,27,0.22), rgba(20,20,22,0.6));
+    }
+    .integrate-ico .ico { width: 24px; height: 24px; }
+    .integrate-wires {
+      position: absolute;
+      left: 50%;
+      top: 48px;
+      width: min(100%, 860px);
+      height: 280px;
+      transform: translateX(-50%);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .integrate-wires svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      overflow: visible;
+    }
+    .integrate-wires .wire-base {
+      fill: none;
+      stroke: rgba(255,255,255,0.16);
+      stroke-width: 1.5;
+      stroke-linecap: round;
+    }
+    .integrate-wires .wire-flow {
+      fill: none;
+      stroke: var(--pv-red);
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-dasharray: 28 90;
+      animation: wireFlow 2.8s linear infinite;
+    }
+    .integrate-wires .wire-flow.is-y {
+      stroke: var(--pv-yellow);
+      animation-duration: 3.2s;
+      animation-delay: -0.8s;
+    }
+    @keyframes wireFlow {
+      to { stroke-dashoffset: -118; }
+    }
+    .integrate-hub {
+      position: relative;
+      z-index: 2;
+      width: min(168px, 36vw);
+      aspect-ratio: 1;
+      margin: 168px auto 0;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid rgba(248,216,13,0.35);
+      box-shadow:
+        0 0 0 8px rgba(227,33,27,0.08),
+        0 24px 60px rgba(0,0,0,0.45);
+    }
+    .integrate-hub img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .integrate-hub::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(248,216,13,0.2), transparent 45%),
+        linear-gradient(180deg, transparent 40%, rgba(8,8,8,0.55));
+      pointer-events: none;
+    }
+    .integrate-tag {
+      position: absolute;
+      z-index: 4;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      max-width: 210px;
+    }
+    .integrate-tag .badge {
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(227,33,27,0.45);
+      background: rgba(12,10,10,0.88);
+      backdrop-filter: blur(10px);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      color: #ff8a82;
+      line-height: 1.25;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+    }
+    .integrate-tag .pin {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      background: var(--pv-red);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+      box-shadow: 0 0 0 4px rgba(227,33,27,0.18);
+    }
+    .integrate-tag.t1 { top: 38%; left: 2%; }
+    .integrate-tag.t2 { top: 52%; right: 0; }
+    .integrate-tag.t3 { bottom: 18%; left: 12%; }
+    .integrate-tag.t2 .badge { color: var(--pv-yellow); border-color: rgba(248,216,13,0.4); }
+    .integrate-tag.t2 .pin { background: var(--pv-yellow); box-shadow: 0 0 0 4px rgba(248,216,13,0.16); }
+    .integrate-tag {
+      animation: tagFloat 4.5s ease-in-out infinite;
+    }
+    .integrate-tag.t2 { animation-delay: -1.5s; }
+    .integrate-tag.t3 { animation-delay: -2.8s; }
+    @keyframes tagFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    /* Why */
     .why-grid {
       display: grid;
       grid-template-columns: 1.1fr 0.9fr;
@@ -819,7 +1082,7 @@
       font-family: var(--font-display);
       font-size: 36px;
       text-transform: uppercase;
-      line-height: 0.95;
+      line-height: 1.08;
       margin: 10px 0 12px;
     }
     .faq-list { display: grid; gap: 10px; }
@@ -902,9 +1165,11 @@
     }
     .news-card p { font-size: 13px; color: var(--pv-muted); margin-bottom: 14px; flex: 1; }
 
-    /* Final CTA */
     .final-cta {
       padding: 40px 0 110px;
+      background:
+        radial-gradient(ellipse 70% 60% at 50% 100%, rgba(227,33,27,0.14), transparent 60%),
+        radial-gradient(ellipse 40% 35% at 20% 0%, rgba(248,216,13,0.06), transparent 50%);
     }
     .final-box {
       position: relative;
@@ -940,8 +1205,9 @@
       font-family: var(--font-display);
       font-size: clamp(36px, 6vw, 64px);
       text-transform: uppercase;
-      line-height: 0.92;
+      line-height: 1.08;
       margin: 8px 0 14px;
+      overflow: visible;
     }
 
     footer {
@@ -994,7 +1260,12 @@
     .reveal {
       opacity: 0;
       transform: translateY(28px);
-      will-change: opacity, transform, filter;
+      will-change: opacity, transform;
+    }
+    .hero .reveal {
+      opacity: 1;
+      transform: none;
+      will-change: auto;
     }
     .reveal.is-shown,
     .no-js .reveal,
@@ -1006,12 +1277,19 @@
     .split-word {
       display: inline-block;
       overflow: hidden;
-      vertical-align: top;
+      vertical-align: bottom;
       margin-right: 0.28em;
+      padding: 0.14em 0 0.2em;
+      margin-bottom: -0.12em;
+      line-height: 1.08;
+    }
+    .split-word.is-done {
+      overflow: visible;
     }
     .split-word > span {
       display: inline-block;
       will-change: transform, opacity;
+      padding-bottom: 0.05em;
     }
     .img-reveal {
       overflow: hidden;
@@ -1092,6 +1370,15 @@
       .metric { grid-template-columns: 40px 72px 1fr; gap: 10px; }
       .metric b { font-size: 32px; }
       .metric-ico { width: 40px; height: 40px; border-radius: 12px; }
+      .integrate-stage { min-height: 360px; }
+      .integrate-ico { width: 42px; height: 42px; border-radius: 12px; }
+      .integrate-ico .ico { width: 20px; height: 20px; }
+      .integrate-hub { margin-top: 120px; }
+      .integrate-wires { height: 220px; }
+      .integrate-tag.t1 { top: 34%; left: 0; }
+      .integrate-tag.t2 { top: 48%; right: 0; }
+      .integrate-tag.t3 { bottom: 14%; left: 4%; max-width: 160px; }
+      .integrate-tag .badge { font-size: 11px; padding: 7px 10px; }
       .offer-grid, .why-grid, .turnkey-grid, .faq-layout, .news-grid {
         grid-template-columns: 1fr;
       }
@@ -1102,6 +1389,50 @@
       }
       .faq-cta-card { position: static; }
       .process-card { width: 82vw; height: 54vh; }
+      .process-pin {
+        height: auto;
+        overflow: visible;
+      }
+      .process-track {
+        width: 100%;
+        padding: 0 16px 24px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+      }
+      .process-card { scroll-snap-align: center; }
+      section { padding: 64px 0; }
+      .container { width: min(1180px, calc(100% - 28px)); }
+      .hero { min-height: 100svh; }
+      .hero-card {
+        padding: 22px 18px;
+        -webkit-backdrop-filter: blur(10px) saturate(1.05);
+        backdrop-filter: blur(10px) saturate(1.05);
+      }
+      .hero h1 { max-width: 16ch; }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .hero-actions .btn-wa { justify-content: center; width: 100%; }
+      .logo-strip { min-height: 120px; padding: 36px 0; margin-top: -28px; }
+      .integrate-icons { max-width: 100%; gap: 6px; }
+      .integrate-tag.t3 { display: none; }
+      .final-inner { padding: 28px 22px; }
+      .wa-float { width: 54px; height: 54px; right: 14px; bottom: 14px; }
+      .why, #servicos, .process, #faq, #outros, .stats, .integrate {
+        content-visibility: auto;
+        contain-intrinsic-size: 1px 800px;
+      }
+      body::before, body::after { opacity: 0.45; }
+    }
+
+    @media (max-width: 640px) {
+      .stats-row { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .stat strong { font-size: 32px; }
+      .integrate-stage { min-height: 300px; }
+      .integrate-hub { width: min(132px, 42vw); margin-top: 96px; }
+      .integrate-tag .badge { font-size: 10px; max-width: 120px; }
+      .process-card { width: 88vw; height: 48vh; }
+      .section-head h2 { font-size: clamp(28px, 8vw, 40px); }
+      .btn-wa { padding: 13px 18px; font-size: 13px; }
     }
 
     @media (min-width: 961px) {
@@ -1109,7 +1440,7 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .marquee-track, .logo-track, .wa-float { animation: none !important; }
+      .marquee-track, .logo-track, .wa-float, .integrate-wires .wire-flow, .integrate-tag { animation: none !important; }
       .reveal { opacity: 1; transform: none; }
       .site-header { transform: none; }
     }
@@ -1127,7 +1458,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: url("/lp/img/bg-planta.png") center / cover no-repeat;
+      background: url("/lp/img/bg-planta.webp") center / cover no-repeat;
       opacity: 0.92;
       pointer-events: none;
     }
@@ -1179,7 +1510,7 @@
       font-family: var(--font-display);
       font-size: clamp(34px, 4.8vw, 58px);
       text-transform: uppercase;
-      line-height: 0.9;
+      line-height: 1.08;
       margin-bottom: 14px;
       color: #14233f;
     }
@@ -1376,6 +1707,10 @@
     <symbol id="ico-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
       <path d="M5 12h14M13 6l6 6-6 6"/>
     </symbol>
+    <symbol id="ico-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/>
+      <path d="M9.5 12l1.8 1.8L15 10"/>
+    </symbol>
     <symbol id="ico-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
       <circle cx="12" cy="12" r="3"/><path d="M12 2v2.5M12 19.5V22M4.93 4.93l1.77 1.77M17.3 17.3l1.77 1.77M2 12h2.5M19.5 12H22M4.93 19.07l1.77-1.77M17.3 6.7l1.77-1.77"/>
     </symbol>
@@ -1461,7 +1796,7 @@
         </li>
       </ul>
       <a class="brand" href="#topo" aria-label="Power Volt">
-        <img src="/lp/img/logo.png" alt="Power Volt" />
+        <img src="/lp/img/logo-sm.webp" alt="Power Volt" width="140" height="48" decoding="async" />
       </a>
       <div class="nav-actions">
         <a class="btn-wa js-wa" href="#" data-msg="Quero avaliar uma parceria técnica com a Power Volt">
@@ -1479,14 +1814,14 @@
   <main id="topo">
     <section class="hero">
       <div class="hero-media">
-        <img src="/lp/img/foto-campo.png" alt="" fetchpriority="high" />
+        <img src="/lp/img/lp-hero.webp" alt="Power Volt engenharia industrial" width="1536" height="1024" fetchpriority="high" decoding="async" />
       </div>
       <div class="container hero-content">
         <div class="hero-card">
-          <p class="eyebrow reveal">Parceiro técnico industrial · Disponível agora</p>
-          <h1 class="reveal">Menos parada. Mais controle. Resultado na planta.</h1>
-          <p class="lead reveal">A Power Volt une manutenção, elétrica, obra e engenharia sob medida em um só time, para sua operação ganhar disponibilidade, segurança e previsibilidade sem depender de vários fornecedores.</p>
-          <div class="hero-actions reveal">
+          <p class="eyebrow">Parceiro técnico industrial · Disponível agora</p>
+          <h1>Menos parada. Mais controle. Resultado na planta.</h1>
+          <p class="lead">A Power Volt une manutenção, elétrica, obra e engenharia sob medida em um só time, para sua operação ganhar disponibilidade, segurança e previsibilidade sem depender de vários fornecedores.</p>
+          <div class="hero-actions">
             <a class="btn-wa red js-wa" href="#" data-msg="Olá Power Volt! Quero avaliar uma parceria técnica para minha operação.">
               <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
               Quero falar de parceria
@@ -1536,39 +1871,39 @@
         </div>
         <div class="offer-grid">
           <div class="offer-visual reveal">
-            <img id="offerImg" src="/lp/img/foto-oficina.png" alt="" />
+            <img id="offerImg" src="/lp/img/foto-oficina.webp" alt="" />
             <div class="offer-caption" id="offerCaption">Manutenção Mecânica</div>
           </div>
           <div class="offer-list" id="offerList">
-            <article class="offer-item is-active" data-img="/lp/img/foto-oficina.png" data-title="Manutenção Mecânica">
+            <article class="offer-item is-active" data-img="/lp/img/foto-oficina.webp" data-title="Manutenção Mecânica">
               <div class="offer-ico" aria-hidden="true"><svg class="ico"><use href="#ico-wrench"></use></svg></div>
               <div>
                 <h3>Manutenção Mecânica</h3>
                 <p>Você ganha máquina disponível: menos parada surpresa e ativo produzindo pelo tempo que foi comprado para produzir.</p>
               </div>
             </article>
-            <article class="offer-item" data-img="/lp/img/foto-eletrica.png" data-title="Instalação e Manutenção Elétrica">
+            <article class="offer-item" data-img="/lp/img/foto-eletrica.webp" data-title="Instalação e Manutenção Elétrica">
               <div class="offer-ico" aria-hidden="true"><svg class="ico"><use href="#ico-bolt"></use></svg></div>
               <div>
                 <h3>Instalação e Manutenção Elétrica</h3>
                 <p>Você ganha energia estável e segura: instalação normativa, risco operacional menor e rede pronta para a demanda real.</p>
               </div>
             </article>
-            <article class="offer-item" data-img="/lp/img/foto-campo.png" data-title="Obra Civil">
+            <article class="offer-item" data-img="/lp/img/foto-campo.webp" data-title="Obra Civil">
               <div class="offer-ico" aria-hidden="true"><svg class="ico"><use href="#ico-hardhat"></use></svg></div>
               <div>
                 <h3>Obra Civil</h3>
                 <p>Você ganha base industrial sólida: passagem técnica organizada, estrutura que aguenta o ritmo e obra sem retrabalho.</p>
               </div>
             </article>
-            <article class="offer-item" data-img="/lp/img/foto-oficina.png" data-title="Proteções e Estruturas Metálicas">
+            <article class="offer-item" data-img="/lp/img/foto-oficina.webp" data-title="Proteções e Estruturas Metálicas">
               <div class="offer-ico" aria-hidden="true"><svg class="ico"><use href="#ico-structure"></use></svg></div>
               <div>
                 <h3>Proteções e Estruturas Metálicas</h3>
                 <p>Você ganha segurança de gente e patrimônio: proteções sob medida e estruturas feitas para ambiente severo.</p>
               </div>
             </article>
-            <article class="offer-item" data-img="/lp/img/foto-automacao.png" data-title="Engenharia Sob Medida">
+            <article class="offer-item" data-img="/lp/img/foto-automacao.webp" data-title="Engenharia Sob Medida">
               <div class="offer-ico" aria-hidden="true"><svg class="ico"><use href="#ico-gear"></use></svg></div>
               <div>
                 <h3>Engenharia Sob Medida</h3>
@@ -1586,30 +1921,30 @@
         </div>
         <div class="marquee marquee--ltr">
           <div class="marquee-track">
-            <div class="area-card"><img src="/lp/img/foto-oficina.png" alt="" /><div class="body"><h3>Manutenção Preditiva</h3><p>Inspeções que antecipam falhas e reduzem custo de reparo.</p></div></div>
-            <div class="area-card"><img src="/lp/img/foto-eletrica.png" alt="" /><div class="body"><h3>Instalação Elétrica</h3><p>Segurança, padronização e conformidade normativa.</p></div></div>
-            <div class="area-card"><img src="/lp/img/foto-automacao.png" alt="" /><div class="body"><h3>Projetos Sob Medida</h3><p>Painéis e sistemas elétricos com foco em eficiência.</p></div></div>
-            <div class="area-card"><img src="/lp/img/foto-campo.png" alt="" /><div class="body"><h3>Inspeções com Drones</h3><p>Acesso seguro e ágil a áreas de difícil alcance.</p></div></div>
-            <div class="area-card"><img src="/lp/img/foto-campo.png" alt="" /><div class="body"><h3>Obra Civil</h3><p>Passagens técnicas e estruturas para demanda industrial.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-oficina.png" alt="" /><div class="body"><h3>Manutenção Preditiva</h3><p>Inspeções que antecipam falhas e reduzem custo de reparo.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-eletrica.png" alt="" /><div class="body"><h3>Instalação Elétrica</h3><p>Segurança, padronização e conformidade normativa.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-automacao.png" alt="" /><div class="body"><h3>Projetos Sob Medida</h3><p>Painéis e sistemas elétricos com foco em eficiência.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-campo.png" alt="" /><div class="body"><h3>Inspeções com Drones</h3><p>Acesso seguro e ágil a áreas de difícil alcance.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-campo.png" alt="" /><div class="body"><h3>Obra Civil</h3><p>Passagens técnicas e estruturas para demanda industrial.</p></div></div>
+            <div class="area-card"><img src="/lp/img/foto-oficina-sm.webp" loading="lazy" decoding="async" width="560" height="340" alt="" /><div class="body"><h3>Manutenção Preditiva</h3><p>Inspeções que antecipam falhas e reduzem custo de reparo.</p></div></div>
+            <div class="area-card"><img src="/lp/img/foto-eletrica-sm.webp" loading="lazy" decoding="async" width="560" height="340" alt="" /><div class="body"><h3>Instalação Elétrica</h3><p>Segurança, padronização e conformidade normativa.</p></div></div>
+            <div class="area-card"><img src="/lp/img/foto-automacao-sm.webp" loading="lazy" decoding="async" width="560" height="340" alt="" /><div class="body"><h3>Projetos Sob Medida</h3><p>Painéis e sistemas elétricos com foco em eficiência.</p></div></div>
+            <div class="area-card"><img src="/lp/img/foto-campo-sm.webp" loading="lazy" decoding="async" width="560" height="340" alt="" /><div class="body"><h3>Inspeções com Drones</h3><p>Acesso seguro e ágil a áreas de difícil alcance.</p></div></div>
+            <div class="area-card"><img src="/lp/img/foto-campo-sm.webp" loading="lazy" decoding="async" width="560" height="340" alt="" /><div class="body"><h3>Obra Civil</h3><p>Passagens técnicas e estruturas para demanda industrial.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-oficina.webp" alt="" /><div class="body"><h3>Manutenção Preditiva</h3><p>Inspeções que antecipam falhas e reduzem custo de reparo.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-eletrica.webp" alt="" /><div class="body"><h3>Instalação Elétrica</h3><p>Segurança, padronização e conformidade normativa.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-automacao.webp" alt="" /><div class="body"><h3>Projetos Sob Medida</h3><p>Painéis e sistemas elétricos com foco em eficiência.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-campo.webp" alt="" /><div class="body"><h3>Inspeções com Drones</h3><p>Acesso seguro e ágil a áreas de difícil alcance.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-campo.webp" alt="" /><div class="body"><h3>Obra Civil</h3><p>Passagens técnicas e estruturas para demanda industrial.</p></div></div>
           </div>
         </div>
         <div class="marquee marquee--rtl">
           <div class="marquee-track">
-            <div class="area-card"><img src="/lp/img/foto-automacao.png" alt="" /><div class="body"><h3>Monitoramento Energético</h3><p>Consumo em tempo real para cortar desperdício.</p></div></div>
-            <div class="area-card"><img src="/lp/img/foto-oficina.png" alt="" /><div class="body"><h3>Logística Integrada</h3><p>Movimentação de equipamentos com menos custo.</p></div></div>
-            <div class="area-card"><img src="/lp/img/foto-eletrica.png" alt="" /><div class="body"><h3>SPDA</h3><p>Proteção contra descargas atmosféricas.</p></div></div>
-            <div class="area-card"><img src="/lp/img/foto-campo.png" alt="" /><div class="body"><h3>Gestão de Obras</h3><p>Prazo, compliance e qualidade na execução.</p></div></div>
-            <div class="area-card"><img src="/lp/img/foto-campo.png" alt="" /><div class="body"><h3>Infraestrutura</h3><p>Base pronta para expansões sem retrabalho.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-automacao.png" alt="" /><div class="body"><h3>Monitoramento Energético</h3><p>Consumo em tempo real para cortar desperdício.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-oficina.png" alt="" /><div class="body"><h3>Logística Integrada</h3><p>Movimentação de equipamentos com menos custo.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-eletrica.png" alt="" /><div class="body"><h3>SPDA</h3><p>Proteção contra descargas atmosféricas.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-campo.png" alt="" /><div class="body"><h3>Gestão de Obras</h3><p>Prazo, compliance e qualidade na execução.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-campo.png" alt="" /><div class="body"><h3>Infraestrutura</h3><p>Base pronta para expansões sem retrabalho.</p></div></div>
+            <div class="area-card"><img src="/lp/img/foto-automacao-sm.webp" loading="lazy" decoding="async" width="560" height="340" alt="" /><div class="body"><h3>Monitoramento Energético</h3><p>Consumo em tempo real para cortar desperdício.</p></div></div>
+            <div class="area-card"><img src="/lp/img/foto-oficina-sm.webp" loading="lazy" decoding="async" width="560" height="340" alt="" /><div class="body"><h3>Logística Integrada</h3><p>Movimentação de equipamentos com menos custo.</p></div></div>
+            <div class="area-card"><img src="/lp/img/foto-eletrica-sm.webp" loading="lazy" decoding="async" width="560" height="340" alt="" /><div class="body"><h3>SPDA</h3><p>Proteção contra descargas atmosféricas.</p></div></div>
+            <div class="area-card"><img src="/lp/img/foto-campo-sm.webp" loading="lazy" decoding="async" width="560" height="340" alt="" /><div class="body"><h3>Gestão de Obras</h3><p>Prazo, compliance e qualidade na execução.</p></div></div>
+            <div class="area-card"><img src="/lp/img/foto-campo-sm.webp" loading="lazy" decoding="async" width="560" height="340" alt="" /><div class="body"><h3>Infraestrutura</h3><p>Base pronta para expansões sem retrabalho.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-automacao.webp" alt="" /><div class="body"><h3>Monitoramento Energético</h3><p>Consumo em tempo real para cortar desperdício.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-oficina.webp" alt="" /><div class="body"><h3>Logística Integrada</h3><p>Movimentação de equipamentos com menos custo.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-eletrica.webp" alt="" /><div class="body"><h3>SPDA</h3><p>Proteção contra descargas atmosféricas.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-campo.webp" alt="" /><div class="body"><h3>Gestão de Obras</h3><p>Prazo, compliance e qualidade na execução.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-campo.webp" alt="" /><div class="body"><h3>Infraestrutura</h3><p>Base pronta para expansões sem retrabalho.</p></div></div>
           </div>
         </div>
         <div class="container" style="margin-top:8px">
@@ -1617,6 +1952,60 @@
             <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
             Quero reduzir risco na minha operação
           </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="integrate" id="integracao" aria-label="Integração multidisciplinar">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Operação unificada</p>
+          <h2>Disciplinas que <span class="accent">convergem</span> em um só responsável</h2>
+          <p class="lead">Manutenção, elétrica, obra e engenharia deixam de ser pedaços soltos e passam a um fluxo único, com menos ruído e mais entrega.</p>
+        </div>
+        <div class="integrate-stage reveal">
+          <div class="integrate-icons" aria-hidden="true">
+            <div class="integrate-ico"><svg class="ico"><use href="#ico-gear"></use></svg></div>
+            <div class="integrate-ico"><svg class="ico"><use href="#ico-shield"></use></svg></div>
+            <div class="integrate-ico is-hot"><svg class="ico"><use href="#ico-structure"></use></svg></div>
+            <div class="integrate-ico is-hot"><svg class="ico"><use href="#ico-cube"></use></svg></div>
+            <div class="integrate-ico is-hot"><svg class="ico"><use href="#ico-bolt"></use></svg></div>
+            <div class="integrate-ico is-hot"><svg class="ico"><use href="#ico-wrench"></use></svg></div>
+          </div>
+
+          <div class="integrate-wires" aria-hidden="true">
+            <svg viewBox="0 0 1000 280" preserveAspectRatio="none">
+              <path class="wire-base" d="M85 8 C85 150 500 110 500 272"/>
+              <path class="wire-flow is-y" pathLength="100" d="M85 8 C85 150 500 110 500 272"/>
+              <path class="wire-base" d="M250 8 C250 140 500 120 500 272"/>
+              <path class="wire-flow" pathLength="100" d="M250 8 C250 140 500 120 500 272"/>
+              <path class="wire-base" d="M415 8 C415 125 500 140 500 272"/>
+              <path class="wire-flow is-y" pathLength="100" d="M415 8 C415 125 500 140 500 272"/>
+              <path class="wire-base" d="M585 8 C585 125 500 140 500 272"/>
+              <path class="wire-flow" pathLength="100" d="M585 8 C585 125 500 140 500 272"/>
+              <path class="wire-base" d="M750 8 C750 140 500 120 500 272"/>
+              <path class="wire-flow is-y" pathLength="100" d="M750 8 C750 140 500 120 500 272"/>
+              <path class="wire-base" d="M915 8 C915 150 500 110 500 272"/>
+              <path class="wire-flow" pathLength="100" d="M915 8 C915 150 500 110 500 272"/>
+            </svg>
+          </div>
+
+          <div class="integrate-tag t1">
+            <span class="badge">Integração Multidisciplinar</span>
+            <span class="pin" aria-hidden="true"></span>
+          </div>
+          <div class="integrate-tag t2">
+            <span class="pin" aria-hidden="true"></span>
+            <span class="badge">Fluxo Unificado de Serviços</span>
+          </div>
+          <div class="integrate-tag t3">
+            <span class="badge">Eficiência Operacional</span>
+            <span class="pin" aria-hidden="true"></span>
+          </div>
+
+          <div class="integrate-hub">
+            <img src="/lp/img/foto-campo.webp" alt="Equipe Power Volt em campo" loading="lazy" />
+          </div>
         </div>
       </div>
     </section>
@@ -1692,19 +2081,19 @@
       <div class="process-pin" id="processPin">
         <div class="process-track" id="processTrack">
           <article class="process-card">
-            <img src="/lp/img/foto-campo.png" alt="" />
+            <img src="/lp/img/foto-campo.webp" alt="" />
             <div class="inner"><div class="n">01 <svg class="ico" aria-hidden="true"><use href="#ico-search"></use></svg></div><h3>Entendemos o risco</h3><p>Diagnóstico objetivo: onde a falha custa caro, o que está fora de norma e o que trava a produtividade.</p></div>
           </article>
           <article class="process-card">
-            <img src="/lp/img/foto-automacao.png" alt="" />
+            <img src="/lp/img/foto-automacao.webp" alt="" />
             <div class="inner"><div class="n">02 <svg class="ico" aria-hidden="true"><use href="#ico-blueprint"></use></svg></div><h3>Desenhamos a solução</h3><p>Projeto sob medida (elétrica, mecânica ou civil), alinhado ao seu processo e ao retorno esperado.</p></div>
           </article>
           <article class="process-card">
-            <img src="/lp/img/foto-oficina.png" alt="" />
+            <img src="/lp/img/foto-oficina.webp" alt="" />
             <div class="inner"><div class="n">03 <svg class="ico" aria-hidden="true"><use href="#ico-tools"></use></svg></div><h3>Executamos com controle</h3><p>Obra e instalação com prazo, compliance e mínimo impacto na produção. Sem “vai virando”.</p></div>
           </article>
           <article class="process-card">
-            <img src="/lp/img/foto-campo.png" alt="" />
+            <img src="/lp/img/foto-campo.webp" alt="" />
             <div class="inner"><div class="n">04 <svg class="ico" aria-hidden="true"><use href="#ico-trend"></use></svg></div><h3>Sustentamos o resultado</h3><p>Manutenção, monitoramento e relatório técnico para o ganho não evaporar depois da entrega.</p></div>
           </article>
         </div>
@@ -1720,7 +2109,7 @@
         </div>
         <div class="turnkey-grid">
           <div class="big-visual reveal">
-            <img src="/lp/img/foto-oficina.png" alt="Integração de serviços Power Volt" />
+            <img src="/lp/img/foto-oficina.webp" alt="Integração de serviços Power Volt" />
           </div>
           <div class="reveal">
             <h3 class="display" style="font-size:34px;margin-bottom:10px">O valor que o cliente sente no caixa</h3>
@@ -1739,14 +2128,14 @@
               <blockquote class="quote">
                 <p>“Não vendemos peça solta. Vendemos operação que continua rodando, com segurança e prazo que o cliente consegue planejar.”</p>
                 <div class="quote-person">
-                  <img src="/lp/img/lp-leandro.png" alt="Leandro Oliveira" />
+                  <img src="/lp/img/lp-leandro.webp" alt="Leandro Oliveira" />
                   <div><strong>Leandro Oliveira</strong><span>CEO, Power Volt</span></div>
                 </div>
               </blockquote>
               <blockquote class="quote">
                 <p>“Quando manutenção, elétrica e infraestrutura falam a mesma língua, o cliente ganha previsibilidade. É nisso que a gente compete.”</p>
                 <div class="quote-person">
-                  <img src="/lp/img/lp-anderson.png" alt="Anderson Cardoso" />
+                  <img src="/lp/img/lp-anderson.webp" alt="Anderson Cardoso" />
                   <div><strong>Anderson Cardoso</strong><span>Co-Diretor, Power Volt</span></div>
                 </div>
               </blockquote>
@@ -1770,17 +2159,17 @@
         <div class="model-shell reveal" id="modelShell">
           <model-viewer
             id="pvModel"
-            src="/lp/img/modern_building.glb"
+            data-src="/lp/img/modern_building.glb"
             alt="Modelo 3D do projeto"
             camera-controls
-            touch-action="none"
+            touch-action="pan-y"
             interaction-prompt="auto"
             shadow-intensity="0.9"
             exposure="1.05"
             environment-image="neutral"
             loading="lazy"
-            ar
-            ar-modes="webxr scene-viewer quick-look"
+            reveal="manual"
+            poster="/lp/img/foto-automacao.webp"
           ></model-viewer>
           <div class="model-hint">Arraste · Scroll/pinch para zoom</div>
           <button type="button" class="model-fs" id="modelFullscreen" aria-label="Tela cheia">
@@ -1803,8 +2192,8 @@
         </div>
         <div class="compare-wrap reveal">
           <div class="compare" id="compare" role="img" aria-label="Comparativo antes e depois do projeto">
-            <img src="/lp/img/compare-antes.png" alt="Antes: rascunho BIM" draggable="false" />
-            <img class="compare-after" id="compareAfter" src="/lp/img/compare-depois.jpg" alt="Depois: modelo integrado" draggable="false" />
+            <img src="/lp/img/compare-antes.webp" alt="Antes: rascunho BIM" draggable="false" />
+            <img class="compare-after" id="compareAfter" src="/lp/img/compare-depois.webp" alt="Depois: modelo integrado" draggable="false" />
             <span class="compare-label before">Antes</span>
             <span class="compare-label after">Depois</span>
             <div class="compare-handle" id="compareHandle">
@@ -1872,7 +2261,7 @@
         </div>
         <div class="news-grid">
           <article class="news-card reveal">
-            <img src="/lp/img/foto-oficina.png" alt="" />
+            <img src="/lp/img/foto-oficina.webp" alt="" />
             <div class="body">
               <time>Você ganha</time>
               <h3>Manutenção preditiva automatizada</h3>
@@ -1884,7 +2273,7 @@
             </div>
           </article>
           <article class="news-card reveal">
-            <img src="/lp/img/foto-campo.png" alt="" />
+            <img src="/lp/img/foto-campo.webp" alt="" />
             <div class="body">
               <time>Você ganha</time>
               <h3>Inspeções com drones</h3>
@@ -1896,7 +2285,7 @@
             </div>
           </article>
           <article class="news-card reveal">
-            <img src="/lp/img/foto-eletrica.png" alt="" />
+            <img src="/lp/img/foto-eletrica.webp" alt="" />
             <div class="body">
               <time>Você ganha</time>
               <h3>SPDA e monitoramento energético</h3>
@@ -1914,7 +2303,7 @@
     <section class="final-cta" id="orcamento">
       <div class="container">
         <div class="final-box reveal">
-          <img src="/lp/img/foto-campo.png" alt="" />
+          <img src="/lp/img/foto-campo.webp" alt="" />
           <div class="final-inner">
             <p class="eyebrow">Pronto para operar com mais controle?</p>
             <h2>Vamos estruturar a parceria</h2>
@@ -1949,10 +2338,9 @@
     <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
   </a>
 
-  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
-  <script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script defer>
     function waUrl(msg) {
       const n = String(window.PV_WA || "").replace(/\D/g, "");
       const text = encodeURIComponent(msg || window.PV_WA_MSG || "");
@@ -1990,9 +2378,7 @@
       navBackdrop?.addEventListener("click", closeNav);
       header.querySelectorAll(".nav-links a").forEach((a) => a.addEventListener("click", closeNav));
       window.addEventListener("keydown", (e) => { if (e.key === "Escape") closeNav(); });
-      window.addEventListener("resize", () => {
-        if (window.innerWidth > 960) closeNav();
-      });
+      window.addEventListener("resize", () => { if (window.innerWidth > 960) closeNav(); });
     }
     if (header) {
       const onScrollHeader = () => header.classList.toggle("is-scrolled", window.scrollY > 40);
@@ -2026,6 +2412,40 @@
           btn.querySelector("span:last-child").textContent = "−";
         }
       });
+    });
+
+    (function lazyModelViewer() {
+      const shell = document.getElementById("modelShell");
+      const mv = document.getElementById("pvModel");
+      if (!shell || !mv) return;
+      const boot = () => {
+        const s = document.createElement("script");
+        s.type = "module";
+        s.src = "https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js";
+        s.onload = () => {
+          if (mv.dataset.src) {
+            mv.src = mv.dataset.src;
+            mv.removeAttribute("data-src");
+          }
+          try { mv.dismissPoster?.(); } catch (_) {}
+        };
+        document.head.appendChild(s);
+      };
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver((entries) => {
+          if (entries.some((e) => e.isIntersecting)) {
+            io.disconnect();
+            boot();
+          }
+        }, { rootMargin: "240px" });
+        io.observe(shell);
+      } else boot();
+    })();
+
+    document.querySelectorAll("img").forEach((img) => {
+      if (img.closest(".hero-media") || img.closest(".brand")) return;
+      if (!img.getAttribute("loading")) img.setAttribute("loading", "lazy");
+      img.setAttribute("decoding", "async");
     });
 
     /* Fullscreen 3D */
@@ -2115,48 +2535,59 @@
         const headerEl = document.getElementById("header");
 
         const heroTl = gsap.timeline({ defaults: { ease: "power3.out" } });
+        const mobile = window.matchMedia("(max-width: 960px)").matches;
         heroTl
-          .fromTo(".hero-media img", { scale: 1.28, y: 40 }, { scale: 1.08, y: 0, duration: 2.4 }, 0)
-          .fromTo(headerEl, { yPercent: -120, opacity: 0 }, {
-            yPercent: 0, opacity: 1, duration: 0.9,
+          .fromTo(".hero-media img", { scale: mobile ? 1.12 : 1.28, y: mobile ? 16 : 40 }, { scale: 1.04, y: 0, duration: mobile ? 1.4 : 2.4 }, 0)
+          .fromTo(headerEl, { yPercent: -120 }, {
+            yPercent: 0, duration: 0.7,
             onStart: () => headerEl?.classList.add("is-ready")
-          }, 0.15)
-          .fromTo(".hero-card", { y: 40, opacity: 0, scale: 0.96 }, { y: 0, opacity: 1, scale: 1, duration: 1 }, 0.35)
-          .fromTo(".hero .eyebrow", { y: 30, opacity: 0, filter: "blur(8px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.7 }, 0.5)
-          .fromTo(".hero h1", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.95 }, 0.6)
-          .fromTo(".hero .lead", { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, 0.75)
-          .fromTo(".hero-actions .btn-wa", { y: 28, opacity: 0, scale: 0.92 }, { y: 0, opacity: 1, scale: 1, duration: 0.7, stagger: 0.1 }, 0.9)
-          .add(() => {
-            gsap.utils.toArray(".hero .reveal").forEach(showReveal);
-          });
+          }, 0.05)
+          .fromTo(".hero-card", { y: mobile ? 16 : 28 }, { y: 0, duration: 0.7 }, 0.12)
+          .fromTo(".hero .eyebrow", { y: 14 }, { y: 0, duration: 0.5 }, 0.2)
+          // h1 stays visible for LCP — no opacity animation
+          .fromTo(".hero .lead", { y: 14 }, { y: 0, duration: 0.5 }, 0.32)
+          .fromTo(".hero-actions .btn-wa", { y: 12 }, { y: 0, duration: 0.45, stagger: 0.08 }, 0.4);
 
-        gsap.utils.toArray("h2").forEach((h2) => {
-          const words = splitWords(h2);
-          if (!words.length) return;
-          gsap.set(words, { yPercent: 110, opacity: 0 });
-          gsap.to(words, {
-            yPercent: 0,
-            opacity: 1,
-            duration: 0.85,
-            stagger: 0.06,
-            ease: "power4.out",
-            scrollTrigger: { trigger: h2, start: "top 88%", once: true }
+        if (!mobile) {
+          gsap.utils.toArray("h2").forEach((h2) => {
+            const words = splitWords(h2);
+            if (!words.length) return;
+            gsap.set(words, { yPercent: 110, opacity: 0 });
+            gsap.to(words, {
+              yPercent: 0,
+              opacity: 1,
+              duration: 0.85,
+              stagger: 0.06,
+              ease: "power4.out",
+              scrollTrigger: { trigger: h2, start: "top 88%", once: true },
+              onComplete: () => {
+                words.forEach((inner) => inner.parentElement?.classList.add("is-done"));
+              }
+            });
           });
-        });
+        } else {
+          gsap.utils.toArray("h2").forEach((h2) => {
+            gsap.fromTo(h2, { y: 24, opacity: 0.001 }, {
+              y: 0, opacity: 1, duration: 0.6,
+              scrollTrigger: { trigger: h2, start: "top 90%", once: true }
+            });
+          });
+        }
 
         gsap.utils.toArray(".reveal").forEach((el, i) => {
           if (el.closest(".hero")) return;
           const fromLeft = el.matches(".faq-cta-card, .offer-list, .metric-stack");
           const fromScale = el.matches(".model-shell, .compare-wrap, .final-box, .big-visual, .offer-visual");
+          const isMobile = window.matchMedia("(max-width: 960px)").matches;
           const varsFrom = fromScale
-            ? { y: 50, opacity: 0, scale: 0.92, filter: "blur(10px)" }
+            ? { y: 50, opacity: 0, scale: 0.92, ...(isMobile ? {} : { filter: "blur(10px)" }) }
             : fromLeft
-              ? { x: i % 2 ? 48 : -48, opacity: 0, filter: "blur(6px)" }
-              : { y: 44, opacity: 0, filter: "blur(6px)" };
+              ? { x: i % 2 ? 48 : -48, opacity: 0, ...(isMobile ? {} : { filter: "blur(6px)" }) }
+              : { y: 44, opacity: 0, ...(isMobile ? {} : { filter: "blur(6px)" }) };
 
           gsap.fromTo(el, varsFrom, {
-            x: 0, y: 0, opacity: 1, scale: 1, filter: "blur(0px)",
-            duration: 1,
+            x: 0, y: 0, opacity: 1, scale: 1, ...(isMobile ? {} : { filter: "blur(0px)" }),
+            duration: isMobile ? 0.75 : 1,
             ease: "power3.out",
             scrollTrigger: { trigger: el, start: "top 88%", once: true },
             onComplete: () => showReveal(el)
@@ -2240,45 +2671,60 @@
         });
 
         gsap.fromTo(".wa-float",
-          { scale: 0, opacity: 0 },
-          { scale: 1, opacity: 1, duration: 0.8, ease: "elastic.out(1, 0.5)", delay: 1.4 }
+          { scale: 0.6, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 0.55, ease: "power2.out", delay: mobile ? 0.6 : 1.2 }
         );
 
-        const track = document.getElementById("processTrack");
-        const pin = document.getElementById("processPin");
-        if (track && pin) {
-          const getScroll = () => Math.max(0, track.scrollWidth - window.innerWidth);
-          gsap.to(track, {
-            x: () => -getScroll(),
+        if (!mobile) {
+          const track = document.getElementById("processTrack");
+          const pin = document.getElementById("processPin");
+          if (track && pin) {
+            const getScroll = () => Math.max(0, track.scrollWidth - window.innerWidth);
+            gsap.to(track, {
+              x: () => -getScroll(),
+              ease: "none",
+              scrollTrigger: {
+                trigger: pin,
+                start: "top top",
+                end: () => `+=${getScroll()}`,
+                scrub: 1,
+                pin: true,
+                anticipatePin: 1,
+                invalidateOnRefresh: true
+              }
+            });
+          }
+
+          gsap.to(".hero-media img", {
+            yPercent: 18,
             ease: "none",
-            scrollTrigger: {
-              trigger: pin,
-              start: "top top",
-              end: () => `+=${getScroll()}`,
-              scrub: 1,
-              pin: true,
-              anticipatePin: 1,
-              invalidateOnRefresh: true
-            }
+            scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true }
           });
+        } else {
+          // mobile: horizontal swipe instead of pin scroll
+          const track = document.getElementById("processTrack");
+          if (track) {
+            track.style.overflowX = "auto";
+            track.style.webkitOverflowScrolling = "touch";
+            track.style.scrollSnapType = "x mandatory";
+            track.querySelectorAll(".process-card").forEach((c) => {
+              c.style.scrollSnapAlign = "center";
+            });
+          }
         }
 
-        gsap.to(".hero-media img", {
-          yPercent: 18,
-          ease: "none",
-          scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true }
-        });
-
-        gsap.fromTo("#modelShell, .compare-wrap",
-          { y: 60, opacity: 0, scale: 0.94 },
-          {
-            y: 0, opacity: 1, scale: 1,
-            duration: 1.1,
-            stagger: 0.15,
-            ease: "power3.out",
-            scrollTrigger: { trigger: "#vr", start: "top 75%", once: true }
-          }
-        );
+        if (!mobile) {
+          gsap.fromTo("#modelShell, .compare-wrap",
+            { y: 60, opacity: 0, scale: 0.94 },
+            {
+              y: 0, opacity: 1, scale: 1,
+              duration: 1.1,
+              stagger: 0.15,
+              ease: "power3.out",
+              scrollTrigger: { trigger: "#vr", start: "top 75%", once: true }
+            }
+          );
+        }
       });
     }
 

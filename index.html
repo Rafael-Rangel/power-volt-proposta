@@ -351,21 +351,22 @@
       align-items: stretch;
     }
     .grid-6.crm-modules .card.media-bg {
-      min-height: 158px;
-      max-height: min(30vh, 200px);
+      min-height: 172px;
+      max-height: min(34vh, 230px);
       padding: 0;
     }
     .grid-6.crm-modules .card.media-bg > .card-body {
-      padding: 14px 14px 12px;
+      padding: 16px 16px 14px;
       justify-content: flex-end;
     }
     .grid-6.crm-modules .card.media-bg h3 {
-      font-size: 15px;
-      margin-bottom: 4px;
+      font-size: 20px;
+      margin-bottom: 6px;
+      line-height: 1.1;
     }
     .grid-6.crm-modules .card.media-bg p {
-      font-size: 12px;
-      line-height: 1.35;
+      font-size: 14px;
+      line-height: 1.4;
       margin: 0;
     }
 
@@ -751,23 +752,32 @@
     .plan.featured::after {
       content: "MAIS VENDIDO";
       position: absolute;
-      top: 22px;
-      right: -38px;
-      width: 148px;
-      padding: 7px 0;
+      top: 10px;
+      right: -52px;
+      width: 165px;
+      padding: 5px 0;
       text-align: center;
-      font-size: 9px;
+      font-size: 8px;
       font-weight: 800;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.07em;
       color: #111;
       background: linear-gradient(90deg, var(--pv-yellow), #ffc107);
       transform: rotate(45deg);
-      transform-origin: center;
+      transform-origin: center center;
       z-index: 6;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.4);
       pointer-events: none;
       white-space: nowrap;
       border-radius: 0;
+      line-height: 1.2;
+    }
+    .grid-5 > .plan.featured::after {
+      top: 8px;
+      right: -56px;
+      width: 150px;
+      font-size: 7px;
+      letter-spacing: 0.05em;
+      padding: 5px 0;
     }
     .plan.featured .name {
       color: var(--pv-yellow);
@@ -840,7 +850,21 @@
     }
     .packages .combo.media-bg > .card-body {
       justify-content: flex-start;
-      padding-top: 44px;
+      padding: 14px 16px 16px;
+      gap: 8px;
+    }
+    .packages .combo.media-bg .pill {
+      position: relative;
+      top: auto;
+      right: auto;
+      left: auto;
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      max-width: 100%;
+      align-self: flex-start;
+      margin: 0 0 2px;
+      flex-shrink: 0;
     }
     .plan .name {
       font-family: var(--font-display);
@@ -1275,6 +1299,9 @@
       border-radius: 22px;
       position: relative;
     }
+    .packages .combo.media-bg {
+      padding: 0;
+    }
     /* Sempre destaca o combo do meio (2º) */
     .packages:has(> .combo:nth-child(2)) > .combo:not(:nth-child(2)) {
       opacity: 0.68;
@@ -1389,10 +1416,13 @@
     }
     .grid-6.crm-modules .card.media-bg h3,
     .grid-6.crm-modules .card.media-bg p {
-      text-shadow: 0 1px 12px rgba(0,0,0,0.95), 0 0 3px rgba(0,0,0,1);
+      text-shadow: 0 1px 10px rgba(0,0,0,0.9), 0 0 2px rgba(0,0,0,0.95);
+    }
+    .grid-6.crm-modules .card.media-bg h3 {
+      color: #fff;
     }
     .grid-6.crm-modules .card.media-bg p {
-      color: rgba(230,230,238,0.92);
+      color: rgba(235,235,242,0.95);
     }
     .combo-lines {
       list-style: none;
@@ -2661,9 +2691,8 @@
           rgba(5,5,8,0.98) 100%
         );
     }
-    /* Pacotes e módulos CRM: overlay mais forte para texto denso */
-    .packages .combo.media-bg > .card-media::after,
-    .grid-6.crm-modules .card.media-bg > .card-media::after {
+    /* Pacotes: overlay forte para texto denso */
+    .packages .combo.media-bg > .card-media::after {
       background:
         linear-gradient(
           180deg,
@@ -2673,6 +2702,18 @@
           rgba(5,5,8,0.94) 55%,
           rgba(5,5,8,0.98) 75%,
           #050508 100%
+        );
+    }
+    /* Módulos CRM: overlay menor — imagem mais visível */
+    .grid-6.crm-modules .card.media-bg > .card-media::after {
+      background:
+        linear-gradient(
+          180deg,
+          rgba(5,5,8,0.05) 0%,
+          rgba(5,5,8,0.08) 45%,
+          rgba(5,5,8,0.35) 62%,
+          rgba(5,5,8,0.72) 78%,
+          rgba(5,5,8,0.9) 100%
         );
     }
     .media-bg > .card-body,
@@ -2755,6 +2796,10 @@
       overscroll-behavior: contain;
       scrollbar-gutter: stable;
       max-height: min(56vh, 420px);
+    }
+    /* Faixa do canto precisa de clip — sobrescreve o scroll do .plan */
+    .plan.featured {
+      overflow: hidden;
     }
     .grid-3 > .plan.featured {
       max-height: min(60vh, 460px);

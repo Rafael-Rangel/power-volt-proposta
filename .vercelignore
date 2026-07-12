@@ -1,0 +1,17 @@
+node_modules
+optimize_lp_images.mjs
+fix_lp_scripts.mjs
+*.py
+lighthouse-*.json
+pagespeed-summary.json
+lp/img/news-2.jpg
+lp/img/lp-obras.png
+lp/img/lp-eletrica.png
+lp/img/lp-turnkey.png
+lp/img/lp-manutencao.png
+lp/img/lp-estruturas.png
+lp/img/lp-automacao.png
+lp/img/lp-ceo.png
+lp/img/lp-hero.png
+lp/img/foto-eletrica.png
+lp/img/foto-campo.png

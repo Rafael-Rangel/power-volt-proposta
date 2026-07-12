@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+.vercel
+.DS_Store
+Thumbs.db
+*.log
+node_modules/
+
+lighthouse-*.json
+pagespeed-summary.json

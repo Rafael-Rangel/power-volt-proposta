@@ -1227,23 +1227,70 @@
 
     /* Antes / Depois */
     .compare-section {
+      position: relative;
+      overflow: hidden;
+      background: #e9e9ec;
+      color: #121214;
+    }
+    .compare-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("/lp/img/bg-planta.png") center / cover no-repeat;
+      opacity: 0.92;
+      pointer-events: none;
+    }
+    .compare-section::after {
+      content: "";
+      position: absolute;
+      inset: 0;
       background:
-        radial-gradient(ellipse 55% 45% at 50% 100%, rgba(227,33,27,0.1), transparent 55%),
-        #050505;
+        linear-gradient(90deg, rgba(233,233,236,0.88) 0%, rgba(233,233,236,0.55) 42%, rgba(233,233,236,0.2) 70%, transparent 100%),
+        radial-gradient(ellipse 50% 60% at 0% 50%, rgba(227,33,27,0.08), transparent 60%);
+      pointer-events: none;
+    }
+    .compare-layout {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      min-height: min(72vh, 640px);
+    }
+    .compare-copy {
+      max-width: 520px;
+    }
+    .compare-copy .eyebrow {
+      color: var(--pv-red);
+    }
+    .compare-copy .lead {
+      color: rgba(18,18,20,0.72);
+      margin-bottom: 24px;
+    }
+    .compare-copy h2 {
+      font-family: var(--font-display);
+      font-size: clamp(34px, 4.5vw, 56px);
+      text-transform: uppercase;
+      line-height: 0.92;
+      margin-bottom: 14px;
+      color: #121214;
     }
     .compare-wrap {
       border-radius: 28px;
       overflow: hidden;
-      border: 1px solid rgba(227,33,27,0.25);
+      border: 1px solid rgba(18,18,20,0.12);
       background: #fff;
       box-shadow:
-        0 20px 50px rgba(0,0,0,0.35),
-        0 0 0 1px rgba(255,255,255,0.06);
+        0 24px 50px rgba(0,0,0,0.14),
+        0 0 0 1px rgba(255,255,255,0.5);
+      height: min(560px, 68vh);
     }
     .compare {
       position: relative;
       width: 100%;
-      aspect-ratio: 16 / 11;
+      height: 100%;
+      aspect-ratio: auto;
       user-select: none;
       touch-action: none;
       cursor: ew-resize;
@@ -1314,7 +1361,16 @@
     @media (max-width: 960px) {
       .model-shell model-viewer { height: 420px; }
       .model-shell { min-height: 420px; }
-      .compare { aspect-ratio: 4 / 3; }
+      .compare-layout {
+        grid-template-columns: 1fr;
+        min-height: 0;
+        gap: 28px;
+      }
+      .compare-wrap {
+        height: auto;
+        min-height: 300px;
+      }
+      .compare { aspect-ratio: 4 / 3; height: auto; }
     }
   </style>
 </head>
@@ -1749,11 +1805,15 @@
     </section>
 
     <section class="compare-section" id="comparativo">
-      <div class="container">
-        <div class="section-head reveal">
+      <div class="container compare-layout">
+        <div class="compare-copy reveal">
           <p class="eyebrow">Prova visual</p>
-          <h2>Do técnico ao <span class="accent-y">entregue</span></h2>
+          <h2>Do técnico ao <span class="accent">entregue</span></h2>
           <p class="lead">Compare o rascunho com a visão integrada. É assim que evitamos escopo aberto e expectativa desalinhada.</p>
+          <a class="btn-wa red js-wa" href="#" data-msg="Quero um comparativo técnico do meu projeto com a Power Volt">
+            <svg class="ico" aria-hidden="true"><use href="#ico-compare"></use></svg>
+            Solicitar análise do meu projeto
+          </a>
         </div>
         <div class="compare-wrap reveal">
           <div class="compare" id="compare" role="img" aria-label="Comparativo antes e depois do projeto">
@@ -1767,12 +1827,6 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="viz-actions reveal">
-          <a class="btn-wa red js-wa" href="#" data-msg="Quero um comparativo técnico do meu projeto com a Power Volt">
-            <svg class="ico" aria-hidden="true"><use href="#ico-compare"></use></svg>
-            Solicitar análise do meu projeto
-          </a>
         </div>
       </div>
     </section>

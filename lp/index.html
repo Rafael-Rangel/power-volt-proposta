@@ -1114,55 +1114,92 @@
       .site-header { transform: none; }
     }
 
-    /* VR / 3D */
-    .viz-section {
+    /* VR / 3D + blueprint shared with Antes/Depois */
+    .viz-section,
+    .compare-section {
+      position: relative;
+      overflow: hidden;
+      background: #e9e9ec;
+      color: #121214;
+    }
+    .viz-section::before,
+    .compare-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("/lp/img/bg-planta.png") center / cover no-repeat;
+      opacity: 0.92;
+      pointer-events: none;
+    }
+    .viz-section::after,
+    .compare-section::after {
+      content: "";
+      position: absolute;
+      inset: 0;
       background:
-        radial-gradient(ellipse 70% 55% at 50% 18%, rgba(227,33,27,0.22), transparent 58%),
-        radial-gradient(ellipse 45% 40% at 85% 90%, rgba(227,33,27,0.08), transparent 55%),
-        #050505;
+        linear-gradient(90deg, rgba(233,233,236,0.9) 0%, rgba(233,233,236,0.55) 42%, rgba(233,233,236,0.18) 70%, transparent 100%),
+        radial-gradient(ellipse 50% 60% at 0% 50%, rgba(227,33,27,0.08), transparent 60%);
+      pointer-events: none;
     }
-    .viz-head {
-      text-align: center;
-      max-width: 720px;
-      margin: 0 auto 32px;
+    .viz-layout,
+    .compare-layout {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      min-height: min(72vh, 640px);
     }
-    .viz-head .eyebrow {
+    .viz-copy,
+    .compare-copy {
+      max-width: 520px;
+    }
+    .viz-copy .eyebrow,
+    .compare-copy .eyebrow {
+      color: #1a2a4a;
       display: inline-flex;
       align-items: center;
       gap: 14px;
-      color: rgba(255,255,255,0.7);
     }
-    .viz-head .eyebrow::before,
-    .viz-head .eyebrow::after {
+    .viz-copy .eyebrow::before,
+    .viz-copy .eyebrow::after {
       content: "";
-      width: 40px;
+      width: 36px;
       height: 1px;
-      background: rgba(227,33,27,0.55);
+      background: rgba(26,42,74,0.45);
     }
-    .viz-head h2 {
+    .viz-copy .lead,
+    .compare-copy .lead {
+      color: rgba(18,18,20,0.72);
+      margin-bottom: 24px;
+    }
+    .viz-copy h2,
+    .compare-copy h2 {
       font-family: var(--font-display);
-      font-size: clamp(36px, 6vw, 64px);
+      font-size: clamp(34px, 4.8vw, 58px);
       text-transform: uppercase;
-      line-height: 0.92;
-      margin-top: 8px;
-      color: #fff;
+      line-height: 0.9;
+      margin-bottom: 14px;
+      color: #14233f;
     }
-    .viz-head .lead {
-      color: rgba(244,244,246,0.72);
+    .viz-copy h2 .accent,
+    .compare-copy h2 .accent {
+      color: var(--pv-red);
     }
     .model-shell {
       position: relative;
       border-radius: 28px;
       overflow: hidden;
-      border: 1px solid rgba(227,33,27,0.28);
+      border: 1px solid rgba(18,18,20,0.12);
       background:
-        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(227,33,27,0.06), transparent 65%),
-        #0a0a0a;
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(227,33,27,0.05), transparent 65%),
+        #f7f7f8;
       box-shadow:
-        0 0 0 1px rgba(255,255,255,0.04),
-        0 24px 60px rgba(0,0,0,0.45),
-        0 0 80px rgba(227,33,27,0.08);
-      min-height: 520px;
+        0 24px 50px rgba(0,0,0,0.14),
+        0 0 0 1px rgba(255,255,255,0.5);
+      height: min(560px, 68vh);
+      min-height: 0;
       isolation: isolate;
     }
     .model-shell::before {
@@ -1172,7 +1209,7 @@
       position: relative;
       z-index: 1;
       width: 100%;
-      height: 520px;
+      height: 100%;
       background: transparent;
       --progress-bar-color: var(--pv-red);
     }
@@ -1185,9 +1222,9 @@
       font-weight: 600;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.7);
-      background: rgba(0,0,0,0.45);
-      border: 1px solid var(--pv-line);
+      color: rgba(18,18,20,0.7);
+      background: rgba(255,255,255,0.85);
+      border: 1px solid rgba(18,18,20,0.1);
       padding: 8px 12px;
       border-radius: 999px;
       backdrop-filter: blur(8px);
@@ -1201,7 +1238,7 @@
       width: 44px;
       height: 44px;
       border-radius: 12px;
-      background: rgba(0,0,0,0.55);
+      background: rgba(20,35,63,0.9);
       border: 1px solid rgba(255,255,255,0.2);
       display: grid;
       place-items: center;
@@ -1214,68 +1251,14 @@
     .model-shell:-webkit-full-screen {
       border-radius: 0;
       min-height: 100vh;
+      height: 100vh;
     }
     .model-shell:fullscreen model-viewer,
     .model-shell:-webkit-full-screen model-viewer {
       height: 100vh;
     }
-    .viz-actions {
-      display: flex;
-      justify-content: center;
-      margin-top: 22px;
-    }
 
-    /* Antes / Depois */
-    .compare-section {
-      position: relative;
-      overflow: hidden;
-      background: #e9e9ec;
-      color: #121214;
-    }
-    .compare-section::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: url("/lp/img/bg-planta.png") center / cover no-repeat;
-      opacity: 0.92;
-      pointer-events: none;
-    }
-    .compare-section::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(90deg, rgba(233,233,236,0.88) 0%, rgba(233,233,236,0.55) 42%, rgba(233,233,236,0.2) 70%, transparent 100%),
-        radial-gradient(ellipse 50% 60% at 0% 50%, rgba(227,33,27,0.08), transparent 60%);
-      pointer-events: none;
-    }
-    .compare-layout {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      align-items: center;
-      min-height: min(72vh, 640px);
-    }
-    .compare-copy {
-      max-width: 520px;
-    }
-    .compare-copy .eyebrow {
-      color: var(--pv-red);
-    }
-    .compare-copy .lead {
-      color: rgba(18,18,20,0.72);
-      margin-bottom: 24px;
-    }
-    .compare-copy h2 {
-      font-family: var(--font-display);
-      font-size: clamp(34px, 4.5vw, 56px);
-      text-transform: uppercase;
-      line-height: 0.92;
-      margin-bottom: 14px;
-      color: #121214;
-    }
+    /* Antes / Depois wrap */
     .compare-wrap {
       border-radius: 28px;
       overflow: hidden;
@@ -1359,17 +1342,22 @@
     .compare-label.after { right: 16px; color: #0a7a3e; }
 
     @media (max-width: 960px) {
-      .model-shell model-viewer { height: 420px; }
-      .model-shell { min-height: 420px; }
+      .viz-layout,
       .compare-layout {
         grid-template-columns: 1fr;
         min-height: 0;
         gap: 28px;
       }
+      .viz-copy .eyebrow::before,
+      .viz-copy .eyebrow::after {
+        width: 24px;
+      }
+      .model-shell,
       .compare-wrap {
         height: auto;
         min-height: 300px;
       }
+      .model-shell model-viewer { height: 380px; }
       .compare { aspect-ratio: 4 / 3; height: auto; }
     }
   </style>
@@ -1769,11 +1757,15 @@
     </section>
 
     <section class="viz-section" id="vr">
-      <div class="container">
-        <div class="viz-head reveal">
-          <p class="eyebrow">Decisão com clareza</p>
-          <h2>Veja o projeto <span class="accent">antes</span> de investir</h2>
-          <p class="lead" style="margin:14px auto 0">Explore o modelo em 3D. Menos surpresa na execução, mais confiança na aprovação.</p>
+      <div class="container viz-layout">
+        <div class="viz-copy reveal">
+          <p class="eyebrow">Visualize seu projeto</p>
+          <h2>Em <span class="accent">realidade</span> virtual</h2>
+          <p class="lead">Gire, dê zoom e explore o modelo 3D antes de investir. Menos surpresa na execução, mais confiança na aprovação.</p>
+          <a class="btn-wa red js-wa" href="#" data-msg="Quero visualizar meu projeto em 3D / VR com a Power Volt">
+            <svg class="ico" aria-hidden="true"><use href="#ico-cube"></use></svg>
+            Quero ver meu projeto em 3D
+          </a>
         </div>
         <div class="model-shell reveal" id="modelShell">
           <model-viewer
@@ -1794,12 +1786,6 @@
           <button type="button" class="model-fs" id="modelFullscreen" aria-label="Tela cheia">
             <svg viewBox="0 0 512 512" aria-hidden="true"><path d="m104 72h48a24 24 0 0 0 24-24 24 24 0 0 0 -24-24h-104a24 24 0 0 0 -24 24v104a24 24 0 0 0 48 0v-48l116 116a22.627 22.627 0 0 0 32 0 22.627 22.627 0 0 0 0-32z"/><path d="m220 292a22.627 22.627 0 0 0 -32 0l-116 116v-48a24 24 0 0 0 -48 0v104a24 24 0 0 0 24 24h104a24 24 0 0 0 24-24 24 24 0 0 0 -24-24h-48l116-116a22.627 22.627 0 0 0 0-32z"/><path d="m464 24h-104a24 24 0 0 0 -24 24 24 24 0 0 0 24 24h48l-116 116a22.627 22.627 0 0 0 0 32 22.627 22.627 0 0 0 32 0l116-116v48a24 24 0 0 0 48 0v-104a24 24 0 0 0 -24-24z"/><path d="m464 336a24 24 0 0 0 -24 24v48l-116-116a22.627 22.627 0 0 0 -32 0 22.627 22.627 0 0 0 0 32l116 116h-48a24 24 0 0 0 -24 24 24 24 0 0 0 24 24h104a24 24 0 0 0 24-24v-104a24 24 0 0 0 -24-24z"/></svg>
           </button>
-        </div>
-        <div class="viz-actions reveal">
-          <a class="btn-wa js-wa" href="#" data-msg="Quero visualizar meu projeto em 3D / VR com a Power Volt">
-            <svg class="ico" aria-hidden="true"><use href="#ico-cube"></use></svg>
-            Quero ver meu projeto em 3D
-          </a>
         </div>
       </div>
     </section>

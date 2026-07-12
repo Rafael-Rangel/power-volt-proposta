@@ -245,17 +245,44 @@
       position: absolute;
       inset: 0;
       background:
-        var(--img-red-overlay),
-        linear-gradient(180deg, rgba(7,7,7,0.25) 0%, rgba(7,7,7,0.15) 35%, rgba(7,7,7,0.78) 68%, rgba(7,7,7,0.96) 100%);
+        radial-gradient(ellipse 70% 55% at 50% 35%, rgba(0,0,0,0.25), transparent 70%),
+        linear-gradient(180deg,
+          rgba(7,7,7,0.72) 0%,
+          rgba(7,7,7,0.55) 28%,
+          rgba(7,7,7,0.62) 48%,
+          rgba(7,7,7,0.88) 72%,
+          rgba(7,7,7,0.97) 100%),
+        radial-gradient(ellipse 80% 60% at 0% 0%, rgba(227,33,27,0.28), transparent 55%),
+        radial-gradient(ellipse 70% 50% at 100% 100%, rgba(227,33,27,0.2), transparent 55%);
     }
     .hero-content {
       position: relative;
       z-index: 1;
       padding: 140px 0 72px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
+    .hero-card {
+      width: min(720px, 100%);
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
+      padding: clamp(28px, 4vw, 42px) clamp(22px, 4vw, 40px);
+      border-radius: 28px;
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03) 45%, rgba(227,33,27,0.08)),
+        rgba(8, 8, 10, 0.52);
+      border: 1px solid rgba(255,255,255,0.16);
+      box-shadow:
+        0 24px 60px rgba(0,0,0,0.45),
+        inset 0 1px 0 rgba(255,255,255,0.12);
+      backdrop-filter: blur(18px) saturate(1.2);
+      -webkit-backdrop-filter: blur(18px) saturate(1.2);
+    }
+    .hero-card .eyebrow {
+      margin-bottom: 14px;
     }
     .hero h1 {
       font-family: var(--font-display);
@@ -265,11 +292,13 @@
       max-width: 18ch;
       line-height: 0.95;
       margin-bottom: 14px;
+      text-shadow: 0 2px 24px rgba(0,0,0,0.35);
     }
     .hero .lead {
       margin-left: auto;
       margin-right: auto;
       margin-bottom: 28px;
+      color: rgba(244,244,246,0.88);
     }
     .hero-actions {
       display: flex;
@@ -1283,18 +1312,20 @@
         <img src="/lp/img/lp-hero.png" alt="" fetchpriority="high" />
       </div>
       <div class="container hero-content">
-        <p class="eyebrow reveal">Engenharia · Automação · Turn-Key</p>
-        <h1 class="reveal">Potencialize sua indústria com soluções sob medida</h1>
-        <p class="lead reveal">Automação, instalações elétricas, estruturas e obras industriais — do diagnóstico à entrega final, com método turn-key.</p>
-        <div class="hero-actions reveal">
-          <a class="btn-wa red js-wa" href="#" data-msg="Olá! Quero solicitar um orçamento industrial.">
-            <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
-            Solicitar orçamento
-          </a>
-          <a class="btn-wa ghost" href="#servicos">
-            <svg class="ico" aria-hidden="true"><use href="#ico-arrow"></use></svg>
-            Explorar soluções
-          </a>
+        <div class="hero-card">
+          <p class="eyebrow reveal">Engenharia · Automação · Turn-Key</p>
+          <h1 class="reveal">Potencialize sua indústria com soluções sob medida</h1>
+          <p class="lead reveal">Automação, instalações elétricas, estruturas e obras industriais — do diagnóstico à entrega final, com método turn-key.</p>
+          <div class="hero-actions reveal">
+            <a class="btn-wa red js-wa" href="#" data-msg="Olá! Quero solicitar um orçamento industrial.">
+              <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+              Solicitar orçamento
+            </a>
+            <a class="btn-wa ghost" href="#servicos">
+              <svg class="ico" aria-hidden="true"><use href="#ico-arrow"></use></svg>
+              Explorar soluções
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -1890,10 +1921,11 @@
             yPercent: 0, opacity: 1, duration: 0.9,
             onStart: () => headerEl?.classList.add("is-ready")
           }, 0.15)
-          .fromTo(".hero .eyebrow", { y: 30, opacity: 0, filter: "blur(8px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.7 }, 0.35)
-          .fromTo(".hero h1", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.95 }, 0.5)
-          .fromTo(".hero .lead", { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, 0.65)
-          .fromTo(".hero-actions .btn-wa", { y: 28, opacity: 0, scale: 0.92 }, { y: 0, opacity: 1, scale: 1, duration: 0.7, stagger: 0.1 }, 0.8)
+          .fromTo(".hero-card", { y: 40, opacity: 0, scale: 0.96 }, { y: 0, opacity: 1, scale: 1, duration: 1 }, 0.35)
+          .fromTo(".hero .eyebrow", { y: 30, opacity: 0, filter: "blur(8px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.7 }, 0.5)
+          .fromTo(".hero h1", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.95 }, 0.6)
+          .fromTo(".hero .lead", { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, 0.75)
+          .fromTo(".hero-actions .btn-wa", { y: 28, opacity: 0, scale: 0.92 }, { y: 0, opacity: 1, scale: 1, duration: 0.7, stagger: 0.1 }, 0.9)
           .add(() => {
             gsap.utils.toArray(".hero .reveal").forEach(showReveal);
           });

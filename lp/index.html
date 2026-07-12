@@ -311,7 +311,10 @@
     .logo-strip {
       width: 100%;
       max-width: 100%;
-      padding: 28px 0;
+      padding: 56px 0;
+      min-height: 180px;
+      display: flex;
+      align-items: center;
       background: #050505;
       border-bottom: 1px solid var(--pv-line);
       overflow: hidden;
@@ -326,11 +329,11 @@
     .logo-strip .logo-track {
       display: flex;
       align-items: center;
-      gap: 30px;
+      gap: 40px;
       width: max-content;
       list-style: none;
       margin: 0;
-      padding: 0;
+      padding: 12px 0;
       animation: logoMarquee 42s linear infinite;
       will-change: transform;
     }
@@ -341,8 +344,8 @@
     }
     .logo-strip .logo-item {
       flex-shrink: 0;
-      width: 148px;
-      height: 72px;
+      width: 180px;
+      height: 96px;
       display: grid;
       place-items: center;
       opacity: 0.85;
@@ -360,8 +363,18 @@
     /* Stats */
     .stats {
       border-block: 1px solid var(--pv-line);
-      background: linear-gradient(180deg, #0c0c0c, #090909);
-      padding: 28px 0;
+      background:
+        radial-gradient(ellipse 50% 80% at 50% 0%, rgba(248,216,13,0.06), transparent 55%),
+        linear-gradient(180deg, #0c0c0c, #090909);
+      padding: 56px 0 64px;
+    }
+    .stats .section-head {
+      margin-inline: auto;
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .stats .section-head .lead {
+      margin-inline: auto;
     }
     .stats-row {
       display: grid;
@@ -1407,27 +1420,6 @@
       </div>
     </section>
 
-    <div class="stats">
-      <div class="container stats-row">
-        <div class="stat reveal">
-          <div class="stat-ico" aria-hidden="true"><svg class="ico"><use href="#ico-gauge"></use></svg></div>
-          <strong data-count="98" data-suffix="%">0</strong><span>Disponibilidade operacional</span>
-        </div>
-        <div class="stat reveal">
-          <div class="stat-ico" aria-hidden="true"><svg class="ico"><use href="#ico-rocket"></use></svg></div>
-          <strong data-count="3" data-suffix="x">0</strong><span>Mais previsibilidade</span>
-        </div>
-        <div class="stat reveal">
-          <div class="stat-ico" aria-hidden="true"><svg class="ico"><use href="#ico-wallet"></use></svg></div>
-          <strong data-count="40" data-suffix="%">0</strong><span>Menos paradas críticas</span>
-        </div>
-        <div class="stat reveal">
-          <div class="stat-ico" aria-hidden="true"><svg class="ico"><use href="#ico-trophy"></use></svg></div>
-          <strong data-count="120" data-suffix="+">0</strong><span>Projetos entregues</span>
-        </div>
-      </div>
-    </div>
-
     <section id="servicos">
       <div class="container">
         <div class="section-head reveal">
@@ -1551,6 +1543,34 @@
           <div class="metric reveal">
             <div class="metric-ico" aria-hidden="true"><svg class="ico"><use href="#ico-users"></use></svg></div>
             <b>04</b><div><h3>Um responsável ponta a ponta</h3><p>Gestão técnica e gerencial com prazo e qualidade no mesmo fluxo.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats" id="resultados">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Resultados</p>
+          <h2>Números que sustentam a <span class="accent-y">operação</span></h2>
+          <p class="lead">Depois dos diferenciais, o que importa: disponibilidade, previsibilidade e projetos entregues com consistência.</p>
+        </div>
+        <div class="stats-row">
+          <div class="stat reveal">
+            <div class="stat-ico" aria-hidden="true"><svg class="ico"><use href="#ico-gauge"></use></svg></div>
+            <strong data-count="98" data-suffix="%">0</strong><span>Disponibilidade operacional</span>
+          </div>
+          <div class="stat reveal">
+            <div class="stat-ico" aria-hidden="true"><svg class="ico"><use href="#ico-rocket"></use></svg></div>
+            <strong data-count="3" data-suffix="x">0</strong><span>Mais previsibilidade</span>
+          </div>
+          <div class="stat reveal">
+            <div class="stat-ico" aria-hidden="true"><svg class="ico"><use href="#ico-wallet"></use></svg></div>
+            <strong data-count="40" data-suffix="%">0</strong><span>Menos paradas críticas</span>
+          </div>
+          <div class="stat reveal">
+            <div class="stat-ico" aria-hidden="true"><svg class="ico"><use href="#ico-trophy"></use></svg></div>
+            <strong data-count="120" data-suffix="+">0</strong><span>Projetos entregues</span>
           </div>
         </div>
       </div>

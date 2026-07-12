@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Power Volt · Engenharia, Automação e Turn-Key Industrial</title>
+  <meta name="description" content="Automação industrial, instalações elétricas, estruturas metálicas e obras turn-key. Solicite orçamento pelo WhatsApp." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --pv-red: #e3211b;
+      --pv-red-deep: #a01512;
+      --pv-yellow: #f8d80d;
+      --pv-black: #070707;
+      --pv-ink: #101010;
+      --pv-muted: #9a9aa3;
+      --pv-text: #f4f4f6;
+      --pv-line: rgba(255,255,255,0.12);
+      --font-display: "Barlow Condensed", sans-serif;
+      --font-body: "Outfit", sans-serif;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --wa: #25d366;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--pv-black);
+      color: var(--pv-text);
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; border: 0; cursor: pointer; background: none; color: inherit; }
+
+    .container { width: min(1180px, calc(100% - 40px)); margin-inline: auto; }
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--pv-yellow);
+      margin-bottom: 12px;
+    }
+    .display {
+      font-family: var(--font-display);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      line-height: 0.92;
+    }
+    .lead { color: rgba(244,244,246,0.78); font-size: clamp(15px, 1.6vw, 18px); max-width: 56ch; }
+
+    /* WhatsApp buttons */
+    .btn-wa {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 22px;
+      border-radius: 999px;
+      background: var(--wa);
+      color: #04150a;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.02em;
+      transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), filter 0.2s;
+      box-shadow: 0 10px 30px rgba(37,211,102,0.28);
+    }
+    .btn-wa:hover { transform: translateY(-2px); filter: brightness(1.05); }
+    .btn-wa svg { width: 20px; height: 20px; flex-shrink: 0; }
+    .btn-wa.ghost {
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.28);
+      box-shadow: none;
+    }
+    .btn-wa.ghost:hover { border-color: var(--wa); color: var(--wa); }
+    .btn-wa.red {
+      background: var(--pv-red);
+      color: #fff;
+      box-shadow: 0 12px 32px rgba(227,33,27,0.35);
+    }
+    .btn-wa.red svg { color: #fff; }
+
+    /* Header */
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 50;
+      padding: 14px 0;
+      transition: background 0.3s, backdrop 0.3s, padding 0.3s;
+    }
+    .site-header.is-scrolled {
+      background: rgba(7,7,7,0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--pv-line);
+      padding: 10px 0;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand img { height: 42px; width: auto; }
+    .brand-name {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      list-style: none;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.72);
+    }
+    .nav-links a:hover { color: var(--pv-yellow); }
+    .nav .btn-wa { padding: 10px 16px; font-size: 13px; }
+    .nav-toggle { display: none; }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: grid;
+      align-items: end;
+      overflow: hidden;
+    }
+    .hero-media {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scale(1.08);
+    }
+    .hero-media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(7,7,7,0.35) 0%, rgba(7,7,7,0.2) 35%, rgba(7,7,7,0.78) 68%, rgba(7,7,7,0.96) 100%),
+        radial-gradient(ellipse 60% 50% at 20% 80%, rgba(227,33,27,0.28), transparent 60%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      padding: 140px 0 72px;
+    }
+    .hero-brand {
+      font-family: var(--font-display);
+      font-size: clamp(56px, 12vw, 128px);
+      font-weight: 800;
+      text-transform: uppercase;
+      line-height: 0.85;
+      letter-spacing: -0.03em;
+      margin-bottom: 18px;
+      background: linear-gradient(100deg, #fff 20%, var(--pv-yellow) 55%, var(--pv-red) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 4.2vw, 46px);
+      font-weight: 700;
+      text-transform: uppercase;
+      max-width: 16ch;
+      line-height: 0.95;
+      margin-bottom: 14px;
+    }
+    .hero .lead { margin-bottom: 28px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    /* Stats */
+    .stats {
+      border-block: 1px solid var(--pv-line);
+      background: linear-gradient(180deg, #0c0c0c, #090909);
+      padding: 28px 0;
+    }
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+    .stat {
+      text-align: center;
+      padding: 8px;
+    }
+    .stat strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: clamp(36px, 5vw, 52px);
+      font-weight: 800;
+      color: var(--pv-yellow);
+      line-height: 1;
+    }
+    .stat span {
+      display: block;
+      margin-top: 6px;
+      font-size: 13px;
+      color: var(--pv-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* Sections */
+    section { padding: 96px 0; position: relative; }
+    .section-head { margin-bottom: 40px; max-width: 720px; }
+    .section-head h2 {
+      font-family: var(--font-display);
+      font-size: clamp(34px, 5vw, 56px);
+      text-transform: uppercase;
+      line-height: 0.92;
+      margin-bottom: 14px;
+    }
+    .accent { color: var(--pv-red); }
+    .accent-y { color: var(--pv-yellow); }
+
+    /* Offer split */
+    .offer-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+    .offer-visual {
+      position: relative;
+      min-height: 480px;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid var(--pv-line);
+    }
+    .offer-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .offer-visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.75));
+    }
+    .offer-caption {
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      bottom: 22px;
+      z-index: 1;
+      font-family: var(--font-display);
+      font-size: 28px;
+      text-transform: uppercase;
+    }
+    .offer-list { display: flex; flex-direction: column; gap: 12px; }
+    .offer-item {
+      padding: 18px 18px 18px 20px;
+      border-radius: 18px;
+      border: 1px solid var(--pv-line);
+      background: rgba(255,255,255,0.03);
+      transition: border-color 0.25s, background 0.25s, transform 0.25s var(--ease);
+      cursor: pointer;
+    }
+    .offer-item.is-active,
+    .offer-item:hover {
+      border-color: rgba(227,33,27,0.55);
+      background: rgba(227,33,27,0.1);
+      transform: translateX(4px);
+    }
+    .offer-item h3 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .offer-item p { color: var(--pv-muted); font-size: 14px; }
+
+    /* Marquee services */
+    .areas { padding-top: 40px; overflow: hidden; }
+    .marquee {
+      overflow: hidden;
+      mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    }
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      gap: 16px;
+      padding: 8px 0 24px;
+    }
+    .marquee--rtl .marquee-track { animation: marqueeRtl 48s linear infinite; }
+    .marquee--ltr .marquee-track { animation: marqueeLtr 48s linear infinite; }
+    .marquee:hover .marquee-track { animation-play-state: paused; }
+    @keyframes marqueeLtr {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    @keyframes marqueeRtl {
+      from { transform: translateX(-50%); }
+      to { transform: translateX(0); }
+    }
+    .area-card {
+      width: 280px;
+      flex-shrink: 0;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid var(--pv-line);
+      background: #0e0e10;
+      position: relative;
+    }
+    .area-card img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+    }
+    .area-card .body { padding: 16px; }
+    .area-card h3 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .area-card p { font-size: 13px; color: var(--pv-muted); }
+
+    /* Why */
+    .why {
+      background:
+        radial-gradient(ellipse 50% 40% at 80% 20%, rgba(227,33,27,0.18), transparent 55%),
+        #090909;
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 36px;
+      align-items: center;
+    }
+    .metric-stack { display: grid; gap: 14px; }
+    .metric {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 16px;
+      align-items: center;
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px solid var(--pv-line);
+      background: rgba(255,255,255,0.03);
+    }
+    .metric b {
+      font-family: var(--font-display);
+      font-size: 42px;
+      color: var(--pv-yellow);
+      line-height: 1;
+    }
+    .metric h3 {
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+    .metric p { font-size: 13px; color: var(--pv-muted); }
+
+    /* Process pin */
+    .process { padding-bottom: 0; }
+    .process-pin {
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+    .process-track {
+      display: flex;
+      height: 100%;
+      width: max-content;
+      align-items: center;
+      gap: 24px;
+      padding: 0 8vw;
+    }
+    .process-card {
+      width: min(72vw, 520px);
+      height: min(62vh, 480px);
+      border-radius: 28px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid var(--pv-line);
+      flex-shrink: 0;
+    }
+    .process-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .process-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.88));
+    }
+    .process-card .inner {
+      position: absolute;
+      inset: auto 0 0;
+      z-index: 1;
+      padding: 28px;
+    }
+    .process-card .n {
+      font-family: var(--font-display);
+      font-size: 64px;
+      color: var(--pv-yellow);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .process-card h3 {
+      font-family: var(--font-display);
+      font-size: 34px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .process-card p { color: rgba(255,255,255,0.8); font-size: 15px; max-width: 38ch; }
+
+    /* Turnkey */
+    .turnkey-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .big-visual {
+      border-radius: 28px;
+      overflow: hidden;
+      min-height: 420px;
+      position: relative;
+      border: 1px solid var(--pv-line);
+    }
+    .big-visual img { width: 100%; height: 100%; object-fit: cover; }
+    .kpi-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 22px 0;
+    }
+    .kpi {
+      padding: 18px;
+      border-radius: 16px;
+      background: rgba(248,216,13,0.08);
+      border: 1px solid rgba(248,216,13,0.22);
+    }
+    .kpi strong {
+      font-family: var(--font-display);
+      font-size: 36px;
+      color: var(--pv-yellow);
+      display: block;
+      line-height: 1;
+    }
+    .kpi span { font-size: 12px; color: var(--pv-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .quotes {
+      display: grid;
+      gap: 14px;
+      margin-top: 28px;
+    }
+    .quote {
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px solid var(--pv-line);
+      background: rgba(255,255,255,0.03);
+    }
+    .quote p { font-size: 15px; margin-bottom: 12px; }
+    .quote-person { display: flex; align-items: center; gap: 12px; }
+    .quote-person img {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(248,216,13,0.4);
+    }
+    .quote-person strong { display: block; font-size: 14px; }
+    .quote-person span { font-size: 12px; color: var(--pv-muted); }
+
+    /* FAQ */
+    .faq-layout {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 28px;
+    }
+    .faq-cta-card {
+      border-radius: 28px;
+      padding: 28px;
+      background:
+        linear-gradient(160deg, rgba(37,211,102,0.16), rgba(227,33,27,0.12)),
+        #101010;
+      border: 1px solid rgba(37,211,102,0.35);
+      align-self: start;
+      position: sticky;
+      top: 100px;
+    }
+    .faq-cta-card h3 {
+      font-family: var(--font-display);
+      font-size: 36px;
+      text-transform: uppercase;
+      line-height: 0.95;
+      margin: 10px 0 12px;
+    }
+    .faq-list { display: grid; gap: 10px; }
+    .faq-item {
+      border: 1px solid var(--pv-line);
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.02);
+    }
+    .faq-item button {
+      width: 100%;
+      text-align: left;
+      padding: 16px 18px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .faq-item button span:last-child {
+      color: var(--pv-yellow);
+      font-family: var(--font-display);
+      font-size: 22px;
+      line-height: 1;
+    }
+    .faq-item .ans {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s var(--ease);
+    }
+    .faq-item.is-open .ans { max-height: 220px; }
+    .faq-item .ans p {
+      padding: 0 18px 16px;
+      color: var(--pv-muted);
+      font-size: 14px;
+    }
+
+    /* News */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .news-card {
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid var(--pv-line);
+      background: #0e0e10;
+      display: flex;
+      flex-direction: column;
+    }
+    .news-card img { height: 180px; width: 100%; object-fit: cover; }
+    .news-card .body { padding: 16px; flex: 1; display: flex; flex-direction: column; }
+    .news-card time { font-size: 12px; color: var(--pv-yellow); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+    .news-card h3 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      text-transform: uppercase;
+      line-height: 1;
+      margin: 8px 0 10px;
+    }
+    .news-card p { font-size: 13px; color: var(--pv-muted); margin-bottom: 14px; flex: 1; }
+
+    /* Final CTA */
+    .final-cta {
+      padding: 40px 0 110px;
+    }
+    .final-box {
+      position: relative;
+      border-radius: 32px;
+      overflow: hidden;
+      min-height: 360px;
+      display: grid;
+      align-items: end;
+      border: 1px solid rgba(248,216,13,0.25);
+    }
+    .final-box > img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .final-box::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(100deg, rgba(7,7,7,0.92) 0%, rgba(7,7,7,0.55) 55%, rgba(227,33,27,0.35) 100%);
+    }
+    .final-inner {
+      position: relative;
+      z-index: 1;
+      padding: 40px;
+      max-width: 640px;
+    }
+    .final-inner h2 {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 6vw, 64px);
+      text-transform: uppercase;
+      line-height: 0.92;
+      margin: 8px 0 14px;
+    }
+
+    footer {
+      border-top: 1px solid var(--pv-line);
+      padding: 28px 0 100px;
+      color: var(--pv-muted);
+      font-size: 13px;
+    }
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .footer-links { display: flex; gap: 18px; flex-wrap: wrap; }
+
+    /* Float WA */
+    .wa-float {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 60;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: var(--wa);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 12px 32px rgba(37,211,102,0.45);
+      animation: pulseWa 2.2s ease-in-out infinite;
+    }
+    .wa-float svg { width: 28px; height: 28px; color: #04150a; }
+    @keyframes pulseWa {
+      0%, 100% { transform: scale(1); box-shadow: 0 12px 32px rgba(37,211,102,0.45); }
+      50% { transform: scale(1.06); box-shadow: 0 16px 40px rgba(37,211,102,0.6); }
+    }
+
+    .reveal { opacity: 0; transform: translateY(28px); }
+
+    @media (max-width: 960px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: inline-flex; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .offer-grid, .why-grid, .turnkey-grid, .faq-layout, .news-grid {
+        grid-template-columns: 1fr;
+      }
+      .offer-visual { min-height: 280px; }
+      .faq-cta-card { position: static; }
+      .process-card { width: 82vw; height: 54vh; }
+      .hero-brand { font-size: clamp(48px, 16vw, 84px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .marquee-track, .wa-float { animation: none !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- CONFIG: troque pelo WhatsApp real da Power Volt (somente dígitos com DDI) -->
+  <script>
+    window.PV_WA = "5521999999999";
+    window.PV_WA_MSG = "Olá, Power Volt! Vim pela landing e quero solicitar um orçamento.";
+  </script>
+
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="ico-wa" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M20.52 3.48A11.86 11.86 0 0 0 12.06 0C5.5 0 .16 5.34.16 11.9c0 2.1.55 4.14 1.6 5.95L0 24l6.3-1.65a11.9 11.9 0 0 0 5.76 1.47h.01c6.55 0 11.9-5.34 11.9-11.9 0-3.18-1.24-6.17-3.45-8.44zM12.07 21.15h-.01a9.2 9.2 0 0 1-4.69-1.28l-.34-.2-3.74.98 1-3.64-.22-.37a9.2 9.2 0 0 1-1.41-4.9c0-5.08 4.14-9.22 9.23-9.22 2.46 0 4.78.96 6.52 2.7a9.16 9.16 0 0 1 2.7 6.53c0 5.09-4.14 9.23-9.22 9.23zm5.06-6.9c-.28-.14-1.64-.81-1.9-.9-.25-.1-.44-.14-.62.14-.18.28-.71.9-.87 1.08-.16.18-.32.2-.6.07-.28-.14-1.17-.43-2.23-1.37-.82-.73-1.38-1.64-1.54-1.92-.16-.28-.02-.43.12-.57.13-.12.28-.32.42-.48.14-.16.18-.28.28-.46.1-.18.04-.35-.02-.49-.07-.14-.62-1.49-.85-2.04-.22-.53-.45-.46-.62-.47h-.53c-.18 0-.47.07-.72.35-.25.28-.95.93-.95 2.27s.97 2.64 1.11 2.82c.14.18 1.91 2.91 4.63 4.08.65.28 1.15.45 1.55.57.65.21 1.24.18 1.71.11.52-.08 1.64-.67 1.87-1.32.23-.65.23-1.2.16-1.32-.07-.11-.25-.18-.53-.32z"/>
+    </symbol>
+  </svg>
+
+  <header class="site-header" id="header">
+    <div class="container nav">
+      <a class="brand" href="#topo" aria-label="Power Volt">
+        <img src="img/logo.png" alt="Power Volt" />
+        <span class="brand-name">Power Volt</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#diferenciais">Diferenciais</a></li>
+        <li><a href="#processo">Processo</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <a class="btn-wa js-wa" href="#" data-msg="Quero falar com a equipe Power Volt">
+        <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+        Orçamento no WhatsApp
+      </a>
+    </div>
+  </header>
+
+  <main id="topo">
+    <section class="hero">
+      <div class="hero-media">
+        <img src="img/lp-hero.png" alt="" fetchpriority="high" />
+      </div>
+      <div class="container hero-content">
+        <p class="eyebrow reveal">Engenharia · Automação · Turn-Key</p>
+        <div class="hero-brand reveal">Power Volt</div>
+        <h1 class="reveal">Potencialize sua indústria com soluções sob medida</h1>
+        <p class="lead reveal">Automação, instalações elétricas, estruturas e obras industriais — do diagnóstico à entrega final, com método turn-key.</p>
+        <div class="hero-actions reveal">
+          <a class="btn-wa red js-wa" href="#" data-msg="Olá! Quero solicitar um orçamento industrial.">
+            <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+            Solicitar orçamento
+          </a>
+          <a class="btn-wa ghost" href="#servicos">Explorar soluções</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="stats">
+      <div class="container stats-row">
+        <div class="stat reveal"><strong data-count="98" data-suffix="%">0</strong><span>Eficiência elevada</span></div>
+        <div class="stat reveal"><strong data-count="3" data-suffix="x">0</strong><span>Mais produtividade</span></div>
+        <div class="stat reveal"><strong data-count="40" data-suffix="%">0</strong><span>Redução de custos</span></div>
+        <div class="stat reveal"><strong data-count="120" data-suffix="+">0</strong><span>Entregas de sucesso</span></div>
+      </div>
+    </div>
+
+    <section id="servicos">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">O que oferecemos</p>
+          <h2>Crescimento com <span class="accent">automação</span> de alta performance</h2>
+          <p class="lead">Simplificamos processos, reduzimos falhas e aumentamos produtividade com projetos sob medida e sistemas de controle inteligentes.</p>
+        </div>
+        <div class="offer-grid">
+          <div class="offer-visual reveal">
+            <img id="offerImg" src="img/lp-automacao.png" alt="" />
+            <div class="offer-caption" id="offerCaption">Automação Industrial</div>
+          </div>
+          <div class="offer-list" id="offerList">
+            <article class="offer-item is-active" data-img="img/lp-automacao.png" data-title="Automação Industrial">
+              <h3>Automação Industrial</h3>
+              <p>Integração de máquinas, sensores e softwares para produção contínua e previsível.</p>
+            </article>
+            <article class="offer-item" data-img="img/lp-eletrica.png" data-title="Instalações Elétricas">
+              <h3>Instalações Elétricas</h3>
+              <p>Painéis, redes e distribuição de energia com segurança e conformidade normativa.</p>
+            </article>
+            <article class="offer-item" data-img="img/lp-estruturas.png" data-title="Estruturas Metálicas">
+              <h3>Gradis e Estruturas</h3>
+              <p>Fabricação e montagem com resistência, precisão dimensional e prazo controlado.</p>
+            </article>
+            <article class="offer-item" data-img="img/lp-manutencao.png" data-title="Manutenção Industrial">
+              <h3>Manutenção Industrial</h3>
+              <p>Preventiva e corretiva para reduzir paradas e proteger o ativo da planta.</p>
+            </article>
+            <article class="offer-item" data-img="img/lp-obras.png" data-title="Obras Industriais">
+              <h3>Obras Industriais</h3>
+              <p>Execução completa com segurança, qualidade e entrega alinhada ao cronograma.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="areas">
+        <div class="container section-head reveal" style="margin-bottom:18px">
+          <p class="eyebrow">Áreas de atuação</p>
+          <h2>Abrangência em <span class="accent-y">cada projeto</span></h2>
+        </div>
+        <div class="marquee marquee--ltr">
+          <div class="marquee-track">
+            <div class="area-card"><img src="img/lp-estruturas.png" alt="" /><div class="body"><h3>Gradis e Estruturas</h3><p>Fabricação e montagem com durabilidade.</p></div></div>
+            <div class="area-card"><img src="img/lp-eletrica.png" alt="" /><div class="body"><h3>Instalações Elétricas</h3><p>Painéis, redes e distribuição.</p></div></div>
+            <div class="area-card"><img src="img/lp-automacao.png" alt="" /><div class="body"><h3>Automação</h3><p>Integração para máxima produtividade.</p></div></div>
+            <div class="area-card"><img src="img/lp-manutencao.png" alt="" /><div class="body"><h3>Manutenção</h3><p>Continuidade operacional garantida.</p></div></div>
+            <div class="area-card"><img src="img/lp-obras.png" alt="" /><div class="body"><h3>Obras Industriais</h3><p>Eficiência e entrega no prazo.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="img/lp-estruturas.png" alt="" /><div class="body"><h3>Gradis e Estruturas</h3><p>Fabricação e montagem com durabilidade.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="img/lp-eletrica.png" alt="" /><div class="body"><h3>Instalações Elétricas</h3><p>Painéis, redes e distribuição.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="img/lp-automacao.png" alt="" /><div class="body"><h3>Automação</h3><p>Integração para máxima produtividade.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="img/lp-manutencao.png" alt="" /><div class="body"><h3>Manutenção</h3><p>Continuidade operacional garantida.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="img/lp-obras.png" alt="" /><div class="body"><h3>Obras Industriais</h3><p>Eficiência e entrega no prazo.</p></div></div>
+          </div>
+        </div>
+        <div class="marquee marquee--rtl">
+          <div class="marquee-track">
+            <div class="area-card"><img src="img/lp-turnkey.png" alt="" /><div class="body"><h3>Eficiência Energética</h3><p>Menos consumo, mais desempenho.</p></div></div>
+            <div class="area-card"><img src="img/lp-automacao.png" alt="" /><div class="body"><h3>Montagens Eletromecânicas</h3><p>Máquinas e sistemas instalados.</p></div></div>
+            <div class="area-card"><img src="img/lp-eletrica.png" alt="" /><div class="body"><h3>Instrumentação</h3><p>Monitoramento e precisão.</p></div></div>
+            <div class="area-card"><img src="img/lp-hero.png" alt="" /><div class="body"><h3>Consultoria Técnica</h3><p>Diagnóstico e redução de custos.</p></div></div>
+            <div class="area-card"><img src="img/lp-obras.png" alt="" /><div class="body"><h3>Infraestrutura</h3><p>Obras civis e instalações.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="img/lp-turnkey.png" alt="" /><div class="body"><h3>Eficiência Energética</h3><p>Menos consumo, mais desempenho.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="img/lp-automacao.png" alt="" /><div class="body"><h3>Montagens Eletromecânicas</h3><p>Máquinas e sistemas instalados.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="img/lp-eletrica.png" alt="" /><div class="body"><h3>Instrumentação</h3><p>Monitoramento e precisão.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="img/lp-hero.png" alt="" /><div class="body"><h3>Consultoria Técnica</h3><p>Diagnóstico e redução de custos.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="img/lp-obras.png" alt="" /><div class="body"><h3>Infraestrutura</h3><p>Obras civis e instalações.</p></div></div>
+          </div>
+        </div>
+        <div class="container" style="margin-top:8px">
+          <a class="btn-wa js-wa" href="#" data-msg="Quero conhecer as áreas de atuação da Power Volt">
+            <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+            Falar sobre meu projeto
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="why" id="diferenciais">
+      <div class="container why-grid">
+        <div class="reveal">
+          <p class="eyebrow">O que nos torna diferentes</p>
+          <h2 class="display" style="font-size:clamp(36px,5vw,58px);margin-bottom:14px">Parceiro confiável em <span class="accent">engenharia industrial</span></h2>
+          <p class="lead">Método claro, equipe técnica e compromisso com prazo. Entregamos eficiência e segurança do planejamento à operação.</p>
+          <div style="margin-top:24px">
+            <a class="btn-wa red js-wa" href="#" data-msg="Quero entender os diferenciais da Power Volt para meu projeto">
+              <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+              Conversar no WhatsApp
+            </a>
+          </div>
+        </div>
+        <div class="metric-stack">
+          <div class="metric reveal"><b>98%</b><div><h3>Satisfação comprovada</h3><p>Transparência, prazos e parceria de longo prazo.</p></div></div>
+          <div class="metric reveal"><b>3x</b><div><h3>Velocidade operacional</h3><p>Processos otimizados para acelerar a entrega.</p></div></div>
+          <div class="metric reveal"><b>120+</b><div><h3>Entregas de sucesso</h3><p>Empresas que confiam na Power Volt.</p></div></div>
+          <div class="metric reveal"><b>20+</b><div><h3>Parcerias ativas</h3><p>Confiança construída ao longo de 5 anos.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="process" id="processo">
+      <div class="container section-head reveal">
+        <p class="eyebrow">Como trabalhamos</p>
+        <h2>Do planejamento à <span class="accent-y">execução</span></h2>
+        <p class="lead">Clareza e método em cada etapa — eficiência, segurança e resultado mensurável.</p>
+      </div>
+      <div class="process-pin" id="processPin">
+        <div class="process-track" id="processTrack">
+          <article class="process-card">
+            <img src="img/lp-hero.png" alt="" />
+            <div class="inner"><div class="n">01</div><h3>Diagnóstico</h3><p>Avaliamos processos, riscos e oportunidades de automação e melhoria operacional.</p></div>
+          </article>
+          <article class="process-card">
+            <img src="img/lp-eletrica.png" alt="" />
+            <div class="inner"><div class="n">02</div><h3>Projeto sob medida</h3><p>Soluções que alinham engenharia, tecnologia e objetivos estratégicos da planta.</p></div>
+          </article>
+          <article class="process-card">
+            <img src="img/lp-automacao.png" alt="" />
+            <div class="inner"><div class="n">03</div><h3>Implementação</h3><p>Instalação e integração com mínimo impacto na produção e máxima confiabilidade.</p></div>
+          </article>
+          <article class="process-card">
+            <img src="img/lp-turnkey.png" alt="" />
+            <div class="inner"><div class="n">04</div><h3>Otimização</h3><p>Monitoramos resultados, ajustamos processos e escalamos o que funciona.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Processo Turn-Key</p>
+          <h2>Soluções completas do <span class="accent">início ao fim</span></h2>
+          <p class="lead">Cuidamos de planejamento, execução e entrega final — com eficiência e resultados que duram.</p>
+        </div>
+        <div class="turnkey-grid">
+          <div class="big-visual reveal">
+            <img src="img/lp-turnkey.png" alt="Projeto turn-key Power Volt" />
+          </div>
+          <div class="reveal">
+            <h3 class="display" style="font-size:34px;margin-bottom:10px">Redução de custos + agilidade</h3>
+            <p class="lead">Economia real com processos otimizados, sem retrabalho, e projetos concluídos com mais velocidade sem perder qualidade.</p>
+            <div class="kpi-row">
+              <div class="kpi"><strong>-40%</strong><span>gastos operacionais</span></div>
+              <div class="kpi"><strong>30%</strong><span>ganho de produtividade</span></div>
+              <div class="kpi"><strong>2x</strong><span>agilidade na entrega</span></div>
+              <div class="kpi"><strong>100%</strong><span>projetos personalizados</span></div>
+            </div>
+            <a class="btn-wa js-wa" href="#" data-msg="Quero um projeto Turn-Key com a Power Volt">
+              <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+              Quero um projeto Turn-Key
+            </a>
+            <div class="quotes">
+              <blockquote class="quote">
+                <p>“Nosso compromisso é simples: eficiência e segurança em cada projeto, do planejamento à execução.”</p>
+                <div class="quote-person">
+                  <img src="img/lp-ceo.png" alt="Leandro Oliveira" />
+                  <div><strong>Leandro Oliveira</strong><span>CEO, Power Volt</span></div>
+                </div>
+              </blockquote>
+              <blockquote class="quote">
+                <p>“O método Turn-Key permite entregar projetos completos com qualidade e agilidade — resultados reais para o cliente.”</p>
+                <div class="quote-person">
+                  <img src="img/lp-ceo.png" alt="Anderson Cardoso" />
+                  <div><strong>Anderson Cardoso</strong><span>Co-Diretor, Power Volt</span></div>
+                </div>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">FAQ Power Volt</p>
+          <h2>Perguntas <span class="accent-y">frequentes</span></h2>
+        </div>
+        <div class="faq-layout">
+          <aside class="faq-cta-card reveal">
+            <p class="eyebrow" style="color:var(--wa)">Atendimento rápido</p>
+            <h3>Ficou alguma dúvida?</h3>
+            <p class="lead" style="margin-bottom:18px">Fale agora com a equipe técnica e comercial pelo WhatsApp.</p>
+            <a class="btn-wa js-wa" href="#" data-msg="Tenho uma dúvida sobre os serviços da Power Volt">
+              <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+              Tirar dúvida no WhatsApp
+            </a>
+          </aside>
+          <div class="faq-list reveal" id="faqList">
+            <div class="faq-item is-open">
+              <button type="button"><span>Quais serviços a Power Volt oferece?</span><span>−</span></button>
+              <div class="ans"><p>Automação industrial, manutenção preventiva e corretiva, obras industriais, instalações elétricas, gradis e estruturas metálicas, além de projetos sob medida turn-key.</p></div>
+            </div>
+            <div class="faq-item">
+              <button type="button"><span>O que é o método Turn-Key?</span><span>+</span></button>
+              <div class="ans"><p>É a entrega completa: diagnóstico, projeto, execução, integração e otimização — um único responsável do início ao fim.</p></div>
+            </div>
+            <div class="faq-item">
+              <button type="button"><span>Vocês atendem só grandes indústrias?</span><span>+</span></button>
+              <div class="ans"><p>Não. Atendemos indústrias de diferentes portes e operações que precisam de engenharia confiável e prazo previsível.</p></div>
+            </div>
+            <div class="faq-item">
+              <button type="button"><span>Qual o prazo médio de um projeto?</span><span>+</span></button>
+              <div class="ans"><p>Depende do escopo. Após o diagnóstico, definimos cronograma com marcos claros de entrega e comunicação.</p></div>
+            </div>
+            <div class="faq-item">
+              <button type="button"><span>Oferecem manutenção e suporte?</span><span>+</span></button>
+              <div class="ans"><p>Sim. Manutenção preventiva/corretiva e suporte pós-entrega para manter a operação estável.</p></div>
+            </div>
+            <div class="faq-item">
+              <button type="button"><span>Como solicito um orçamento?</span><span>+</span></button>
+              <div class="ans"><p>Pelo WhatsApp: descreva a necessidade, enviamos o próximo passo e alinhamos visita ou briefing técnico.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Tendências da indústria</p>
+          <h2>Insights para <span class="accent">decidir melhor</span></h2>
+          <p class="lead">Conteúdo alinhado a engenharia, automação e operação industrial — sem ruído.</p>
+        </div>
+        <div class="news-grid">
+          <article class="news-card reveal">
+            <img src="img/news-industria.jpg" alt="" />
+            <div class="body">
+              <time>Out 2025</time>
+              <h3>Indústria sob juros elevados</h3>
+              <p>CNI revisa projeções: transformação e construção sob pressão — eficiência operacional vira diferencial.</p>
+              <a class="btn-wa ghost js-wa" href="#" data-msg="Vi o insight sobre indústria e quero falar de eficiência operacional">
+                <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+                Conversar
+              </a>
+            </div>
+          </article>
+          <article class="news-card reveal">
+            <img src="img/lp-automacao.png" alt="" />
+            <div class="body">
+              <time>Guia</time>
+              <h3>Automação que reduz parada</h3>
+              <p>Como integração de sensores e painéis corta falhas e aumenta disponibilidade da linha.</p>
+              <a class="btn-wa ghost js-wa" href="#" data-msg="Quero falar sobre automação para reduzir paradas">
+                <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+                Conversar
+              </a>
+            </div>
+          </article>
+          <article class="news-card reveal">
+            <img src="img/lp-turnkey.png" alt="" />
+            <div class="body">
+              <time>Método</time>
+              <h3>Turn-Key sem surpresa</h3>
+              <p>Escopo único, um responsável e marcos visíveis: o caminho para entregar no prazo.</p>
+              <a class="btn-wa ghost js-wa" href="#" data-msg="Quero um projeto Turn-Key sem surpresa de escopo">
+                <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+                Conversar
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="container">
+        <div class="final-box reveal">
+          <img src="img/lp-obras.png" alt="" />
+          <div class="final-inner">
+            <p class="eyebrow">Juntos pela inovação</p>
+            <h2>Sua solução começa no WhatsApp</h2>
+            <p class="lead" style="margin-bottom:22px">Conte o desafio da sua planta. A equipe Power Volt responde com o próximo passo técnico e comercial.</p>
+            <a class="btn-wa red js-wa" href="#" data-msg="Olá Power Volt! Quero iniciar meu orçamento agora.">
+              <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+              Solicitar orçamento agora
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <div>© 2026 Power Volt · Engenharia e Instalações Industriais</div>
+      <div class="footer-links">
+        <a href="https://powervoltinstalacoes.com.br/" target="_blank" rel="noopener">Site institucional</a>
+        <a class="js-wa" href="#" data-msg="Olá, Power Volt!">WhatsApp</a>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float js-wa" href="#" aria-label="WhatsApp" data-msg="Olá, Power Volt! Vim pela landing page.">
+    <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+  </a>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    function waUrl(msg) {
+      const n = String(window.PV_WA || "").replace(/\D/g, "");
+      const text = encodeURIComponent(msg || window.PV_WA_MSG || "");
+      return `https://wa.me/${n}?text=${text}`;
+    }
+    document.querySelectorAll(".js-wa").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.open(waUrl(el.dataset.msg), "_blank", "noopener");
+      });
+    });
+
+    const header = document.getElementById("header");
+    const onScrollHeader = () => header.classList.toggle("is-scrolled", window.scrollY > 40);
+    onScrollHeader();
+    window.addEventListener("scroll", onScrollHeader, { passive: true });
+
+    /* Offer switcher */
+    const offerImg = document.getElementById("offerImg");
+    const offerCaption = document.getElementById("offerCaption");
+    document.querySelectorAll("#offerList .offer-item").forEach((item) => {
+      item.addEventListener("click", () => {
+        document.querySelectorAll("#offerList .offer-item").forEach((i) => i.classList.remove("is-active"));
+        item.classList.add("is-active");
+        gsap.to(offerImg, {
+          opacity: 0, duration: 0.2, onComplete: () => {
+            offerImg.src = item.dataset.img;
+            offerCaption.textContent = item.dataset.title;
+            gsap.to(offerImg, { opacity: 1, duration: 0.35 });
+          }
+        });
+      });
+    });
+
+    /* FAQ */
+    document.querySelectorAll("#faqList .faq-item").forEach((item) => {
+      const btn = item.querySelector("button");
+      btn.addEventListener("click", () => {
+        const open = item.classList.contains("is-open");
+        document.querySelectorAll("#faqList .faq-item").forEach((i) => {
+          i.classList.remove("is-open");
+          i.querySelector("button span:last-child").textContent = "+";
+        });
+        if (!open) {
+          item.classList.add("is-open");
+          btn.querySelector("span:last-child").textContent = "−";
+        }
+      });
+    });
+
+    const mm = gsap.matchMedia();
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      gsap.from(".hero-media img", { scale: 1.18, duration: 2.2, ease: "power3.out" });
+      gsap.from(".hero .reveal", {
+        y: 40, opacity: 0, duration: 0.9, stagger: 0.12, ease: "power3.out", delay: 0.15
+      });
+
+      gsap.utils.toArray(".reveal").forEach((el) => {
+        if (el.closest(".hero")) return;
+        gsap.from(el, {
+          scrollTrigger: { trigger: el, start: "top 88%" },
+          y: 36, opacity: 0, duration: 0.85, ease: "power3.out"
+        });
+      });
+
+      /* counters */
+      document.querySelectorAll("[data-count]").forEach((el) => {
+        const target = Number(el.dataset.count);
+        const suffix = el.dataset.suffix || "";
+        const obj = { v: 0 };
+        ScrollTrigger.create({
+          trigger: el,
+          start: "top 90%",
+          once: true,
+          onEnter: () => {
+            gsap.to(obj, {
+              v: target,
+              duration: 1.4,
+              ease: "power2.out",
+              onUpdate: () => {
+                el.textContent = `${Math.round(obj.v)}${suffix}`;
+              }
+            });
+          }
+        });
+      });
+
+      /* horizontal process */
+      const track = document.getElementById("processTrack");
+      const pin = document.getElementById("processPin");
+      if (track && pin) {
+        const getScroll = () => Math.max(0, track.scrollWidth - window.innerWidth);
+        gsap.to(track, {
+          x: () => -getScroll(),
+          ease: "none",
+          scrollTrigger: {
+            trigger: pin,
+            start: "top top",
+            end: () => `+=${getScroll()}`,
+            scrub: 1,
+            pin: true,
+            anticipatePin: 1,
+            invalidateOnRefresh: true
+          }
+        });
+      }
+
+      gsap.to(".hero-media img", {
+        yPercent: 12,
+        ease: "none",
+        scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true }
+      });
+    });
+  </script>
+</body>
+</html>

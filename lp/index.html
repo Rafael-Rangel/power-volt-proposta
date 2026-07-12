@@ -22,6 +22,11 @@
       --font-body: "Outfit", sans-serif;
       --ease: cubic-bezier(0.22, 1, 0.36, 1);
       --wa: #25d366;
+      --img-red-overlay:
+        radial-gradient(ellipse 70% 60% at 0% 0%, rgba(227,33,27,0.5), transparent 58%),
+        radial-gradient(ellipse 65% 55% at 100% 100%, rgba(227,33,27,0.38), transparent 55%),
+        radial-gradient(ellipse 50% 45% at 100% 0%, rgba(227,33,27,0.18), transparent 50%),
+        linear-gradient(180deg, rgba(227,33,27,0.12) 0%, transparent 42%, rgba(8,8,8,0.55) 100%);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -170,8 +175,8 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(180deg, rgba(7,7,7,0.35) 0%, rgba(7,7,7,0.2) 35%, rgba(7,7,7,0.78) 68%, rgba(7,7,7,0.96) 100%),
-        radial-gradient(ellipse 60% 50% at 20% 80%, rgba(227,33,27,0.28), transparent 60%);
+        var(--img-red-overlay),
+        linear-gradient(180deg, rgba(7,7,7,0.25) 0%, rgba(7,7,7,0.15) 35%, rgba(7,7,7,0.78) 68%, rgba(7,7,7,0.96) 100%);
     }
     .hero-content {
       position: relative;
@@ -272,7 +277,10 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.75));
+      pointer-events: none;
+      background:
+        var(--img-red-overlay),
+        linear-gradient(180deg, transparent 35%, rgba(0,0,0,0.78));
     }
     .offer-caption {
       position: absolute;
@@ -339,12 +347,27 @@
       background: #0e0e10;
       position: relative;
     }
+    .area-card::after {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 170px;
+      pointer-events: none;
+      z-index: 1;
+      background: var(--img-red-overlay);
+    }
     .area-card img {
       width: 100%;
       height: 170px;
       object-fit: cover;
+      position: relative;
+      z-index: 0;
     }
-    .area-card .body { padding: 16px; }
+    .area-card .body {
+      padding: 16px;
+      position: relative;
+      z-index: 2;
+    }
     .area-card h3 {
       font-family: var(--font-display);
       font-size: 20px;
@@ -421,7 +444,10 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.88));
+      pointer-events: none;
+      background:
+        var(--img-red-overlay),
+        linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.88));
     }
     .process-card .inner {
       position: absolute;
@@ -458,6 +484,13 @@
       border: 1px solid var(--pv-line);
     }
     .big-visual img { width: 100%; height: 100%; object-fit: cover; }
+    .big-visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: var(--img-red-overlay);
+    }
     .kpi-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -574,9 +607,28 @@
       background: #0e0e10;
       display: flex;
       flex-direction: column;
+      position: relative;
     }
     .news-card img { height: 180px; width: 100%; object-fit: cover; }
-    .news-card .body { padding: 16px; flex: 1; display: flex; flex-direction: column; }
+    .news-card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 180px;
+      pointer-events: none;
+      z-index: 1;
+      background: var(--img-red-overlay);
+    }
+    .news-card .body {
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 2;
+    }
     .news-card time { font-size: 12px; color: var(--pv-yellow); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
     .news-card h3 {
       font-family: var(--font-display);
@@ -611,7 +663,9 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(100deg, rgba(7,7,7,0.92) 0%, rgba(7,7,7,0.55) 55%, rgba(227,33,27,0.35) 100%);
+      background:
+        var(--img-red-overlay),
+        linear-gradient(100deg, rgba(7,7,7,0.92) 0%, rgba(7,7,7,0.55) 55%, rgba(227,33,27,0.4) 100%);
     }
     .final-inner {
       position: relative;

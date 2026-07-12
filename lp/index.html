@@ -92,6 +92,10 @@
       z-index: 50;
       padding: 14px 0;
       transition: background 0.3s, backdrop 0.3s, padding 0.3s;
+      transform: translateY(-120%);
+    }
+    .site-header.is-ready {
+      transform: none;
     }
     .site-header.is-scrolled {
       background: rgba(7,7,7,0.88);
@@ -636,14 +640,32 @@
 
     .reveal {
       opacity: 0;
-      transform: translateY(24px);
-      will-change: opacity, transform;
+      transform: translateY(28px);
+      will-change: opacity, transform, filter;
     }
     .reveal.is-shown,
     .no-js .reveal,
     html.gsap-fail .reveal {
       opacity: 1 !important;
       transform: none !important;
+      filter: none !important;
+    }
+    .split-word {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: top;
+      margin-right: 0.28em;
+    }
+    .split-word > span {
+      display: inline-block;
+      will-change: transform, opacity;
+    }
+    .img-reveal {
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .img-reveal img {
+      will-change: transform, opacity;
     }
 
     @media (max-width: 960px) {
@@ -662,6 +684,7 @@
     @media (prefers-reduced-motion: reduce) {
       .marquee-track, .wa-float { animation: none !important; }
       .reveal { opacity: 1; transform: none; }
+      .site-header { transform: none; }
     }
 
     /* VR / 3D */
@@ -700,7 +723,7 @@
       overflow: hidden;
       border: 1px solid var(--pv-line);
       background:
-        url("img/lp-hero.png") center/cover,
+        url("/lp/img/lp-hero.png") center/cover,
         #111;
       min-height: 520px;
       isolation: isolate;
@@ -871,7 +894,7 @@
   <header class="site-header" id="header">
     <div class="container nav">
       <a class="brand" href="#topo" aria-label="Power Volt">
-        <img src="img/logo.png" alt="Power Volt" />
+        <img src="/lp/img/logo.png" alt="Power Volt" />
       </a>
       <ul class="nav-links">
         <li><a href="#servicos">Serviços</a></li>
@@ -889,11 +912,11 @@
   <main id="topo">
     <section class="hero">
       <div class="hero-media">
-        <img src="img/lp-hero.png" alt="" fetchpriority="high" />
+        <img src="/lp/img/lp-hero.png" alt="" fetchpriority="high" />
       </div>
       <div class="container hero-content">
         <p class="eyebrow reveal">Engenharia · Automação · Turn-Key</p>
-        <img class="hero-logo reveal" src="img/logo.png" alt="Power Volt" />
+        <img class="hero-logo reveal" src="/lp/img/logo.png" alt="Power Volt" />
         <h1 class="reveal">Potencialize sua indústria com soluções sob medida</h1>
         <p class="lead reveal">Automação, instalações elétricas, estruturas e obras industriais — do diagnóstico à entrega final, com método turn-key.</p>
         <div class="hero-actions reveal">
@@ -924,27 +947,27 @@
         </div>
         <div class="offer-grid">
           <div class="offer-visual reveal">
-            <img id="offerImg" src="img/lp-automacao.png" alt="" />
+            <img id="offerImg" src="/lp/img/lp-automacao.png" alt="" />
             <div class="offer-caption" id="offerCaption">Automação Industrial</div>
           </div>
           <div class="offer-list" id="offerList">
-            <article class="offer-item is-active" data-img="img/lp-automacao.png" data-title="Automação Industrial">
+            <article class="offer-item is-active" data-img="/lp/img/lp-automacao.png" data-title="Automação Industrial">
               <h3>Automação Industrial</h3>
               <p>Integração de máquinas, sensores e softwares para produção contínua e previsível.</p>
             </article>
-            <article class="offer-item" data-img="img/lp-eletrica.png" data-title="Instalações Elétricas">
+            <article class="offer-item" data-img="/lp/img/lp-eletrica.png" data-title="Instalações Elétricas">
               <h3>Instalações Elétricas</h3>
               <p>Painéis, redes e distribuição de energia com segurança e conformidade normativa.</p>
             </article>
-            <article class="offer-item" data-img="img/lp-estruturas.png" data-title="Estruturas Metálicas">
+            <article class="offer-item" data-img="/lp/img/lp-estruturas.png" data-title="Estruturas Metálicas">
               <h3>Gradis e Estruturas</h3>
               <p>Fabricação e montagem com resistência, precisão dimensional e prazo controlado.</p>
             </article>
-            <article class="offer-item" data-img="img/lp-manutencao.png" data-title="Manutenção Industrial">
+            <article class="offer-item" data-img="/lp/img/lp-manutencao.png" data-title="Manutenção Industrial">
               <h3>Manutenção Industrial</h3>
               <p>Preventiva e corretiva para reduzir paradas e proteger o ativo da planta.</p>
             </article>
-            <article class="offer-item" data-img="img/lp-obras.png" data-title="Obras Industriais">
+            <article class="offer-item" data-img="/lp/img/lp-obras.png" data-title="Obras Industriais">
               <h3>Obras Industriais</h3>
               <p>Execução completa com segurança, qualidade e entrega alinhada ao cronograma.</p>
             </article>
@@ -959,30 +982,30 @@
         </div>
         <div class="marquee marquee--ltr">
           <div class="marquee-track">
-            <div class="area-card"><img src="img/lp-estruturas.png" alt="" /><div class="body"><h3>Gradis e Estruturas</h3><p>Fabricação e montagem com durabilidade.</p></div></div>
-            <div class="area-card"><img src="img/lp-eletrica.png" alt="" /><div class="body"><h3>Instalações Elétricas</h3><p>Painéis, redes e distribuição.</p></div></div>
-            <div class="area-card"><img src="img/lp-automacao.png" alt="" /><div class="body"><h3>Automação</h3><p>Integração para máxima produtividade.</p></div></div>
-            <div class="area-card"><img src="img/lp-manutencao.png" alt="" /><div class="body"><h3>Manutenção</h3><p>Continuidade operacional garantida.</p></div></div>
-            <div class="area-card"><img src="img/lp-obras.png" alt="" /><div class="body"><h3>Obras Industriais</h3><p>Eficiência e entrega no prazo.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="img/lp-estruturas.png" alt="" /><div class="body"><h3>Gradis e Estruturas</h3><p>Fabricação e montagem com durabilidade.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="img/lp-eletrica.png" alt="" /><div class="body"><h3>Instalações Elétricas</h3><p>Painéis, redes e distribuição.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="img/lp-automacao.png" alt="" /><div class="body"><h3>Automação</h3><p>Integração para máxima produtividade.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="img/lp-manutencao.png" alt="" /><div class="body"><h3>Manutenção</h3><p>Continuidade operacional garantida.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="img/lp-obras.png" alt="" /><div class="body"><h3>Obras Industriais</h3><p>Eficiência e entrega no prazo.</p></div></div>
+            <div class="area-card"><img src="/lp/img/lp-estruturas.png" alt="" /><div class="body"><h3>Gradis e Estruturas</h3><p>Fabricação e montagem com durabilidade.</p></div></div>
+            <div class="area-card"><img src="/lp/img/lp-eletrica.png" alt="" /><div class="body"><h3>Instalações Elétricas</h3><p>Painéis, redes e distribuição.</p></div></div>
+            <div class="area-card"><img src="/lp/img/lp-automacao.png" alt="" /><div class="body"><h3>Automação</h3><p>Integração para máxima produtividade.</p></div></div>
+            <div class="area-card"><img src="/lp/img/lp-manutencao.png" alt="" /><div class="body"><h3>Manutenção</h3><p>Continuidade operacional garantida.</p></div></div>
+            <div class="area-card"><img src="/lp/img/lp-obras.png" alt="" /><div class="body"><h3>Obras Industriais</h3><p>Eficiência e entrega no prazo.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="/lp/img/lp-estruturas.png" alt="" /><div class="body"><h3>Gradis e Estruturas</h3><p>Fabricação e montagem com durabilidade.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="/lp/img/lp-eletrica.png" alt="" /><div class="body"><h3>Instalações Elétricas</h3><p>Painéis, redes e distribuição.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="/lp/img/lp-automacao.png" alt="" /><div class="body"><h3>Automação</h3><p>Integração para máxima produtividade.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="/lp/img/lp-manutencao.png" alt="" /><div class="body"><h3>Manutenção</h3><p>Continuidade operacional garantida.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="/lp/img/lp-obras.png" alt="" /><div class="body"><h3>Obras Industriais</h3><p>Eficiência e entrega no prazo.</p></div></div>
           </div>
         </div>
         <div class="marquee marquee--rtl">
           <div class="marquee-track">
-            <div class="area-card"><img src="img/lp-turnkey.png" alt="" /><div class="body"><h3>Eficiência Energética</h3><p>Menos consumo, mais desempenho.</p></div></div>
-            <div class="area-card"><img src="img/lp-automacao.png" alt="" /><div class="body"><h3>Montagens Eletromecânicas</h3><p>Máquinas e sistemas instalados.</p></div></div>
-            <div class="area-card"><img src="img/lp-eletrica.png" alt="" /><div class="body"><h3>Instrumentação</h3><p>Monitoramento e precisão.</p></div></div>
-            <div class="area-card"><img src="img/lp-hero.png" alt="" /><div class="body"><h3>Consultoria Técnica</h3><p>Diagnóstico e redução de custos.</p></div></div>
-            <div class="area-card"><img src="img/lp-obras.png" alt="" /><div class="body"><h3>Infraestrutura</h3><p>Obras civis e instalações.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="img/lp-turnkey.png" alt="" /><div class="body"><h3>Eficiência Energética</h3><p>Menos consumo, mais desempenho.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="img/lp-automacao.png" alt="" /><div class="body"><h3>Montagens Eletromecânicas</h3><p>Máquinas e sistemas instalados.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="img/lp-eletrica.png" alt="" /><div class="body"><h3>Instrumentação</h3><p>Monitoramento e precisão.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="img/lp-hero.png" alt="" /><div class="body"><h3>Consultoria Técnica</h3><p>Diagnóstico e redução de custos.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="img/lp-obras.png" alt="" /><div class="body"><h3>Infraestrutura</h3><p>Obras civis e instalações.</p></div></div>
+            <div class="area-card"><img src="/lp/img/lp-turnkey.png" alt="" /><div class="body"><h3>Eficiência Energética</h3><p>Menos consumo, mais desempenho.</p></div></div>
+            <div class="area-card"><img src="/lp/img/lp-automacao.png" alt="" /><div class="body"><h3>Montagens Eletromecânicas</h3><p>Máquinas e sistemas instalados.</p></div></div>
+            <div class="area-card"><img src="/lp/img/lp-eletrica.png" alt="" /><div class="body"><h3>Instrumentação</h3><p>Monitoramento e precisão.</p></div></div>
+            <div class="area-card"><img src="/lp/img/lp-hero.png" alt="" /><div class="body"><h3>Consultoria Técnica</h3><p>Diagnóstico e redução de custos.</p></div></div>
+            <div class="area-card"><img src="/lp/img/lp-obras.png" alt="" /><div class="body"><h3>Infraestrutura</h3><p>Obras civis e instalações.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="/lp/img/lp-turnkey.png" alt="" /><div class="body"><h3>Eficiência Energética</h3><p>Menos consumo, mais desempenho.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="/lp/img/lp-automacao.png" alt="" /><div class="body"><h3>Montagens Eletromecânicas</h3><p>Máquinas e sistemas instalados.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="/lp/img/lp-eletrica.png" alt="" /><div class="body"><h3>Instrumentação</h3><p>Monitoramento e precisão.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="/lp/img/lp-hero.png" alt="" /><div class="body"><h3>Consultoria Técnica</h3><p>Diagnóstico e redução de custos.</p></div></div>
+            <div class="area-card" aria-hidden="true"><img src="/lp/img/lp-obras.png" alt="" /><div class="body"><h3>Infraestrutura</h3><p>Obras civis e instalações.</p></div></div>
           </div>
         </div>
         <div class="container" style="margin-top:8px">
@@ -1025,19 +1048,19 @@
       <div class="process-pin" id="processPin">
         <div class="process-track" id="processTrack">
           <article class="process-card">
-            <img src="img/lp-hero.png" alt="" />
+            <img src="/lp/img/lp-hero.png" alt="" />
             <div class="inner"><div class="n">01</div><h3>Diagnóstico</h3><p>Avaliamos processos, riscos e oportunidades de automação e melhoria operacional.</p></div>
           </article>
           <article class="process-card">
-            <img src="img/lp-eletrica.png" alt="" />
+            <img src="/lp/img/lp-eletrica.png" alt="" />
             <div class="inner"><div class="n">02</div><h3>Projeto sob medida</h3><p>Soluções que alinham engenharia, tecnologia e objetivos estratégicos da planta.</p></div>
           </article>
           <article class="process-card">
-            <img src="img/lp-automacao.png" alt="" />
+            <img src="/lp/img/lp-automacao.png" alt="" />
             <div class="inner"><div class="n">03</div><h3>Implementação</h3><p>Instalação e integração com mínimo impacto na produção e máxima confiabilidade.</p></div>
           </article>
           <article class="process-card">
-            <img src="img/lp-turnkey.png" alt="" />
+            <img src="/lp/img/lp-turnkey.png" alt="" />
             <div class="inner"><div class="n">04</div><h3>Otimização</h3><p>Monitoramos resultados, ajustamos processos e escalamos o que funciona.</p></div>
           </article>
         </div>
@@ -1053,7 +1076,7 @@
         </div>
         <div class="turnkey-grid">
           <div class="big-visual reveal">
-            <img src="img/lp-turnkey.png" alt="Projeto turn-key Power Volt" />
+            <img src="/lp/img/lp-turnkey.png" alt="Projeto turn-key Power Volt" />
           </div>
           <div class="reveal">
             <h3 class="display" style="font-size:34px;margin-bottom:10px">Redução de custos + agilidade</h3>
@@ -1072,14 +1095,14 @@
               <blockquote class="quote">
                 <p>“Nosso compromisso é simples: eficiência e segurança em cada projeto, do planejamento à execução.”</p>
                 <div class="quote-person">
-                  <img src="img/lp-ceo.png" alt="Leandro Oliveira" />
+                  <img src="/lp/img/lp-ceo.png" alt="Leandro Oliveira" />
                   <div><strong>Leandro Oliveira</strong><span>CEO, Power Volt</span></div>
                 </div>
               </blockquote>
               <blockquote class="quote">
                 <p>“O método Turn-Key permite entregar projetos completos com qualidade e agilidade — resultados reais para o cliente.”</p>
                 <div class="quote-person">
-                  <img src="img/lp-ceo.png" alt="Anderson Cardoso" />
+                  <img src="/lp/img/lp-ceo.png" alt="Anderson Cardoso" />
                   <div><strong>Anderson Cardoso</strong><span>Co-Diretor, Power Volt</span></div>
                 </div>
               </blockquote>
@@ -1099,7 +1122,7 @@
         <div class="model-shell reveal" id="modelShell">
           <model-viewer
             id="pvModel"
-            src="img/modern_building.glb"
+            src="/lp/img/modern_building.glb"
             alt="Modelo 3D do projeto"
             camera-controls
             touch-action="none"
@@ -1134,8 +1157,8 @@
         </div>
         <div class="compare-wrap reveal">
           <div class="compare" id="compare" role="img" aria-label="Comparativo antes e depois do projeto">
-            <img src="img/compare-antes.png" alt="Antes — rascunho BIM" draggable="false" />
-            <img class="compare-after" id="compareAfter" src="img/compare-depois.jpg" alt="Depois — modelo integrado" draggable="false" />
+            <img src="/lp/img/compare-antes.png" alt="Antes — rascunho BIM" draggable="false" />
+            <img class="compare-after" id="compareAfter" src="/lp/img/compare-depois.jpg" alt="Depois — modelo integrado" draggable="false" />
             <span class="compare-label before">Antes</span>
             <span class="compare-label after">Depois</span>
             <div class="compare-handle" id="compareHandle">
@@ -1209,7 +1232,7 @@
         </div>
         <div class="news-grid">
           <article class="news-card reveal">
-            <img src="img/news-industria.jpg" alt="" />
+            <img src="/lp/img/news-industria.jpg" alt="" />
             <div class="body">
               <time>Out 2025</time>
               <h3>Indústria sob juros elevados</h3>
@@ -1221,7 +1244,7 @@
             </div>
           </article>
           <article class="news-card reveal">
-            <img src="img/lp-automacao.png" alt="" />
+            <img src="/lp/img/lp-automacao.png" alt="" />
             <div class="body">
               <time>Guia</time>
               <h3>Automação que reduz parada</h3>
@@ -1233,7 +1256,7 @@
             </div>
           </article>
           <article class="news-card reveal">
-            <img src="img/lp-turnkey.png" alt="" />
+            <img src="/lp/img/lp-turnkey.png" alt="" />
             <div class="body">
               <time>Método</time>
               <h3>Turn-Key sem surpresa</h3>
@@ -1251,7 +1274,7 @@
     <section class="final-cta">
       <div class="container">
         <div class="final-box reveal">
-          <img src="img/lp-obras.png" alt="" />
+          <img src="/lp/img/lp-obras.png" alt="" />
           <div class="final-inner">
             <p class="eyebrow">Juntos pela inovação</p>
             <h2>Sua solução começa no WhatsApp</h2>
@@ -1375,11 +1398,30 @@
 
     function revealAll() {
       document.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-shown"));
+      document.getElementById("header")?.classList.add("is-ready");
     }
 
     function showReveal(el) {
       el.classList.add("is-shown");
-      if (window.gsap) gsap.set(el, { clearProps: "opacity,transform" });
+      if (window.gsap) gsap.set(el, { clearProps: "opacity,transform,filter" });
+    }
+
+    function splitWords(el) {
+      if (!el || el.dataset.split === "1") return [];
+      if (el.children.length) return [];
+      const text = el.textContent.trim();
+      const words = text.split(/\s+/);
+      el.textContent = "";
+      el.dataset.split = "1";
+      return words.map((w) => {
+        const wrap = document.createElement("span");
+        wrap.className = "split-word";
+        const inner = document.createElement("span");
+        inner.textContent = w;
+        wrap.appendChild(inner);
+        el.appendChild(wrap);
+        return inner;
+      });
     }
 
     if (typeof gsap === "undefined") {
@@ -1387,6 +1429,7 @@
       revealAll();
     } else {
       gsap.registerPlugin(ScrollTrigger);
+      gsap.defaults({ ease: "power3.out", overwrite: "auto" });
 
       const mm = gsap.matchMedia();
 
@@ -1395,44 +1438,100 @@
       });
 
       mm.add("(prefers-reduced-motion: no-preference)", () => {
-        gsap.fromTo(".hero-media img",
-          { scale: 1.18 },
-          { scale: 1, duration: 2.2, ease: "power3.out" }
-        );
+        const headerEl = document.getElementById("header");
 
-        gsap.fromTo(".hero .reveal",
-          { y: 40, opacity: 0 },
-          {
-            y: 0,
+        const heroTl = gsap.timeline({ defaults: { ease: "power3.out" } });
+        heroTl
+          .fromTo(".hero-media img", { scale: 1.28, y: 40 }, { scale: 1.08, y: 0, duration: 2.4 }, 0)
+          .fromTo(headerEl, { yPercent: -120, opacity: 0 }, {
+            yPercent: 0, opacity: 1, duration: 0.9,
+            onStart: () => headerEl?.classList.add("is-ready")
+          }, 0.15)
+          .fromTo(".hero .eyebrow", { y: 30, opacity: 0, filter: "blur(8px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.7 }, 0.35)
+          .fromTo(".hero-logo", { y: 50, opacity: 0, scale: 0.86, rotate: -4 }, { y: 0, opacity: 1, scale: 1, rotate: 0, duration: 1.05 }, 0.45)
+          .fromTo(".hero h1", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.95 }, 0.6)
+          .fromTo(".hero .lead", { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, 0.75)
+          .fromTo(".hero-actions .btn-wa", { y: 28, opacity: 0, scale: 0.92 }, { y: 0, opacity: 1, scale: 1, duration: 0.7, stagger: 0.1 }, 0.9)
+          .add(() => {
+            gsap.utils.toArray(".hero .reveal").forEach(showReveal);
+          });
+
+        gsap.utils.toArray("h2").forEach((h2) => {
+          const words = splitWords(h2);
+          if (!words.length) return;
+          gsap.set(words, { yPercent: 110, opacity: 0 });
+          gsap.to(words, {
+            yPercent: 0,
             opacity: 1,
-            duration: 0.9,
-            stagger: 0.12,
-            ease: "power3.out",
-            delay: 0.1,
-            onComplete: function () {
-              gsap.utils.toArray(".hero .reveal").forEach(showReveal);
-            }
-          }
-        );
+            duration: 0.85,
+            stagger: 0.06,
+            ease: "power4.out",
+            scrollTrigger: { trigger: h2, start: "top 88%", once: true }
+          });
+        });
 
-        gsap.utils.toArray(".reveal").forEach((el) => {
+        gsap.utils.toArray(".reveal").forEach((el, i) => {
           if (el.closest(".hero")) return;
-          gsap.fromTo(el,
-            { y: 36, opacity: 0 },
+          const fromLeft = el.matches(".faq-cta-card, .offer-list, .metric-stack");
+          const fromScale = el.matches(".model-shell, .compare-wrap, .final-box, .big-visual, .offer-visual");
+          const varsFrom = fromScale
+            ? { y: 50, opacity: 0, scale: 0.92, filter: "blur(10px)" }
+            : fromLeft
+              ? { x: i % 2 ? 48 : -48, opacity: 0, filter: "blur(6px)" }
+              : { y: 44, opacity: 0, filter: "blur(6px)" };
+
+          gsap.fromTo(el, varsFrom, {
+            x: 0, y: 0, opacity: 1, scale: 1, filter: "blur(0px)",
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: { trigger: el, start: "top 88%", once: true },
+            onComplete: () => showReveal(el)
+          });
+        });
+
+        [
+          ["#offerList .offer-item", { y: 30, opacity: 0 }],
+          [".metric", { y: 40, opacity: 0, scale: 0.95 }],
+          [".kpi", { y: 24, opacity: 0 }],
+          [".quote", { y: 36, opacity: 0, x: -20 }],
+          [".news-card", { y: 50, opacity: 0 }],
+          ["#faqList .faq-item", { y: 24, opacity: 0 }],
+          [".process-card", { y: 60, opacity: 0, scale: 0.9 }]
+        ].forEach(([sel, from]) => {
+          const nodes = gsap.utils.toArray(sel);
+          if (!nodes.length) return;
+          gsap.fromTo(nodes, from, {
+            y: 0, x: 0, opacity: 1, scale: 1,
+            duration: 0.85,
+            stagger: 0.1,
+            ease: "power3.out",
+            scrollTrigger: { trigger: nodes[0].parentElement || nodes[0], start: "top 85%", once: true }
+          });
+        });
+
+        gsap.utils.toArray(".offer-visual img, .big-visual img, .area-card img, .news-card img, .final-box > img, .process-card img").forEach((img) => {
+          gsap.fromTo(img,
+            { scale: 1.18, opacity: 0.45 },
             {
-              y: 0,
+              scale: 1,
               opacity: 1,
-              duration: 0.85,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: el,
-                start: "top 90%",
-                once: true
-              },
-              onComplete: () => showReveal(el)
+              duration: 1.35,
+              ease: "power2.out",
+              scrollTrigger: { trigger: img, start: "top 90%", once: true }
             }
           );
         });
+
+        gsap.fromTo(".stat",
+          { y: 40, opacity: 0, scale: 0.9 },
+          {
+            y: 0, opacity: 1, scale: 1,
+            duration: 0.8,
+            stagger: 0.12,
+            ease: "back.out(1.4)",
+            scrollTrigger: { trigger: ".stats", start: "top 80%", once: true }
+          }
+        );
 
         document.querySelectorAll("[data-count]").forEach((el) => {
           const target = Number(el.dataset.count);
@@ -1445,15 +1544,31 @@
             onEnter: () => {
               gsap.to(obj, {
                 v: target,
-                duration: 1.4,
+                duration: 1.6,
                 ease: "power2.out",
-                onUpdate: () => {
-                  el.textContent = `${Math.round(obj.v)}${suffix}`;
-                }
+                onUpdate: () => { el.textContent = `${Math.round(obj.v)}${suffix}`; }
               });
             }
           });
         });
+
+        gsap.utils.toArray(".btn-wa").forEach((btn) => {
+          if (btn.closest(".hero") || btn.closest(".site-header")) return;
+          gsap.fromTo(btn,
+            { y: 20, opacity: 0, scale: 0.9 },
+            {
+              y: 0, opacity: 1, scale: 1,
+              duration: 0.7,
+              ease: "back.out(1.6)",
+              scrollTrigger: { trigger: btn, start: "top 92%", once: true }
+            }
+          );
+        });
+
+        gsap.fromTo(".wa-float",
+          { scale: 0, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 0.8, ease: "elastic.out(1, 0.5)", delay: 1.4 }
+        );
 
         const track = document.getElementById("processTrack");
         const pin = document.getElementById("processPin");
@@ -1475,10 +1590,21 @@
         }
 
         gsap.to(".hero-media img", {
-          yPercent: 12,
+          yPercent: 18,
           ease: "none",
           scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true }
         });
+
+        gsap.fromTo("#modelShell, .compare-wrap",
+          { y: 60, opacity: 0, scale: 0.94 },
+          {
+            y: 0, opacity: 1, scale: 1,
+            duration: 1.1,
+            stagger: 0.15,
+            ease: "power3.out",
+            scrollTrigger: { trigger: "#vr", start: "top 75%", once: true }
+          }
+        );
       });
     }
 
@@ -1486,7 +1612,8 @@
       document.querySelectorAll(".reveal:not(.is-shown)").forEach((el) => {
         if (getComputedStyle(el).opacity === "0") el.classList.add("is-shown");
       });
-    }, 2000);
+      document.getElementById("header")?.classList.add("is-ready");
+    }, 2500);
   </script>
 </body>
 </html>

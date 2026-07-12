@@ -690,8 +690,9 @@
     /* VR / 3D */
     .viz-section {
       background:
-        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(227,33,27,0.12), transparent 60%),
-        #080808;
+        radial-gradient(ellipse 70% 55% at 50% 18%, rgba(227,33,27,0.22), transparent 58%),
+        radial-gradient(ellipse 45% 40% at 85% 90%, rgba(227,33,27,0.08), transparent 55%),
+        #050505;
     }
     .viz-head {
       text-align: center;
@@ -702,13 +703,14 @@
       display: inline-flex;
       align-items: center;
       gap: 14px;
+      color: rgba(255,255,255,0.7);
     }
     .viz-head .eyebrow::before,
     .viz-head .eyebrow::after {
       content: "";
       width: 40px;
       height: 1px;
-      background: rgba(248,216,13,0.45);
+      background: rgba(227,33,27,0.55);
     }
     .viz-head h2 {
       font-family: var(--font-display);
@@ -716,24 +718,28 @@
       text-transform: uppercase;
       line-height: 0.92;
       margin-top: 8px;
+      color: #fff;
+    }
+    .viz-head .lead {
+      color: rgba(244,244,246,0.72);
     }
     .model-shell {
       position: relative;
       border-radius: 28px;
       overflow: hidden;
-      border: 1px solid var(--pv-line);
+      border: 1px solid rgba(227,33,27,0.28);
       background:
-        url("/lp/img/lp-hero.png") center/cover,
-        #111;
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(227,33,27,0.06), transparent 65%),
+        #0a0a0a;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.04),
+        0 24px 60px rgba(0,0,0,0.45),
+        0 0 80px rgba(227,33,27,0.08);
       min-height: 520px;
       isolation: isolate;
     }
     .model-shell::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(8,8,8,0.72);
-      z-index: 0;
+      display: none;
     }
     .model-shell model-viewer {
       position: relative;
@@ -741,7 +747,7 @@
       width: 100%;
       height: 520px;
       background: transparent;
-      --progress-bar-color: var(--pv-yellow);
+      --progress-bar-color: var(--pv-red);
     }
     .model-hint {
       position: absolute;

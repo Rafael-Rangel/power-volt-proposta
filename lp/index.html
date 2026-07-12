@@ -128,15 +128,18 @@
     }
     .nav {
       display: grid;
-      grid-template-columns: auto 1fr auto;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
       gap: 16px;
     }
     .brand {
       display: flex;
       align-items: center;
+      justify-content: center;
       flex-shrink: 0;
       z-index: 2;
+      grid-column: 2;
+      justify-self: center;
     }
     .brand img {
       height: 48px;
@@ -146,12 +149,14 @@
     .nav-links {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       gap: 4px;
       list-style: none;
       font-size: 13px;
       font-weight: 600;
       color: rgba(255,255,255,0.72);
+      grid-column: 1;
+      justify-self: start;
     }
     .nav-links a {
       display: inline-flex;
@@ -170,6 +175,8 @@
       gap: 10px;
       flex-shrink: 0;
       z-index: 2;
+      grid-column: 3;
+      justify-self: end;
     }
     .nav .btn-wa {
       padding: 10px 16px;
@@ -1010,8 +1017,16 @@
 
     @media (max-width: 960px) {
       .nav {
-        display: flex;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+      }
+      .brand {
+        grid-column: 2;
+        justify-self: center;
+      }
+      .nav-actions {
+        grid-column: 3;
+        justify-self: end;
       }
       .nav-toggle { display: inline-flex; }
       .nav-actions .btn-wa { display: none; }
@@ -1019,10 +1034,14 @@
         position: fixed;
         inset: 0 0 auto;
         top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
         padding: 88px 24px 28px;
         margin: 0;
         flex-direction: column;
         align-items: stretch;
+        justify-content: flex-start;
         gap: 4px;
         background: rgba(7,7,7,0.97);
         border-bottom: 1px solid var(--pv-line);
@@ -1031,6 +1050,8 @@
         pointer-events: none;
         transition: transform 0.35s var(--ease), opacity 0.25s;
         z-index: 1;
+        grid-column: 1 / -1;
+        justify-self: stretch;
       }
       .site-header.is-open .nav-links {
         transform: translateY(0);
@@ -1371,9 +1392,6 @@
 
   <header class="site-header" id="header">
     <div class="container nav">
-      <a class="brand" href="#topo" aria-label="Power Volt">
-        <img src="/lp/img/logo.png" alt="Power Volt" />
-      </a>
       <ul class="nav-links" id="navLinks">
         <li><a href="#servicos">Serviços</a></li>
         <li><a href="#diferenciais">Diferenciais</a></li>
@@ -1388,6 +1406,9 @@
           </a>
         </li>
       </ul>
+      <a class="brand" href="#topo" aria-label="Power Volt">
+        <img src="/lp/img/logo.png" alt="Power Volt" />
+      </a>
       <div class="nav-actions">
         <a class="btn-wa js-wa" href="#" data-msg="Quero falar com a equipe Power Volt">
           <svg aria-hidden="true"><use href="#ico-wa"></use></svg>

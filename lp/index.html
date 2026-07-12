@@ -110,13 +110,13 @@
       align-items: center;
       gap: 12px;
     }
-    .brand img { height: 42px; width: auto; }
-    .brand-name {
-      font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+    .brand img { height: 48px; width: auto; }
+    .hero-logo {
+      display: block;
+      width: min(280px, 55vw);
+      height: auto;
+      margin-bottom: 18px;
+      filter: drop-shadow(0 8px 28px rgba(0,0,0,0.45));
     }
     .nav-links {
       display: flex;
@@ -161,19 +161,6 @@
       position: relative;
       z-index: 1;
       padding: 140px 0 72px;
-    }
-    .hero-brand {
-      font-family: var(--font-display);
-      font-size: clamp(56px, 12vw, 128px);
-      font-weight: 800;
-      text-transform: uppercase;
-      line-height: 0.85;
-      letter-spacing: -0.03em;
-      margin-bottom: 18px;
-      background: linear-gradient(100deg, #fff 20%, var(--pv-yellow) 55%, var(--pv-red) 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
     }
     .hero h1 {
       font-family: var(--font-display);
@@ -669,7 +656,7 @@
       .offer-visual { min-height: 280px; }
       .faq-cta-card { position: static; }
       .process-card { width: 82vw; height: 54vh; }
-      .hero-brand { font-size: clamp(48px, 16vw, 84px); }
+      .hero-logo { width: min(220px, 62vw); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -695,7 +682,6 @@
     <div class="container nav">
       <a class="brand" href="#topo" aria-label="Power Volt">
         <img src="img/logo.png" alt="Power Volt" />
-        <span class="brand-name">Power Volt</span>
       </a>
       <ul class="nav-links">
         <li><a href="#servicos">Serviços</a></li>
@@ -717,7 +703,7 @@
       </div>
       <div class="container hero-content">
         <p class="eyebrow reveal">Engenharia · Automação · Turn-Key</p>
-        <div class="hero-brand reveal">Power Volt</div>
+        <img class="hero-logo reveal" src="img/logo.png" alt="Power Volt" />
         <h1 class="reveal">Potencialize sua indústria com soluções sob medida</h1>
         <p class="lead reveal">Automação, instalações elétricas, estruturas e obras industriais — do diagnóstico à entrega final, com método turn-key.</p>
         <div class="hero-actions reveal">

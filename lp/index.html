@@ -245,20 +245,49 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 70% 55% at 50% 35%, rgba(0,0,0,0.25), transparent 70%),
+        radial-gradient(ellipse 70% 55% at 50% 32%, rgba(0,0,0,0.22), transparent 68%),
         linear-gradient(180deg,
-          rgba(7,7,7,0.72) 0%,
-          rgba(7,7,7,0.55) 28%,
-          rgba(7,7,7,0.62) 48%,
-          rgba(7,7,7,0.88) 72%,
-          rgba(7,7,7,0.97) 100%),
-        radial-gradient(ellipse 80% 60% at 0% 0%, rgba(227,33,27,0.28), transparent 55%),
-        radial-gradient(ellipse 70% 50% at 100% 100%, rgba(227,33,27,0.2), transparent 55%);
+          rgba(7,7,7,0.7) 0%,
+          rgba(7,7,7,0.48) 30%,
+          rgba(7,7,7,0.35) 52%,
+          rgba(7,7,7,0.2) 72%,
+          transparent 100%),
+        radial-gradient(ellipse 80% 60% at 0% 0%, rgba(227,33,27,0.26), transparent 55%),
+        radial-gradient(ellipse 55% 40% at 100% 20%, rgba(227,33,27,0.14), transparent 50%);
+    }
+    /* Meia-lua: transição suave hero → carrossel */
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -18%;
+      z-index: 2;
+      width: 170%;
+      height: 58%;
+      transform: translateX(-50%);
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 46% 72% at 50% 78%,
+          #050505 0%,
+          #050505 34%,
+          rgba(5,5,5,0.94) 48%,
+          rgba(5,5,5,0.55) 62%,
+          rgba(5,5,5,0.18) 74%,
+          transparent 86%);
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 28%;
+      z-index: 2;
+      pointer-events: none;
+      background: linear-gradient(180deg, transparent 0%, rgba(5,5,5,0.55) 55%, #050505 100%);
     }
     .hero-content {
       position: relative;
-      z-index: 1;
-      padding: 140px 0 72px;
+      z-index: 3;
+      padding: 140px 0 110px;
       display: flex;
       justify-content: center;
       align-items: flex-end;
@@ -315,6 +344,9 @@
       min-height: 180px;
       display: flex;
       align-items: center;
+      margin-top: -48px;
+      position: relative;
+      z-index: 4;
       background: #050505;
       border-bottom: 1px solid var(--pv-line);
       overflow: hidden;

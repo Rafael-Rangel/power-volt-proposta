@@ -663,6 +663,196 @@
       .marquee-track, .wa-float { animation: none !important; }
       .reveal { opacity: 1; transform: none; }
     }
+
+    /* VR / 3D */
+    .viz-section {
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(227,33,27,0.12), transparent 60%),
+        #080808;
+    }
+    .viz-head {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 32px;
+    }
+    .viz-head .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .viz-head .eyebrow::before,
+    .viz-head .eyebrow::after {
+      content: "";
+      width: 40px;
+      height: 1px;
+      background: rgba(248,216,13,0.45);
+    }
+    .viz-head h2 {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 6vw, 64px);
+      text-transform: uppercase;
+      line-height: 0.92;
+      margin-top: 8px;
+    }
+    .model-shell {
+      position: relative;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid var(--pv-line);
+      background:
+        url("img/lp-hero.png") center/cover,
+        #111;
+      min-height: 520px;
+      isolation: isolate;
+    }
+    .model-shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(8,8,8,0.72);
+      z-index: 0;
+    }
+    .model-shell model-viewer {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 520px;
+      background: transparent;
+      --progress-bar-color: var(--pv-yellow);
+    }
+    .model-hint {
+      position: absolute;
+      left: 18px;
+      bottom: 18px;
+      z-index: 2;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      background: rgba(0,0,0,0.45);
+      border: 1px solid var(--pv-line);
+      padding: 8px 12px;
+      border-radius: 999px;
+      backdrop-filter: blur(8px);
+      pointer-events: none;
+    }
+    .model-fs {
+      position: absolute;
+      right: 14px;
+      bottom: 14px;
+      z-index: 3;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.2);
+      display: grid;
+      place-items: center;
+      color: #fff;
+      cursor: pointer;
+    }
+    .model-fs:hover { border-color: var(--pv-yellow); color: var(--pv-yellow); }
+    .model-fs svg { width: 18px; height: 18px; fill: currentColor; }
+    .model-shell:fullscreen,
+    .model-shell:-webkit-full-screen {
+      border-radius: 0;
+      min-height: 100vh;
+    }
+    .model-shell:fullscreen model-viewer,
+    .model-shell:-webkit-full-screen model-viewer {
+      height: 100vh;
+    }
+    .viz-actions {
+      display: flex;
+      justify-content: center;
+      margin-top: 22px;
+    }
+
+    /* Antes / Depois */
+    .compare-section {
+      background: #0a0a0a;
+    }
+    .compare-wrap {
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid var(--pv-line);
+      background: #111;
+    }
+    .compare {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 11;
+      user-select: none;
+      touch-action: none;
+      cursor: ew-resize;
+      overflow: hidden;
+      background: #0e0e10;
+    }
+    .compare img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+    }
+    .compare-after {
+      clip-path: inset(0 0 0 50%);
+    }
+    .compare-handle {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      background: #fff;
+      transform: translateX(-50%);
+      z-index: 2;
+      box-shadow: 0 0 16px rgba(0,0,0,0.45);
+    }
+    .compare-knob {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #0f172a;
+      border: 2px solid #fff;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .compare-knob svg {
+      width: 22px;
+      height: 22px;
+      fill: #fff;
+    }
+    .compare-label {
+      position: absolute;
+      top: 16px;
+      z-index: 3;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(8px);
+      pointer-events: none;
+    }
+    .compare-label.before { left: 16px; color: var(--pv-yellow); }
+    .compare-label.after { right: 16px; color: var(--wa); }
+
+    @media (max-width: 960px) {
+      .model-shell model-viewer { height: 420px; }
+      .model-shell { min-height: 420px; }
+      .compare { aspect-ratio: 4 / 3; }
+    }
   </style>
 </head>
 <body>
@@ -685,8 +875,8 @@
       </a>
       <ul class="nav-links">
         <li><a href="#servicos">Serviços</a></li>
-        <li><a href="#diferenciais">Diferenciais</a></li>
-        <li><a href="#processo">Processo</a></li>
+        <li><a href="#vr">3D / VR</a></li>
+        <li><a href="#comparativo">Antes & Depois</a></li>
         <li><a href="#faq">FAQ</a></li>
       </ul>
       <a class="btn-wa js-wa" href="#" data-msg="Quero falar com a equipe Power Volt">
@@ -899,6 +1089,71 @@
       </div>
     </section>
 
+    <section class="viz-section" id="vr">
+      <div class="container">
+        <div class="viz-head reveal">
+          <p class="eyebrow">Visualize seu projeto</p>
+          <h2>Em <span class="accent">realidade</span> virtual</h2>
+          <p class="lead" style="margin:14px auto 0">Gire, dê zoom e explore o modelo 3D. Arraste com o mouse ou use dois dedos no celular.</p>
+        </div>
+        <div class="model-shell reveal" id="modelShell">
+          <model-viewer
+            id="pvModel"
+            src="img/modern_building.glb"
+            alt="Modelo 3D do projeto"
+            camera-controls
+            touch-action="none"
+            interaction-prompt="auto"
+            shadow-intensity="0.9"
+            exposure="1.05"
+            environment-image="neutral"
+            loading="lazy"
+            ar
+            ar-modes="webxr scene-viewer quick-look"
+          ></model-viewer>
+          <div class="model-hint">Arraste · Scroll/pinch para zoom</div>
+          <button type="button" class="model-fs" id="modelFullscreen" aria-label="Tela cheia">
+            <svg viewBox="0 0 512 512" aria-hidden="true"><path d="m104 72h48a24 24 0 0 0 24-24 24 24 0 0 0 -24-24h-104a24 24 0 0 0 -24 24v104a24 24 0 0 0 48 0v-48l116 116a22.627 22.627 0 0 0 32 0 22.627 22.627 0 0 0 0-32z"/><path d="m220 292a22.627 22.627 0 0 0 -32 0l-116 116v-48a24 24 0 0 0 -48 0v104a24 24 0 0 0 24 24h104a24 24 0 0 0 24-24 24 24 0 0 0 -24-24h-48l116-116a22.627 22.627 0 0 0 0-32z"/><path d="m464 24h-104a24 24 0 0 0 -24 24 24 24 0 0 0 24 24h48l-116 116a22.627 22.627 0 0 0 0 32 22.627 22.627 0 0 0 32 0l116-116v48a24 24 0 0 0 48 0v-104a24 24 0 0 0 -24-24z"/><path d="m464 336a24 24 0 0 0 -24 24v48l-116-116a22.627 22.627 0 0 0 -32 0 22.627 22.627 0 0 0 0 32l116 116h-48a24 24 0 0 0 -24 24 24 24 0 0 0 24 24h104a24 24 0 0 0 24-24v-104a24 24 0 0 0 -24-24z"/></svg>
+          </button>
+        </div>
+        <div class="viz-actions reveal">
+          <a class="btn-wa js-wa" href="#" data-msg="Quero visualizar meu projeto em 3D / VR com a Power Volt">
+            <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+            Quero ver meu projeto em 3D
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="compare-section" id="comparativo">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Projeto técnico × entrega</p>
+          <h2>Antes e <span class="accent-y">depois</span></h2>
+          <p class="lead">Arraste a barra para comparar o rascunho BIM com a visualização integrada do projeto.</p>
+        </div>
+        <div class="compare-wrap reveal">
+          <div class="compare" id="compare" role="img" aria-label="Comparativo antes e depois do projeto">
+            <img src="img/compare-antes.png" alt="Antes — rascunho BIM" draggable="false" />
+            <img class="compare-after" id="compareAfter" src="img/compare-depois.jpg" alt="Depois — modelo integrado" draggable="false" />
+            <span class="compare-label before">Antes</span>
+            <span class="compare-label after">Depois</span>
+            <div class="compare-handle" id="compareHandle">
+              <div class="compare-knob" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M8 12H3M21 12h-5M8 12l3-3M8 12l3 3M16 12l-3-3M16 12l-3 3" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="viz-actions reveal">
+          <a class="btn-wa red js-wa" href="#" data-msg="Quero um comparativo técnico do meu projeto com a Power Volt">
+            <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+            Solicitar análise do meu projeto
+          </a>
+        </div>
+      </div>
+    </section>
+
     <section id="faq">
       <div class="container">
         <div class="section-head reveal">
@@ -1025,6 +1280,7 @@
     <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
   </a>
 
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
   <script>
@@ -1074,6 +1330,48 @@
         }
       });
     });
+
+    /* Fullscreen 3D */
+    const modelShell = document.getElementById("modelShell");
+    const fsBtn = document.getElementById("modelFullscreen");
+    if (fsBtn && modelShell) {
+      fsBtn.addEventListener("click", () => {
+        if (!document.fullscreenElement) {
+          (modelShell.requestFullscreen || modelShell.webkitRequestFullscreen)?.call(modelShell);
+        } else {
+          (document.exitFullscreen || document.webkitExitFullscreen)?.call(document);
+        }
+      });
+    }
+
+    /* Antes / Depois slider */
+    const compare = document.getElementById("compare");
+    const compareAfter = document.getElementById("compareAfter");
+    const compareHandle = document.getElementById("compareHandle");
+    if (compare && compareAfter && compareHandle) {
+      let dragging = false;
+      const setPos = (clientX) => {
+        const rect = compare.getBoundingClientRect();
+        let pct = ((clientX - rect.left) / rect.width) * 100;
+        pct = Math.max(4, Math.min(96, pct));
+        compareAfter.style.clipPath = `inset(0 0 0 ${pct}%)`;
+        compareHandle.style.left = `${pct}%`;
+      };
+      const onDown = (e) => {
+        dragging = true;
+        compare.setPointerCapture?.(e.pointerId);
+        setPos(e.clientX);
+      };
+      const onMove = (e) => {
+        if (!dragging) return;
+        setPos(e.clientX);
+      };
+      const onUp = () => { dragging = false; };
+      compare.addEventListener("pointerdown", onDown);
+      window.addEventListener("pointermove", onMove);
+      window.addEventListener("pointerup", onUp);
+      setPos(compare.getBoundingClientRect().left + compare.getBoundingClientRect().width * 0.5);
+    }
 
     function revealAll() {
       document.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-shown"));

@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="preload" as="image" href="/lp/img/lp-hero.webp" fetchpriority="high" />
   <link rel="preload" as="image" href="/lp/img/logo-sm.webp" />
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all';document.documentElement.classList.add('fonts-ready')" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
   <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet" /></noscript>
   <style>
     :root {
@@ -367,14 +367,21 @@
       padding: clamp(28px, 4vw, 42px) clamp(22px, 4vw, 40px);
       border-radius: 28px;
       background:
-        linear-gradient(160deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03) 45%, rgba(227,33,27,0.08)),
-        rgba(8, 8, 10, 0.52);
+        linear-gradient(160deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04) 45%, rgba(227,33,27,0.1)),
+        rgba(10, 10, 12, 0.88);
       border: 1px solid rgba(255,255,255,0.16);
       box-shadow:
         0 24px 60px rgba(0,0,0,0.45),
         inset 0 1px 0 rgba(255,255,255,0.12);
-      backdrop-filter: blur(18px) saturate(1.2);
-      -webkit-backdrop-filter: blur(18px) saturate(1.2);
+    }
+    @media (min-width: 961px) {
+      .hero-card {
+        background:
+          linear-gradient(160deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03) 45%, rgba(227,33,27,0.08)),
+          rgba(8, 8, 10, 0.55);
+        backdrop-filter: blur(14px) saturate(1.15);
+        -webkit-backdrop-filter: blur(14px) saturate(1.15);
+      }
     }
     .hero-card .eyebrow {
       margin-bottom: 14px;
@@ -388,9 +395,6 @@
       line-height: 1.08;
       margin-bottom: 14px;
       text-shadow: 0 2px 24px rgba(0,0,0,0.35);
-    }
-    .fonts-ready .hero h1 {
-      font-family: var(--font-display);
     }
     .hero .lead {
       margin-left: auto;
@@ -1406,8 +1410,8 @@
       .hero { min-height: 100svh; }
       .hero-card {
         padding: 22px 18px;
-        -webkit-backdrop-filter: blur(10px) saturate(1.05);
-        backdrop-filter: blur(10px) saturate(1.05);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
       }
       .hero h1 { max-width: 16ch; }
       .hero-actions { flex-direction: column; align-items: stretch; }
@@ -2536,17 +2540,12 @@
 
         const heroTl = gsap.timeline({ defaults: { ease: "power3.out" } });
         const mobile = window.matchMedia("(max-width: 960px)").matches;
+        headerEl?.classList.add("is-ready");
+        // Keep hero text/card un-animated so LCP paints immediately
         heroTl
-          .fromTo(".hero-media img", { scale: mobile ? 1.12 : 1.28, y: mobile ? 16 : 40 }, { scale: 1.04, y: 0, duration: mobile ? 1.4 : 2.4 }, 0)
-          .fromTo(headerEl, { yPercent: -120 }, {
-            yPercent: 0, duration: 0.7,
-            onStart: () => headerEl?.classList.add("is-ready")
-          }, 0.05)
-          .fromTo(".hero-card", { y: mobile ? 16 : 28 }, { y: 0, duration: 0.7 }, 0.12)
-          .fromTo(".hero .eyebrow", { y: 14 }, { y: 0, duration: 0.5 }, 0.2)
-          // h1 stays visible for LCP — no opacity animation
-          .fromTo(".hero .lead", { y: 14 }, { y: 0, duration: 0.5 }, 0.32)
-          .fromTo(".hero-actions .btn-wa", { y: 12 }, { y: 0, duration: 0.45, stagger: 0.08 }, 0.4);
+          .fromTo(".hero-media img", { scale: mobile ? 1.08 : 1.2, y: mobile ? 10 : 28 }, { scale: 1.02, y: 0, duration: mobile ? 1.1 : 2 }, 0)
+          .fromTo(headerEl, { yPercent: -100 }, { yPercent: 0, duration: 0.55 }, 0.05)
+          .fromTo(".hero-actions .btn-wa", { y: 10, opacity: 0.01 }, { y: 0, opacity: 1, duration: 0.4, stagger: 0.06 }, 0.25);
 
         if (!mobile) {
           gsap.utils.toArray("h2").forEach((h2) => {

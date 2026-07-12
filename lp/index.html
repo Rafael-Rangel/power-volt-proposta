@@ -119,54 +119,107 @@
     .site-header.is-ready {
       transform: none;
     }
-    .site-header.is-scrolled {
-      background: rgba(7,7,7,0.88);
+    .site-header.is-scrolled,
+    .site-header.is-open {
+      background: rgba(7,7,7,0.92);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--pv-line);
       padding: 10px 0;
     }
     .nav {
       display: grid;
-      grid-template-columns: 1fr auto 1fr;
+      grid-template-columns: auto 1fr auto;
       align-items: center;
       gap: 16px;
     }
     .brand {
       display: flex;
       align-items: center;
-      justify-content: center;
-      grid-column: 2;
+      flex-shrink: 0;
+      z-index: 2;
     }
     .brand img {
-      height: 52px;
+      height: 48px;
       width: auto;
       display: block;
     }
-    .hero-logo {
-      display: block;
-      width: min(260px, 52vw);
-      height: auto;
-      margin: 0 auto 20px;
-      filter: drop-shadow(0 8px 28px rgba(0,0,0,0.45));
-    }
     .nav-links {
       display: flex;
-      gap: 22px;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
       list-style: none;
       font-size: 13px;
       font-weight: 600;
       color: rgba(255,255,255,0.72);
-      grid-column: 1;
-      justify-self: start;
     }
-    .nav-links a:hover { color: var(--pv-yellow); }
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover {
+      color: #fff;
+      background: rgba(255,255,255,0.06);
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      z-index: 2;
+    }
     .nav .btn-wa {
       padding: 10px 16px;
       font-size: 13px;
-      grid-column: 3;
-      justify-self: end;
     }
-    .nav-toggle { display: none; }
+    .nav-toggle {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.04);
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      background: currentColor;
+      border-radius: 2px;
+      position: relative;
+      transition: background 0.2s;
+    }
+    .nav-toggle span::before,
+    .nav-toggle span::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 18px;
+      height: 2px;
+      background: currentColor;
+      border-radius: 2px;
+      transition: transform 0.25s var(--ease), top 0.25s var(--ease);
+    }
+    .nav-toggle span::before { top: -6px; }
+    .nav-toggle span::after { top: 6px; }
+    .site-header.is-open .nav-toggle span { background: transparent; }
+    .site-header.is-open .nav-toggle span::before {
+      top: 0;
+      transform: rotate(45deg);
+    }
+    .site-header.is-open .nav-toggle span::after {
+      top: 0;
+      transform: rotate(-45deg);
+    }
+    .nav-backdrop {
+      display: none;
+    }
 
     /* Hero */
     .hero {
@@ -833,12 +886,57 @@
 
     @media (max-width: 960px) {
       .nav {
-        grid-template-columns: 1fr auto;
+        display: flex;
+        justify-content: space-between;
       }
-      .nav-links { display: none; }
-      .brand { grid-column: 1; justify-self: start; }
-      .nav .btn-wa { grid-column: 2; }
       .nav-toggle { display: inline-flex; }
+      .nav-actions .btn-wa { display: none; }
+      .nav-links {
+        position: fixed;
+        inset: 0 0 auto;
+        top: 0;
+        padding: 88px 24px 28px;
+        margin: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+        background: rgba(7,7,7,0.97);
+        border-bottom: 1px solid var(--pv-line);
+        transform: translateY(-110%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.35s var(--ease), opacity 0.25s;
+        z-index: 1;
+      }
+      .site-header.is-open .nav-links {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .nav-links a {
+        padding: 14px 16px;
+        font-size: 16px;
+        border-radius: 14px;
+      }
+      .nav-links .nav-mobile-cta {
+        display: flex;
+        margin-top: 10px;
+        justify-content: center;
+      }
+      .nav-backdrop {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.55);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+        z-index: 40;
+      }
+      .nav-backdrop.is-on {
+        opacity: 1;
+        pointer-events: auto;
+      }
       .stats-row { grid-template-columns: 1fr 1fr; }
       .metric { grid-template-columns: 40px 72px 1fr; gap: 10px; }
       .metric b { font-size: 32px; }
@@ -849,7 +947,10 @@
       .offer-visual { min-height: 280px; }
       .faq-cta-card { position: static; }
       .process-card { width: 82vw; height: 54vh; }
-      .hero-logo { width: min(200px, 58vw); }
+    }
+
+    @media (min-width: 961px) {
+      .nav-links .nav-mobile-cta { display: none; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1146,21 +1247,35 @@
 
   <header class="site-header" id="header">
     <div class="container nav">
-      <ul class="nav-links">
-        <li><a href="#servicos">Serviços</a></li>
-        <li><a href="#vr">3D / VR</a></li>
-        <li><a href="#comparativo">Antes & Depois</a></li>
-        <li><a href="#faq">FAQ</a></li>
-      </ul>
       <a class="brand" href="#topo" aria-label="Power Volt">
         <img src="/lp/img/logo.png" alt="Power Volt" />
       </a>
-      <a class="btn-wa js-wa" href="#" data-msg="Quero falar com a equipe Power Volt">
-        <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
-        Orçamento
-      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#diferenciais">Diferenciais</a></li>
+        <li><a href="#processo">Processo</a></li>
+        <li><a href="#vr">3D / VR</a></li>
+        <li><a href="#comparativo">Antes & Depois</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li class="nav-mobile-cta">
+          <a class="btn-wa js-wa" href="#" data-msg="Quero falar com a equipe Power Volt">
+            <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+            Orçamento
+          </a>
+        </li>
+      </ul>
+      <div class="nav-actions">
+        <a class="btn-wa js-wa" href="#" data-msg="Quero falar com a equipe Power Volt">
+          <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+          Orçamento
+        </a>
+        <button class="nav-toggle" id="navToggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="navLinks">
+          <span></span>
+        </button>
+      </div>
     </div>
   </header>
+  <div class="nav-backdrop" id="navBackdrop"></div>
 
   <main id="topo">
     <section class="hero">
@@ -1169,7 +1284,6 @@
       </div>
       <div class="container hero-content">
         <p class="eyebrow reveal">Engenharia · Automação · Turn-Key</p>
-        <img class="hero-logo reveal" src="/lp/img/logo.png" alt="Power Volt" />
         <h1 class="reveal">Potencialize sua indústria com soluções sob medida</h1>
         <p class="lead reveal">Automação, instalações elétricas, estruturas e obras industriais — do diagnóstico à entrega final, com método turn-key.</p>
         <div class="hero-actions reveal">
@@ -1621,6 +1735,34 @@
     });
 
     const header = document.getElementById("header");
+    const navToggle = document.getElementById("navToggle");
+    const navBackdrop = document.getElementById("navBackdrop");
+    const closeNav = () => {
+      header?.classList.remove("is-open");
+      navToggle?.setAttribute("aria-expanded", "false");
+      navToggle?.setAttribute("aria-label", "Abrir menu");
+      navBackdrop?.classList.remove("is-on");
+      document.body.style.overflow = "";
+    };
+    const openNav = () => {
+      header?.classList.add("is-open");
+      navToggle?.setAttribute("aria-expanded", "true");
+      navToggle?.setAttribute("aria-label", "Fechar menu");
+      navBackdrop?.classList.add("is-on");
+      document.body.style.overflow = "hidden";
+    };
+    if (navToggle && header) {
+      navToggle.addEventListener("click", () => {
+        if (header.classList.contains("is-open")) closeNav();
+        else openNav();
+      });
+      navBackdrop?.addEventListener("click", closeNav);
+      header.querySelectorAll(".nav-links a").forEach((a) => a.addEventListener("click", closeNav));
+      window.addEventListener("keydown", (e) => { if (e.key === "Escape") closeNav(); });
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 960) closeNav();
+      });
+    }
     if (header) {
       const onScrollHeader = () => header.classList.toggle("is-scrolled", window.scrollY > 40);
       onScrollHeader();
@@ -1749,10 +1891,9 @@
             onStart: () => headerEl?.classList.add("is-ready")
           }, 0.15)
           .fromTo(".hero .eyebrow", { y: 30, opacity: 0, filter: "blur(8px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.7 }, 0.35)
-          .fromTo(".hero-logo", { y: 50, opacity: 0, scale: 0.86, rotate: -4 }, { y: 0, opacity: 1, scale: 1, rotate: 0, duration: 1.05 }, 0.45)
-          .fromTo(".hero h1", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.95 }, 0.6)
-          .fromTo(".hero .lead", { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, 0.75)
-          .fromTo(".hero-actions .btn-wa", { y: 28, opacity: 0, scale: 0.92 }, { y: 0, opacity: 1, scale: 1, duration: 0.7, stagger: 0.1 }, 0.9)
+          .fromTo(".hero h1", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.95 }, 0.5)
+          .fromTo(".hero .lead", { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, 0.65)
+          .fromTo(".hero-actions .btn-wa", { y: 28, opacity: 0, scale: 0.92 }, { y: 0, opacity: 1, scale: 1, duration: 0.7, stagger: 0.1 }, 0.8)
           .add(() => {
             gsap.utils.toArray(".hero .reveal").forEach(showReveal);
           });

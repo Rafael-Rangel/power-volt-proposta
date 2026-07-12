@@ -307,6 +307,56 @@
       justify-content: center;
     }
 
+    /* Logo strip below hero */
+    .logo-strip {
+      width: 100%;
+      max-width: 100%;
+      padding: 28px 0;
+      background: #050505;
+      border-bottom: 1px solid var(--pv-line);
+      overflow: hidden;
+    }
+    .logo-strip .logo-marquee {
+      display: flex;
+      width: 100%;
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent 0%, #000 12.5%, #000 87.5%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 12.5%, #000 87.5%, transparent 100%);
+    }
+    .logo-strip .logo-track {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      width: max-content;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      animation: logoMarquee 42s linear infinite;
+      will-change: transform;
+    }
+    .logo-strip:hover .logo-track { animation-play-state: paused; }
+    @keyframes logoMarquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    .logo-strip .logo-item {
+      flex-shrink: 0;
+      width: 148px;
+      height: 72px;
+      display: grid;
+      place-items: center;
+      opacity: 0.85;
+      transition: opacity 0.25s, filter 0.25s;
+    }
+    .logo-strip .logo-item:nth-child(even) { opacity: 0.65; }
+    .logo-strip .logo-item:hover { opacity: 1; }
+    .logo-strip .logo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: grayscale(1) brightness(1.15);
+    }
+
     /* Stats */
     .stats {
       border-block: 1px solid var(--pv-line);
@@ -983,7 +1033,7 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .marquee-track, .wa-float { animation: none !important; }
+      .marquee-track, .logo-track, .wa-float { animation: none !important; }
       .reveal { opacity: 1; transform: none; }
       .site-header { transform: none; }
     }
@@ -1327,6 +1377,33 @@
             </a>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="logo-strip" aria-label="Clientes e parceiros">
+      <div class="logo-marquee">
+        <ul class="logo-track">
+          <li class="logo-item"><img src="/lp/img/partners/logo-01.png" alt="" loading="lazy" /></li>
+          <li class="logo-item"><img src="/lp/img/partners/logo-02.png" alt="" loading="lazy" /></li>
+          <li class="logo-item"><img src="/lp/img/partners/logo-03.png" alt="" loading="lazy" /></li>
+          <li class="logo-item"><img src="/lp/img/partners/logo-04.png" alt="" loading="lazy" /></li>
+          <li class="logo-item"><img src="/lp/img/partners/logo-05.png" alt="" loading="lazy" /></li>
+          <li class="logo-item"><img src="/lp/img/partners/logo-06.png" alt="" loading="lazy" /></li>
+          <li class="logo-item"><img src="/lp/img/partners/logo-07.png" alt="" loading="lazy" /></li>
+          <li class="logo-item"><img src="/lp/img/partners/logo-08.png" alt="" loading="lazy" /></li>
+          <li class="logo-item"><img src="/lp/img/partners/logo-09.png" alt="" loading="lazy" /></li>
+          <li class="logo-item"><img src="/lp/img/partners/logo-10.png" alt="" loading="lazy" /></li>
+          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-01.png" alt="" loading="lazy" /></li>
+          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-02.png" alt="" loading="lazy" /></li>
+          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-03.png" alt="" loading="lazy" /></li>
+          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-04.png" alt="" loading="lazy" /></li>
+          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-05.png" alt="" loading="lazy" /></li>
+          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-06.png" alt="" loading="lazy" /></li>
+          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-07.png" alt="" loading="lazy" /></li>
+          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-08.png" alt="" loading="lazy" /></li>
+          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-09.png" alt="" loading="lazy" /></li>
+          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-10.png" alt="" loading="lazy" /></li>
+        </ul>
       </div>
     </section>
 

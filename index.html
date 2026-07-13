@@ -653,20 +653,20 @@
       will-change: transform;
     }
     .social-marquee--ltr .social-marquee-track {
-      animation: socialMarqueeLtr 42s linear infinite;
+      animation: socialMarqueeLtr 48s linear infinite;
     }
     .social-marquee--rtl .social-marquee-track {
-      animation: socialMarqueeRtl 42s linear infinite;
+      animation: socialMarqueeRtl 48s linear infinite;
     }
     .social-marquee:hover .social-marquee-track {
       animation-play-state: paused;
     }
     @keyframes socialMarqueeLtr {
       from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
+      to { transform: translateX(-33.333%); }
     }
     @keyframes socialMarqueeRtl {
-      from { transform: translateX(-50%); }
+      from { transform: translateX(-33.333%); }
       to { transform: translateX(0); }
     }
     .social-icons {
@@ -728,13 +728,13 @@
         0 28px 64px rgba(0,0,0,0.55),
         0 0 56px rgba(248,216,13,0.22);
       z-index: 3;
-      padding-top: 22px;
+      padding-top: 20px;
       overflow: hidden;
     }
     .grid-3 > .plan.featured {
       transform: scale(1.07);
       min-height: 360px;
-      padding: 28px 18px 22px;
+      padding: 22px 18px 22px;
     }
     .plan.featured::before {
       content: "";
@@ -752,32 +752,46 @@
     .plan.featured::after {
       content: "MAIS VENDIDO";
       position: absolute;
-      top: 10px;
+      top: 18px;
       right: -52px;
-      width: 165px;
-      padding: 5px 0;
+      left: auto;
+      width: 168px;
+      height: 28px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      font-size: 8px;
+      font-size: 9px;
       font-weight: 800;
-      letter-spacing: 0.07em;
+      letter-spacing: 0.1em;
       color: #111;
       background: linear-gradient(90deg, var(--pv-yellow), #ffc107);
       transform: rotate(45deg);
       transform-origin: center center;
-      z-index: 6;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+      z-index: 8;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.4);
       pointer-events: none;
       white-space: nowrap;
       border-radius: 0;
-      line-height: 1.2;
+      line-height: 1;
     }
     .grid-5 > .plan.featured::after {
-      top: 8px;
-      right: -56px;
-      width: 150px;
-      font-size: 7px;
-      letter-spacing: 0.05em;
-      padding: 5px 0;
+      top: 16px;
+      right: -54px;
+      width: 156px;
+      height: 24px;
+      font-size: 7.5px;
+      letter-spacing: 0.08em;
+      padding: 0;
+    }
+    .grid-3 > .plan.featured::after {
+      top: 20px;
+      right: -50px;
+      width: 176px;
+      height: 30px;
+      font-size: 9px;
+      padding: 0;
     }
     .plan.featured .name {
       color: var(--pv-yellow);
@@ -929,9 +943,25 @@
       background: linear-gradient(135deg, rgba(178,75,255,0.28), transparent 42%, rgba(0,229,255,0.14));
     }
     .plan.koru-plan.featured::after {
+      top: 18px;
+      right: -52px;
+      width: 168px;
+      height: 28px;
+      padding: 0;
+      font-size: 9px;
+      line-height: 1;
       background: linear-gradient(90deg, var(--koru-cyan), #7c5cff);
       color: #0a0a12;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+      box-shadow: 0 3px 12px rgba(0,0,0,0.45);
+    }
+    .grid-5 > .plan.koru-plan.featured::after {
+      top: 16px;
+      right: -54px;
+      width: 156px;
+      height: 24px;
+      font-size: 7.5px;
+      padding: 0;
+      line-height: 1;
     }
     .plan.koru-plan.featured .name,
     .plan.koru-plan.featured .value {
@@ -1033,7 +1063,7 @@
       pointer-events: none;
     }
     .orbit-core .logo-hero {
-      width: 42%;
+      width: 31%;
       max-width: none;
       pointer-events: auto;
     }
@@ -2800,15 +2830,18 @@
     /* Faixa do canto precisa de clip — sobrescreve o scroll do .plan */
     .plan.featured {
       overflow: hidden;
+      isolation: isolate;
     }
     .grid-3 > .plan.featured {
       max-height: min(60vh, 460px);
+      padding-top: 22px;
     }
     .grid-5 > .plan {
       max-height: min(52vh, 380px);
     }
     .grid-5 > .plan.featured {
       max-height: min(56vh, 420px);
+      padding-top: 20px;
     }
     .packages .combo.media-bg {
       max-height: min(58vh, 520px);
@@ -3743,7 +3776,7 @@
         <div class="slide-inner anim-ready glass glass-panel fx-glow">
           <p class="eyebrow anim">Produto 03 · Aquisição</p>
           <h2 class="anim">Tráfego pago que <span class="accent">traz lead qualificado</span></h2>
-          <p class="lead anim">Administração mensal de campanhas para indústrias, construtoras e decisores B2B. Meta Ads + Google Ads — sem produção de criativos.</p>
+          <p class="lead anim">Administração mensal de campanhas para indústrias, construtoras e decisores B2B. Meta Ads + Google Ads, sem produção de criativos.</p>
           <div class="grid-3">
             <div class="card has-media media-bg anim glass">
               <div class="card-media"><img src="bg/img-google.png" alt="" loading="lazy" /></div>
@@ -3778,7 +3811,7 @@
         <div class="slide-inner anim-ready glass glass-panel fx-glow">
           <p class="eyebrow anim">Investimento · Gestão de mídia (mensal)</p>
           <h2 class="anim">Planos de <span class="accent-y">tráfego pago</span></h2>
-          <p class="lead anim" style="margin-bottom:8px">Investimento em anúncios (mídia) é à parte. Abaixo é só a <strong style="color:#fff">gestão e administração</strong> KoruVision — sem produção de criativos.</p>
+          <p class="lead anim" style="margin-bottom:8px">Investimento em anúncios (mídia) é à parte. Abaixo é só a <strong style="color:#fff">gestão e administração</strong> KoruVision, sem produção de criativos.</p>
           <div class="grid-3">
             <div class="plan anim glass">
               <span class="ico" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#i-ads"></use></svg></span>
@@ -3889,7 +3922,7 @@
                   <div class="bubble bot" data-chat-step="2">Perfeito. Vou qualificar seu lead e já abro no CRM. Qual o melhor WhatsApp?</div>
                   <div class="bubble user" data-chat-step="3">(11) 98888-0000 · preciso de visita técnica</div>
                   <div class="bubble system" data-chat-step="4">↗ Transferindo para atendente humano</div>
-                  <div class="bubble human" data-chat-step="5">Oi! Sou a Ana, da equipe comercial. Já vi o lead no KoruVision — posso agendar a visita técnica ainda hoje?</div>
+                  <div class="bubble human" data-chat-step="5">Oi! Sou a Ana, da equipe comercial. Já vi o lead no KoruVision, posso agendar a visita técnica ainda hoje?</div>
                   <div class="bubble user" data-chat-step="6">Pode sim, amanhã de manhã</div>
                   <div class="bubble human" data-chat-step="7">Combinado. Lead no funil · responsável: Ana · visita amanhã 9h.</div>
                   <div class="chat-typing" data-chat-typing aria-hidden="true"><span></span><span></span><span></span></div>
@@ -4061,8 +4094,70 @@
                     <img alt="Discord" src="svgs/socials/Discord.svg" width="34" height="34" loading="lazy" />
                     <img alt="Mastodon" src="svgs/socials/Mastodon.svg" width="34" height="34" loading="lazy" />
                     <img alt="Bluesky" src="svgs/socials/Bluesky.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Instagram.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
+                    <img alt="" src="svgs/socials/Youtube.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
+                    <img alt="" src="svgs/socials/Gmb.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
+                    <img alt="" src="svgs/socials/Dribbble.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
+                    <img alt="" src="svgs/socials/Linkedin.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
+                    <img alt="" src="svgs/socials/Reddit.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
+                    <img alt="" src="svgs/socials/TikTok.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
+                    <img alt="" src="svgs/socials/Facebook.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
+                    <img alt="" src="svgs/socials/Pinterest.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
+                    <img alt="" src="svgs/socials/Threads.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
+                    <img alt="" src="svgs/socials/X.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
+                    <img alt="" src="svgs/socials/Slack.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
+                    <img alt="" src="svgs/socials/Discord.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
+                    <img alt="" src="svgs/socials/Mastodon.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
+                    <img alt="" src="svgs/socials/Bluesky.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
                   </div>
                   <div class="social-icons" aria-hidden="true">
+                    <img alt="" src="svgs/socials/Instagram.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Youtube.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Gmb.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Dribbble.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Linkedin.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Reddit.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/TikTok.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Facebook.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Pinterest.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Threads.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/X.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Slack.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Discord.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Mastodon.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Bluesky.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Instagram.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Youtube.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Gmb.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Dribbble.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Linkedin.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Reddit.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/TikTok.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Facebook.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Pinterest.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Threads.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/X.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Slack.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Discord.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Mastodon.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Bluesky.svg" width="34" height="34" loading="lazy" />
+                  </div>
+                  <div class="social-icons" aria-hidden="true">
+                    <img alt="" src="svgs/socials/Instagram.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Youtube.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Gmb.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Dribbble.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Linkedin.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Reddit.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/TikTok.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Facebook.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Pinterest.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Threads.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/X.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Slack.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Discord.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Mastodon.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Bluesky.svg" width="34" height="34" loading="lazy" />
                     <img alt="" src="svgs/socials/Instagram.svg" width="34" height="34" loading="lazy" />
                     <img alt="" src="svgs/socials/Youtube.svg" width="34" height="34" loading="lazy" />
                     <img alt="" src="svgs/socials/Gmb.svg" width="34" height="34" loading="lazy" />
@@ -4099,8 +4194,70 @@
                     <img alt="Twitch" src="svgs/socials/Twitch.svg" width="34" height="34" loading="lazy" />
                     <img alt="Listmonk" src="svgs/socials/Listmonk.svg" width="34" height="34" loading="lazy" />
                     <img alt="Skool" src="svgs/socials/Skool.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Lemmy.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
+                    <img alt="" src="svgs/socials/Warpcast.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
+                    <img alt="" src="svgs/socials/Telegram.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
+                    <img alt="" src="svgs/socials/Nostr.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
+                    <img alt="" src="svgs/socials/Vk.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
+                    <img alt="" src="svgs/socials/Devto.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
+                    <img alt="" src="svgs/socials/Medium.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
+                    <img alt="" src="svgs/socials/Hashnode.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
+                    <img alt="" src="svgs/socials/Wordpress.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
+                    <img alt="" src="svgs/socials/Whop.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
+                    <img alt="" src="svgs/socials/Kick.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
+                    <img alt="" src="svgs/socials/Mewe.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
+                    <img alt="" src="svgs/socials/Twitch.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
+                    <img alt="" src="svgs/socials/Listmonk.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
+                    <img alt="" src="svgs/socials/Skool.svg" width="34" height="34" loading="lazy" aria-hidden="true" />
                   </div>
                   <div class="social-icons" aria-hidden="true">
+                    <img alt="" src="svgs/socials/Lemmy.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Warpcast.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Telegram.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Nostr.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Vk.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Devto.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Medium.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Hashnode.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Wordpress.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Whop.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Kick.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Mewe.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Twitch.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Listmonk.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Skool.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Lemmy.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Warpcast.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Telegram.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Nostr.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Vk.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Devto.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Medium.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Hashnode.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Wordpress.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Whop.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Kick.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Mewe.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Twitch.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Listmonk.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Skool.svg" width="34" height="34" loading="lazy" />
+                  </div>
+                  <div class="social-icons" aria-hidden="true">
+                    <img alt="" src="svgs/socials/Lemmy.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Warpcast.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Telegram.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Nostr.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Vk.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Devto.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Medium.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Hashnode.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Wordpress.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Whop.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Kick.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Mewe.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Twitch.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Listmonk.svg" width="34" height="34" loading="lazy" />
+                    <img alt="" src="svgs/socials/Skool.svg" width="34" height="34" loading="lazy" />
                     <img alt="" src="svgs/socials/Lemmy.svg" width="34" height="34" loading="lazy" />
                     <img alt="" src="svgs/socials/Warpcast.svg" width="34" height="34" loading="lazy" />
                     <img alt="" src="svgs/socials/Telegram.svg" width="34" height="34" loading="lazy" />

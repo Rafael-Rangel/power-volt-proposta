@@ -45,12 +45,17 @@
         linear-gradient(180deg, rgba(227,33,27,0.1) 0%, transparent 38%, rgba(8,8,8,0.58) 100%);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: auto;
+      overflow-x: clip;
+      scrollbar-width: thin;
+      scrollbar-color: var(--pv-yellow) #1a1a1c;
+    }
     body {
       font-family: var(--font-body);
       color: var(--pv-text);
       line-height: 1.55;
-      overflow-x: hidden;
+      overflow-x: clip;
       position: relative;
       isolation: isolate;
       background-color: var(--pv-black);
@@ -71,6 +76,26 @@
       background-image: var(--tex-hatch), var(--tex-dots);
       background-size: auto, 18px 18px;
       opacity: 0.7;
+    }
+
+    /* Scrollbar amarela Power Volt */
+    *::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+    *::-webkit-scrollbar-track {
+      background: #121214;
+    }
+    *::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #ffe44a 0%, var(--pv-yellow) 45%, #d4b60a 100%);
+      border-radius: 99px;
+      border: 2px solid #121214;
+    }
+    *::-webkit-scrollbar-thumb:hover {
+      background: #ffe44a;
+    }
+    *::-webkit-scrollbar-corner {
+      background: #121214;
     }
     body::after {
       content: "";
@@ -116,7 +141,7 @@
       letter-spacing: -0.02em;
       line-height: 1.08;
     }
-    .lead { color: rgba(244,244,246,0.78); font-size: clamp(15px, 1.6vw, 18px); max-width: 56ch; }
+    .lead { color: rgba(244,244,246,0.78); font-size: clamp(13px, 1.6vw, 18px); max-width: 56ch; }
 
     /* WhatsApp buttons */
     .btn-wa {
@@ -173,22 +198,22 @@
       z-index: 50;
       padding: 14px 0;
       transition: background 0.3s, backdrop 0.3s, padding 0.3s;
-      transform: translateY(-120%);
-    }
-    .site-header.is-ready {
       transform: none;
     }
-    .site-header.is-scrolled,
-    .site-header.is-open {
-      background: rgba(12,10,10,0.88);
-      backdrop-filter: blur(14px);
+    .site-header.is-scrolled {
+      background: rgba(12,10,10,0.92);
       border-bottom: 1px solid var(--pv-line);
       padding: 10px 0;
     }
+    @media (min-width: 961px) {
+      .site-header.is-scrolled {
+        backdrop-filter: blur(14px);
+      }
+    }
     .nav {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
+      display: flex;
       align-items: center;
+      justify-content: center;
       gap: 16px;
     }
     .brand {
@@ -197,94 +222,11 @@
       justify-content: center;
       flex-shrink: 0;
       z-index: 2;
-      grid-column: 2;
-      justify-self: center;
     }
     .brand img {
       height: 48px;
       width: auto;
       display: block;
-    }
-    .nav-links {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 4px;
-      list-style: none;
-      font-size: 13px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.72);
-      grid-column: 1;
-      justify-self: start;
-    }
-    .nav-links a {
-      display: inline-flex;
-      align-items: center;
-      padding: 8px 12px;
-      border-radius: 999px;
-      transition: color 0.2s, background 0.2s;
-    }
-    .nav-links a:hover {
-      color: #fff;
-      background: rgba(255,255,255,0.06);
-    }
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-shrink: 0;
-      z-index: 2;
-      grid-column: 3;
-      justify-self: end;
-    }
-    .nav .btn-wa {
-      padding: 10px 16px;
-      font-size: 13px;
-    }
-    .nav-toggle {
-      display: none;
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.18);
-      background: rgba(255,255,255,0.04);
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-    }
-    .nav-toggle span {
-      display: block;
-      width: 18px;
-      height: 2px;
-      background: currentColor;
-      border-radius: 2px;
-      position: relative;
-      transition: background 0.2s;
-    }
-    .nav-toggle span::before,
-    .nav-toggle span::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      width: 18px;
-      height: 2px;
-      background: currentColor;
-      border-radius: 2px;
-      transition: transform 0.25s var(--ease), top 0.25s var(--ease);
-    }
-    .nav-toggle span::before { top: -6px; }
-    .nav-toggle span::after { top: 6px; }
-    .site-header.is-open .nav-toggle span { background: transparent; }
-    .site-header.is-open .nav-toggle span::before {
-      top: 0;
-      transform: rotate(45deg);
-    }
-    .site-header.is-open .nav-toggle span::after {
-      top: 0;
-      transform: rotate(-45deg);
-    }
-    .nav-backdrop {
-      display: none;
     }
 
     /* Hero */
@@ -357,14 +299,17 @@
       display: flex;
       justify-content: center;
       align-items: flex-end;
+      width: min(1320px, calc(100% - 32px));
+      margin-inline: auto;
     }
     .hero-card {
-      width: min(720px, 100%);
+      width: 100%;
+      max-width: 100%;
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: clamp(28px, 4vw, 42px) clamp(22px, 4vw, 40px);
+      padding: clamp(28px, 4vw, 42px) clamp(28px, 5vw, 56px);
       border-radius: 28px;
       background:
         linear-gradient(160deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04) 45%, rgba(227,33,27,0.1)),
@@ -381,6 +326,14 @@
           rgba(8, 8, 10, 0.55);
         backdrop-filter: blur(14px) saturate(1.15);
         -webkit-backdrop-filter: blur(14px) saturate(1.15);
+    }
+    .hero h1 {
+        font-size: clamp(40px, 4.6vw, 68px);
+      }
+    }
+    @media (min-width: 1100px) {
+      .hero h1 {
+        font-size: clamp(44px, 4.4vw, 72px);
       }
     }
     .hero-card .eyebrow {
@@ -388,13 +341,24 @@
     }
     .hero h1 {
       font-family: "Arial Narrow", "Helvetica Neue Condensed", Impact, Haettenschweiler, sans-serif;
-      font-size: clamp(28px, 4.2vw, 46px);
+      font-size: clamp(28px, 7.2vw, 48px);
       font-weight: 800;
       text-transform: uppercase;
-      max-width: 18ch;
+      width: 100%;
+      max-width: none;
       line-height: 1.08;
       margin-bottom: 14px;
       text-shadow: 0 2px 24px rgba(0,0,0,0.35);
+      letter-spacing: -0.01em;
+    }
+    .hero h1 .mark {
+      display: inline;
+      color: var(--pv-red);
+      background: var(--pv-yellow);
+      box-shadow: 0.12em 0 0 var(--pv-yellow), -0.12em 0 0 var(--pv-yellow);
+      padding: 0.02em 0.06em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
     }
     .hero .lead {
       margin-left: auto;
@@ -413,8 +377,8 @@
     .logo-strip {
       width: 100%;
       max-width: 100%;
-      padding: 56px 0;
-      min-height: 180px;
+      padding: 28px 0;
+      min-height: 96px;
       display: flex;
       align-items: center;
       margin-top: -48px;
@@ -436,11 +400,11 @@
     .logo-strip .logo-track {
       display: flex;
       align-items: center;
-      gap: 40px;
+      gap: 36px;
       width: max-content;
       list-style: none;
       margin: 0;
-      padding: 12px 0;
+      padding: 4px 0;
       animation: logoMarquee 42s linear infinite;
       will-change: transform;
     }
@@ -451,14 +415,14 @@
     }
     .logo-strip .logo-item {
       flex-shrink: 0;
-      width: 180px;
-      height: 96px;
+      width: 64px;
+      height: 64px;
       display: grid;
       place-items: center;
-      opacity: 0.85;
+      opacity: 0.8;
       transition: opacity 0.25s, filter 0.25s;
     }
-    .logo-strip .logo-item:nth-child(even) { opacity: 0.65; }
+    .logo-strip .logo-item:nth-child(even) { opacity: 0.6; }
     .logo-strip .logo-item:hover { opacity: 1; }
     .logo-strip .logo-item img {
       width: 100%;
@@ -539,12 +503,6 @@
     .accent-y { color: var(--pv-yellow); }
 
     /* Section atmospheres */
-    #servicos {
-      background:
-        radial-gradient(ellipse 58% 55% at 100% 8%, rgba(227,33,27,0.16), transparent 58%),
-        radial-gradient(ellipse 40% 45% at 0% 70%, rgba(248,216,13,0.06), transparent 55%),
-        linear-gradient(180deg, rgba(18,16,16,0.92) 0%, rgba(10,10,12,0.55) 100%);
-    }
     .areas {
       position: relative;
     }
@@ -572,6 +530,7 @@
         linear-gradient(180deg, rgba(12,12,14,0.85), rgba(10,10,12,0.4));
     }
     #faq {
+      overflow: visible;
       background:
         radial-gradient(ellipse 50% 55% at 0% 0%, rgba(248,216,13,0.08), transparent 55%),
         radial-gradient(ellipse 45% 50% at 100% 100%, rgba(227,33,27,0.12), transparent 55%),
@@ -749,21 +708,21 @@
     }
     .integrate-stage {
       position: relative;
-      max-width: 920px;
-      margin: 8px auto 0;
-      min-height: 420px;
-      padding: 12px 8px 0;
+      max-width: 760px;
+      margin: 20px auto 0;
+      min-height: 380px;
+      padding: 8px 12px 24px;
     }
     .integrate-icons {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
-      gap: 10px;
+      gap: 8px;
       position: relative;
       z-index: 3;
-      max-width: 720px;
-      margin: 0 auto;
+      width: 100%;
     }
     .integrate-ico {
+      position: relative;
       width: 52px;
       height: 52px;
       margin-inline: auto;
@@ -774,41 +733,92 @@
       background: linear-gradient(160deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
       box-shadow: 0 10px 28px rgba(0,0,0,0.35);
       color: var(--pv-yellow);
+      cursor: pointer;
+      transition: transform 0.2s var(--ease), border-color 0.2s, box-shadow 0.2s;
+    }
+    .integrate-ico:hover,
+    .integrate-ico:focus-visible,
+    .integrate-ico.is-open {
+      transform: translateY(-3px);
+      border-color: rgba(248,216,13,0.55);
+      box-shadow: 0 14px 32px rgba(0,0,0,0.45), 0 0 0 1px rgba(248,216,13,0.25);
+      outline: none;
     }
     .integrate-ico.is-hot {
       color: #ff6b63;
       border-color: rgba(227,33,27,0.45);
       background: linear-gradient(160deg, rgba(227,33,27,0.22), rgba(20,20,22,0.6));
     }
-    .integrate-ico .ico { width: 24px; height: 24px; }
-    .integrate-wires {
+    .integrate-ico.is-hot:hover,
+    .integrate-ico.is-hot:focus-visible,
+    .integrate-ico.is-hot.is-open {
+      border-color: rgba(227,33,27,0.75);
+    }
+    .integrate-ico .ico { width: 24px; height: 24px; pointer-events: none; }
+    .integrate-tip {
       position: absolute;
       left: 50%;
-      top: 48px;
-      width: min(100%, 860px);
-      height: 280px;
-      transform: translateX(-50%);
-      z-index: 1;
+      bottom: calc(100% + 10px);
+      transform: translateX(-50%) translateY(4px);
+      padding: 7px 10px;
+      border-radius: 8px;
+      background: rgba(10,10,12,0.96);
+      border: 1px solid rgba(248,216,13,0.4);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
       pointer-events: none;
+      transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+      z-index: 8;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.45);
     }
-    .integrate-wires svg {
+    .integrate-tip::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: rgba(248,216,13,0.4);
+    }
+    .integrate-ico:hover .integrate-tip,
+    .integrate-ico:focus-visible .integrate-tip,
+    .integrate-ico.is-open .integrate-tip,
+    .integrate-hub:hover .integrate-tip,
+    .integrate-hub:focus-visible .integrate-tip,
+    .integrate-hub.is-open .integrate-tip {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+    .integrate-wires {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
-      display: block;
+      z-index: 1;
+      pointer-events: none;
       overflow: visible;
     }
     .integrate-wires .wire-base {
       fill: none;
-      stroke: rgba(255,255,255,0.16);
+      stroke: rgba(255,255,255,0.18);
       stroke-width: 1.5;
       stroke-linecap: round;
+      stroke-linejoin: round;
     }
     .integrate-wires .wire-flow {
       fill: none;
       stroke: var(--pv-red);
       stroke-width: 1.75;
       stroke-linecap: round;
-      stroke-dasharray: 28 90;
+      stroke-linejoin: round;
+      stroke-dasharray: 22 72;
       animation: wireFlow 2.8s linear infinite;
     }
     .integrate-wires .wire-flow.is-y {
@@ -817,34 +827,54 @@
       animation-delay: -0.8s;
     }
     @keyframes wireFlow {
-      to { stroke-dashoffset: -118; }
+      to { stroke-dashoffset: -94; }
     }
     .integrate-hub {
       position: relative;
       z-index: 2;
-      width: min(168px, 36vw);
+      width: min(148px, 34vw);
       aspect-ratio: 1;
-      margin: 168px auto 0;
+      margin: 150px auto 0;
       border-radius: 28px;
-      overflow: hidden;
-      border: 1px solid rgba(248,216,13,0.35);
+      overflow: visible;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 40% 30%, rgba(248,216,13,0.18), transparent 55%),
+        linear-gradient(160deg, #1a1212, #0a0a0c);
+      border: 1px solid rgba(248,216,13,0.4);
       box-shadow:
         0 0 0 8px rgba(227,33,27,0.08),
         0 24px 60px rgba(0,0,0,0.45);
+      cursor: pointer;
     }
-    .integrate-hub img {
+    .integrate-hub .hub-face {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      border-radius: 28px;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
     }
-    .integrate-hub::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 30% 20%, rgba(248,216,13,0.2), transparent 45%),
-        linear-gradient(180deg, transparent 40%, rgba(8,8,8,0.55));
+    .integrate-hub img {
+      width: 90%;
+      height: 90%;
+      object-fit: contain;
+      object-position: center;
+      /* leve compensação óptica do peso do texto à esquerda */
+      transform: translate(3%, 4%);
+      filter: drop-shadow(0 6px 18px rgba(227,33,27,0.35));
       pointer-events: none;
+    }
+    .integrate-hub .integrate-tip {
+      bottom: auto;
+      top: calc(100% + 12px);
+    }
+    .integrate-hub .integrate-tip::after {
+      top: auto;
+      bottom: 100%;
+      border-top-color: transparent;
+      border-bottom-color: rgba(248,216,13,0.4);
     }
     .integrate-tag {
       position: absolute;
@@ -876,9 +906,9 @@
       flex-shrink: 0;
       box-shadow: 0 0 0 4px rgba(227,33,27,0.18);
     }
-    .integrate-tag.t1 { top: 38%; left: 2%; }
-    .integrate-tag.t2 { top: 52%; right: 0; }
-    .integrate-tag.t3 { bottom: 18%; left: 12%; }
+    .integrate-tag.t1 { top: 36%; left: 0; }
+    .integrate-tag.t2 { top: 48%; right: 0; }
+    .integrate-tag.t3 { bottom: 16%; left: 8%; }
     .integrate-tag.t2 .badge { color: var(--pv-yellow); border-color: rgba(248,216,13,0.4); }
     .integrate-tag.t2 .pin { background: var(--pv-yellow); box-shadow: 0 0 0 4px rgba(248,216,13,0.16); }
     .integrate-tag {
@@ -889,6 +919,83 @@
     @keyframes tagFloat {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-6px); }
+    }
+    .integrate-cta {
+      display: flex;
+      justify-content: center;
+      margin-top: 28px;
+    }
+
+    /* Certificações NRs + ISO */
+    .cert-block {
+      margin-top: 48px;
+      text-align: center;
+    }
+    .cert-head {
+      max-width: 560px;
+      margin: 0 auto 22px;
+    }
+    .cert-head h3 {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 4vw, 36px);
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+    .cert-head .lead {
+      margin-inline: auto;
+    }
+    .cert-marquee {
+      width: 100%;
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    }
+    .cert-track {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: max-content;
+      padding: 6px 0 4px;
+      animation: certMarquee 55s linear infinite;
+      will-change: transform;
+    }
+    .cert-block:hover .cert-track { animation-play-state: paused; }
+    @keyframes certMarquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    .cert-chip {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 72px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.04);
+      color: rgba(244,244,246,0.88);
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+    .cert-chip.is-iso {
+      min-width: 0;
+      padding: 10px 16px;
+      color: #0a0a0c;
+      background: linear-gradient(120deg, var(--pv-yellow), #ffe44a);
+      border-color: rgba(248,216,13,0.65);
+      box-shadow: 0 8px 22px rgba(248,216,13,0.18);
+    }
+    .cert-chip.is-nr {
+      border-color: rgba(227,33,27,0.35);
+      background: linear-gradient(160deg, rgba(227,33,27,0.16), rgba(255,255,255,0.03));
+      color: #ffb0aa;
     }
 
     /* Why */
@@ -933,28 +1040,62 @@
     .metric p { font-size: 13px; color: var(--pv-muted); }
 
     /* Process pin */
-    .process { padding-bottom: 0; }
+    .process {
+      padding-bottom: 0;
+      overflow: visible;
+    }
+    .process > .section-head {
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 2;
+    }
     .process-pin {
       height: 100vh;
+      height: 100svh;
       overflow: hidden;
       position: relative;
+      width: 100%;
+      touch-action: pan-y;
     }
     .process-track {
       display: flex;
       height: 100%;
       width: max-content;
+      min-width: max-content;
       align-items: center;
       gap: 24px;
-      padding: 0 8vw;
+      padding: 0 max(24px, 6vw);
+    }
+    @media (min-width: 961px) {
+      .process-track { will-change: transform; }
     }
     .process-card {
-      width: min(72vw, 520px);
-      height: min(62vh, 480px);
+      width: min(68vw, 480px);
+      height: min(58vh, 460px);
       border-radius: 28px;
       overflow: hidden;
       position: relative;
       border: 1px solid var(--pv-line);
       flex-shrink: 0;
+      opacity: 1;
+      transform: none;
+    }
+    .process-hint {
+      position: absolute;
+      right: 24px;
+      bottom: 28px;
+      z-index: 5;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.72);
+      background: rgba(10,10,12,0.72);
+      border: 1px solid rgba(248,216,13,0.35);
+      padding: 8px 12px;
+      border-radius: 999px;
+      pointer-events: none;
+      backdrop-filter: blur(8px);
     }
     .process-card img {
       width: 100%;
@@ -1068,26 +1209,66 @@
     /* FAQ */
     .faq-layout {
       display: grid;
-      grid-template-columns: 0.85fr 1.15fr;
+      grid-template-columns: 0.95fr 1.05fr;
       gap: 28px;
+      align-items: start;
     }
     .faq-cta-card {
-      border-radius: 28px;
-      padding: 28px;
-      background:
-        linear-gradient(160deg, rgba(37,211,102,0.16), rgba(227,33,27,0.12)),
-        #101010;
-      border: 1px solid rgba(37,211,102,0.35);
-      align-self: start;
       position: sticky;
-      top: 100px;
+      top: 110px;
+      margin-top: 52px;
+      border-radius: 28px;
+      overflow: hidden;
+      display: block;
+      min-height: 0;
+      padding: 28px 24px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.05), transparent 42%),
+        repeating-linear-gradient(
+          -18deg,
+          rgba(255,255,255,0.025) 0 1px,
+          transparent 1px 14px
+        ),
+        linear-gradient(160deg, #1a1a1c 0%, #101012 55%, #0c0c0e 100%);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 24px 50px rgba(0,0,0,0.35);
+    }
+    .faq-cta-copy {
+      position: relative;
+      z-index: 1;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 0;
     }
     .faq-cta-card h3 {
       font-family: var(--font-display);
-      font-size: 36px;
+      font-size: clamp(28px, 3.2vw, 36px);
       text-transform: uppercase;
       line-height: 1.08;
       margin: 10px 0 12px;
+    }
+    .faq-cta-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.28);
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+      width: fit-content;
+      transition: color 0.2s, gap 0.2s;
+    }
+    .faq-cta-link:hover {
+      color: var(--pv-yellow);
+      gap: 12px;
+    }
+    .faq-cta-link .ico {
+      width: 16px;
+      height: 16px;
     }
     .faq-list { display: grid; gap: 10px; }
     .faq-item {
@@ -1117,7 +1298,7 @@
       overflow: hidden;
       transition: max-height 0.35s var(--ease);
     }
-    .faq-item.is-open .ans { max-height: 220px; }
+    .faq-item.is-open .ans { max-height: 1400px; }
     .faq-item .ans p {
       padding: 0 18px 16px;
       color: var(--pv-muted);
@@ -1170,7 +1351,7 @@
     .news-card p { font-size: 13px; color: var(--pv-muted); margin-bottom: 14px; flex: 1; }
 
     .final-cta {
-      padding: 40px 0 110px;
+      padding: 40px 0 72px;
       background:
         radial-gradient(ellipse 70% 60% at 50% 100%, rgba(227,33,27,0.14), transparent 60%),
         radial-gradient(ellipse 40% 35% at 20% 0%, rgba(248,216,13,0.06), transparent 50%);
@@ -1215,36 +1396,25 @@
     }
 
     footer {
-      border-top: 1px solid var(--pv-line);
-      padding: 28px 0 100px;
-      color: var(--pv-muted);
-      font-size: 13px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 6px 0 10px;
+      color: rgba(255,255,255,0.32);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      text-align: center;
+      line-height: 1.2;
     }
-    .footer-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
-      align-items: center;
+    .footer-copy {
+      margin: 0;
+      line-height: 1.2;
     }
-    .footer-links {
-      display: flex;
-      gap: 18px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-    .footer-links a {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .footer-links .ico { width: 16px; height: 16px; }
 
     /* Float WA */
     .wa-float {
       position: fixed;
-      right: 18px;
-      bottom: 18px;
+      right: max(14px, env(safe-area-inset-right));
+      bottom: max(14px, env(safe-area-inset-bottom));
       z-index: 60;
       width: 58px;
       height: 58px;
@@ -1304,84 +1474,18 @@
     }
 
     @media (max-width: 960px) {
-      .nav {
-        display: grid;
-        grid-template-columns: 1fr auto 1fr;
-      }
-      .brand {
-        grid-column: 2;
-        justify-self: center;
-      }
-      .nav-actions {
-        grid-column: 3;
-        justify-self: end;
-      }
-      .nav-toggle { display: inline-flex; }
-      .nav-actions .btn-wa { display: none; }
-      .nav-links {
-        position: fixed;
-        inset: 0 0 auto;
-        top: 0;
-        left: 0;
-        right: 0;
-        width: 100%;
-        padding: 88px 24px 28px;
-        margin: 0;
-        flex-direction: column;
-        align-items: stretch;
-        justify-content: flex-start;
-        gap: 4px;
-        background: rgba(7,7,7,0.97);
-        border-bottom: 1px solid var(--pv-line);
-        transform: translateY(-110%);
-        opacity: 0;
-        pointer-events: none;
-        transition: transform 0.35s var(--ease), opacity 0.25s;
-        z-index: 1;
-        grid-column: 1 / -1;
-        justify-self: stretch;
-      }
-      .site-header.is-open .nav-links {
-        transform: translateY(0);
-        opacity: 1;
-        pointer-events: auto;
-      }
-      .nav-links a {
-        padding: 14px 16px;
-        font-size: 16px;
-        border-radius: 14px;
-      }
-      .nav-links .nav-mobile-cta {
-        display: flex;
-        margin-top: 10px;
-        justify-content: center;
-      }
-      .nav-backdrop {
-        display: block;
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.55);
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.3s;
-        z-index: 40;
-      }
-      .nav-backdrop.is-on {
-        opacity: 1;
-        pointer-events: auto;
-      }
-      .stats-row { grid-template-columns: 1fr 1fr; }
+      .brand img { height: 40px; }
+      .stats-row { grid-template-columns: 1fr 1fr; gap: 12px; }
       .metric { grid-template-columns: 40px 72px 1fr; gap: 10px; }
       .metric b { font-size: 32px; }
       .metric-ico { width: 40px; height: 40px; border-radius: 12px; }
-      .integrate-stage { min-height: 360px; }
+      .integrate-stage { min-height: 340px; }
       .integrate-ico { width: 42px; height: 42px; border-radius: 12px; }
       .integrate-ico .ico { width: 20px; height: 20px; }
-      .integrate-hub { margin-top: 120px; }
-      .integrate-wires { height: 220px; }
+      .integrate-hub { margin-top: 120px; width: min(132px, 36vw); }
       .integrate-tag.t1 { top: 34%; left: 0; }
-      .integrate-tag.t2 { top: 48%; right: 0; }
-      .integrate-tag.t3 { bottom: 14%; left: 4%; max-width: 160px; }
+      .integrate-tag.t2 { top: 46%; right: 0; }
+      .integrate-tag.t3 { bottom: 12%; left: 2%; max-width: 150px; }
       .integrate-tag .badge { font-size: 11px; padding: 7px 10px; }
       .offer-grid, .why-grid, .turnkey-grid, .faq-layout, .news-grid {
         grid-template-columns: 1fr;
@@ -1391,60 +1495,182 @@
         max-height: 240px;
         min-height: 0;
       }
-      .faq-cta-card { position: static; }
-      .process-card { width: 82vw; height: 54vh; }
+      .big-visual {
+        min-height: 240px;
+        aspect-ratio: 4 / 3;
+      }
+      .faq-cta-card {
+        position: relative;
+        margin-top: 24px;
+        min-height: 0;
+        padding: 22px 18px;
+      }
+      .faq-cta-copy {
+        min-height: 0;
+        padding: 0;
+      }
+      .faq-cta-card h3 { font-size: 26px; }
+      .faq-cta-link {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 0;
+      }
+      .faq-item button {
+        padding: 16px 16px;
+        min-height: 48px;
+        font-size: 14px;
+        align-items: flex-start;
+      }
       .process-pin {
         height: auto;
-        overflow: visible;
-      }
-      .process-track {
-        width: 100%;
-        padding: 0 16px 24px;
+        min-height: 0;
         overflow-x: auto;
+        overflow-y: visible;
         -webkit-overflow-scrolling: touch;
         scroll-snap-type: x mandatory;
+        overscroll-behavior-x: contain;
+        touch-action: pan-x pan-y;
+        cursor: grab;
+        padding-bottom: 8px;
       }
-      .process-card { scroll-snap-align: center; }
-      section { padding: 64px 0; }
-      .container { width: min(1180px, calc(100% - 28px)); }
+      .process-hint {
+        display: block;
+        position: static;
+        width: fit-content;
+        margin: 0 auto 12px;
+        right: auto;
+        bottom: auto;
+      }
+      .process-pin::-webkit-scrollbar { height: 6px; }
+      .process-pin::-webkit-scrollbar-thumb {
+        background: var(--pv-yellow);
+        border-radius: 99px;
+      }
+      .process-pin::-webkit-scrollbar-track {
+        background: #1a1a1c;
+      }
+      .process-track {
+        display: flex;
+        width: max-content;
+        min-width: max-content;
+        height: auto;
+        min-height: 0;
+        padding: 8px 16px 28px;
+        overflow: visible;
+        transform: none !important;
+        gap: 14px;
+      }
+      .process-card {
+        width: min(82vw, 360px);
+        height: auto;
+        min-height: 320px;
+        aspect-ratio: 3 / 4;
+        max-height: 420px;
+        scroll-snap-align: center;
+      }
+      .process-card .inner { padding: 18px 16px 20px; }
+      .process-card .n { font-size: 42px; gap: 10px; margin-bottom: 4px; }
+      .process-card .n .ico { width: 26px; height: 26px; }
+      .process-card h3 { font-size: 24px; margin-bottom: 6px; }
+      .process-card p { font-size: 13px; line-height: 1.45; }
+      section { padding: 56px 0; }
+      .container { width: min(1180px, calc(100% - 24px)); }
       .hero { min-height: 100svh; }
+      .hero-content {
+        padding: 92px 0 64px;
+        width: min(1320px, calc(100% - 20px));
+        align-items: center;
+      }
       .hero-card {
-        padding: 22px 18px;
+        padding: 22px 16px;
+        border-radius: 22px;
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
       }
-      .hero h1 { max-width: 16ch; }
-      .hero-actions { flex-direction: column; align-items: stretch; }
-      .hero-actions .btn-wa { justify-content: center; width: 100%; }
-      .logo-strip { min-height: 120px; padding: 36px 0; margin-top: -28px; }
-      .integrate-icons { max-width: 100%; gap: 6px; }
-      .integrate-tag.t3 { display: none; }
-      .final-inner { padding: 28px 22px; }
-      .wa-float { width: 54px; height: 54px; right: 14px; bottom: 14px; }
-      .why, #servicos, .process, #faq, #outros, .stats, .integrate {
-        content-visibility: auto;
-        contain-intrinsic-size: 1px 800px;
+      .hero h1 {
+        max-width: none;
+        width: 100%;
+        font-size: clamp(30px, 8.2vw, 42px);
       }
-      body::before, body::after { opacity: 0.45; }
+      .hero .lead {
+        font-size: 13px;
+        max-width: 36ch;
+      }
+      .hero-actions { flex-direction: column; align-items: stretch; gap: 10px; }
+      .hero-actions .btn-wa {
+        justify-content: center;
+        width: 100%;
+        min-height: 48px;
+      }
+      .logo-strip { min-height: 72px; padding: 14px 0; margin-top: -20px; }
+      .logo-strip .logo-item { width: 56px; height: 56px; }
+      .logo-strip .logo-track { gap: 22px; }
+      .integrate-icons { max-width: 100%; gap: 8px; flex-wrap: wrap; justify-content: center; }
+      .integrate-tag.t3 { display: flex; max-width: 140px; }
+      .cert-block { margin-top: 36px; }
+      .cert-chip { min-width: 64px; padding: 9px 12px; font-size: 13px; }
+      .integrate-cta { margin-top: 22px; }
+      .wa-float {
+        width: 54px;
+        height: 54px;
+        right: max(12px, env(safe-area-inset-right));
+        bottom: max(12px, env(safe-area-inset-bottom));
+      }
+      .why, #outros, .integrate {
+        content-visibility: auto;
+        contain-intrinsic-size: 1px 700px;
+      }
+      body::before, body::after { opacity: 0.28; }
+      .img-reveal img { will-change: auto; }
+      .reveal { will-change: auto; }
+      .kpi strong { font-size: 28px; }
+      .kpi { padding: 14px; }
+      .news-card .body { padding: 16px; }
+      .news-card .btn-wa {
+        width: 100%;
+        justify-content: center;
+        min-height: 44px;
+      }
     }
 
     @media (max-width: 640px) {
       .stats-row { grid-template-columns: 1fr 1fr; gap: 10px; }
-      .stat strong { font-size: 32px; }
-      .integrate-stage { min-height: 300px; }
-      .integrate-hub { width: min(132px, 42vw); margin-top: 96px; }
+      .stat strong { font-size: 28px; }
+      .stat span { font-size: 11px; line-height: 1.3; }
+      .integrate-stage { min-height: 280px; }
+      .integrate-hub { width: min(110px, 38vw); margin-top: 88px; }
       .integrate-tag .badge { font-size: 10px; max-width: 120px; }
-      .process-card { width: 88vw; height: 48vh; }
+      .process-card {
+        width: min(86vw, 340px);
+        min-height: 300px;
+        max-height: 400px;
+      }
       .section-head h2 { font-size: clamp(28px, 8vw, 40px); }
-      .btn-wa { padding: 13px 18px; font-size: 13px; }
+      .btn-wa {
+        padding: 14px 18px;
+        font-size: 14px;
+        min-height: 48px;
+      }
+      .hero-content { padding: 84px 0 52px; }
+      .hero::after {
+        width: 200%;
+        height: 48%;
+        bottom: -12%;
+      }
+      .faq-cta-card {
+        padding: 20px 16px 16px;
+      }
+      .faq-cta-card h3 { font-size: 24px; }
+      .big-visual { min-height: 200px; }
+      .model-shell model-viewer { height: 280px; }
+      .quote-person img { width: 44px; height: 44px; }
     }
 
-    @media (min-width: 961px) {
-      .nav-links .nav-mobile-cta { display: none; }
-    }
 
     @media (prefers-reduced-motion: reduce) {
-      .marquee-track, .logo-track, .wa-float, .integrate-wires .wire-flow, .integrate-tag { animation: none !important; }
+      .marquee-track, .logo-track, .cert-track, .wa-float, .integrate-wires .wire-flow, .integrate-tag { animation: none !important; }
       .reveal { opacity: 1; transform: none; }
       .site-header { transform: none; }
     }
@@ -1548,6 +1774,12 @@
       background: transparent;
       --progress-bar-color: var(--pv-red);
     }
+    .model-shell model-viewer::part(default-poster),
+    .model-shell model-viewer::part(poster) {
+      display: none !important;
+      opacity: 0 !important;
+      background-image: none !important;
+    }
     .model-hint {
       position: absolute;
       left: 18px;
@@ -1563,6 +1795,43 @@
       padding: 8px 12px;
       border-radius: 999px;
       backdrop-filter: blur(8px);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .model-shell.is-loaded .model-hint { opacity: 1; }
+    .model-load {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      display: grid;
+      place-items: center;
+      margin: auto;
+      width: min(220px, 70%);
+      height: 52px;
+      border-radius: 999px;
+      background: var(--pv-red);
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+      box-shadow: 0 12px 32px rgba(227,33,27,0.35);
+      cursor: pointer;
+      border: 0;
+      transition: transform 0.2s, filter 0.2s;
+    }
+    .model-load:hover { transform: translateY(-2px); filter: brightness(1.05); }
+    .model-shell.is-loaded .model-load,
+    .model-shell.is-loading .model-load { display: none; }
+    .model-shell.is-loading::after {
+      content: "Carregando 3D…";
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      color: #121214;
+      background: rgba(233,233,236,0.72);
       pointer-events: none;
     }
     .model-fs {
@@ -1690,10 +1959,11 @@
       .model-shell,
       .compare-wrap {
         height: auto;
-        min-height: 300px;
+        min-height: 260px;
       }
-      .model-shell model-viewer { height: 380px; }
+      .model-shell model-viewer { height: 300px; }
       .compare { aspect-ratio: 4 / 3; height: auto; }
+      .model-hint { font-size: 11px; padding: 6px 10px; }
     }
   </style>
 </head>
@@ -1785,54 +2055,30 @@
 
   <header class="site-header" id="header">
     <div class="container nav">
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#servicos">Serviços</a></li>
-        <li><a href="#diferenciais">Diferenciais</a></li>
-        <li><a href="#outros">Outros</a></li>
-        <li><a href="#vr">3D / VR</a></li>
-        <li><a href="#faq">FAQ</a></li>
-        <li><a href="#orcamento">Orçamento</a></li>
-        <li class="nav-mobile-cta">
-          <a class="btn-wa js-wa" href="#" data-msg="Quero avaliar uma parceria técnica com a Power Volt">
-            <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
-            Fale de parceria
-          </a>
-        </li>
-      </ul>
       <a class="brand" href="#topo" aria-label="Power Volt">
         <img src="/lp/img/logo-sm.webp" alt="Power Volt" width="140" height="48" decoding="async" />
       </a>
-      <div class="nav-actions">
-        <a class="btn-wa js-wa" href="#" data-msg="Quero avaliar uma parceria técnica com a Power Volt">
-          <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
-          Fale de parceria
-        </a>
-        <button class="nav-toggle" id="navToggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="navLinks">
-          <span></span>
-        </button>
-      </div>
     </div>
   </header>
-  <div class="nav-backdrop" id="navBackdrop"></div>
 
   <main id="topo">
     <section class="hero">
       <div class="hero-media">
-        <img src="/lp/img/lp-hero.webp" alt="Power Volt engenharia industrial" width="1536" height="1024" fetchpriority="high" decoding="async" />
+        <img src="/lp/img/lp-hero.webp" alt="Power Volt engenharia industrial" width="1536" height="1024" fetchpriority="high" decoding="sync" />
       </div>
-      <div class="container hero-content">
+      <div class="hero-content">
         <div class="hero-card">
           <p class="eyebrow">Parceiro técnico industrial · Disponível agora</p>
-          <h1>Menos parada. Mais controle. Resultado na planta.</h1>
+          <h1>Menos <span class="mark">parada</span> Mais <span class="mark">controle</span><br>Resultado na <span class="mark">planta</span></h1>
           <p class="lead">A Power Volt une manutenção, elétrica, obra e engenharia sob medida em um só time, para sua operação ganhar disponibilidade, segurança e previsibilidade sem depender de vários fornecedores.</p>
           <div class="hero-actions">
             <a class="btn-wa red js-wa" href="#" data-msg="Olá Power Volt! Quero avaliar uma parceria técnica para minha operação.">
-              <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+            <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
               Quero falar de parceria
             </a>
-            <a class="btn-wa ghost" href="#servicos">
+            <a class="btn-wa ghost" href="#vr">
               <svg class="ico" aria-hidden="true"><use href="#ico-arrow"></use></svg>
-              Ver como entregamos valor
+              Ver projeto em 3D
             </a>
           </div>
         </div>
@@ -1842,124 +2088,94 @@
     <section class="logo-strip" aria-label="Clientes e parceiros">
       <div class="logo-marquee">
         <ul class="logo-track">
-          <li class="logo-item"><img src="/lp/img/partners/logo-01.png" alt="" loading="lazy" /></li>
-          <li class="logo-item"><img src="/lp/img/partners/logo-02.png" alt="" loading="lazy" /></li>
-          <li class="logo-item"><img src="/lp/img/partners/logo-03.png" alt="" loading="lazy" /></li>
-          <li class="logo-item"><img src="/lp/img/partners/logo-04.png" alt="" loading="lazy" /></li>
-          <li class="logo-item"><img src="/lp/img/partners/logo-05.png" alt="" loading="lazy" /></li>
-          <li class="logo-item"><img src="/lp/img/partners/logo-06.png" alt="" loading="lazy" /></li>
-          <li class="logo-item"><img src="/lp/img/partners/logo-07.png" alt="" loading="lazy" /></li>
-          <li class="logo-item"><img src="/lp/img/partners/logo-08.png" alt="" loading="lazy" /></li>
-          <li class="logo-item"><img src="/lp/img/partners/logo-09.png" alt="" loading="lazy" /></li>
-          <li class="logo-item"><img src="/lp/img/partners/logo-10.png" alt="" loading="lazy" /></li>
-          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-01.png" alt="" loading="lazy" /></li>
-          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-02.png" alt="" loading="lazy" /></li>
-          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-03.png" alt="" loading="lazy" /></li>
-          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-04.png" alt="" loading="lazy" /></li>
-          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-05.png" alt="" loading="lazy" /></li>
-          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-06.png" alt="" loading="lazy" /></li>
-          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-07.png" alt="" loading="lazy" /></li>
-          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-08.png" alt="" loading="lazy" /></li>
-          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-09.png" alt="" loading="lazy" /></li>
-          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-10.png" alt="" loading="lazy" /></li>
+          <li class="logo-item"><img src="/lp/img/partners/logo-01.webp" alt="" width="64" height="64" loading="lazy" decoding="async" /></li>
+          <li class="logo-item"><img src="/lp/img/partners/logo-02.webp" alt="" width="64" height="64" loading="lazy" decoding="async" /></li>
+          <li class="logo-item"><img src="/lp/img/partners/logo-03.webp" alt="" width="64" height="64" loading="lazy" decoding="async" /></li>
+          <li class="logo-item"><img src="/lp/img/partners/logo-04.webp" alt="" width="64" height="64" loading="lazy" decoding="async" /></li>
+          <li class="logo-item"><img src="/lp/img/partners/logo-05.webp" alt="" width="64" height="64" loading="lazy" decoding="async" /></li>
+          <li class="logo-item"><img src="/lp/img/partners/logo-06.webp" alt="" width="64" height="64" loading="lazy" decoding="async" /></li>
+          <li class="logo-item"><img src="/lp/img/partners/logo-07.webp" alt="" width="64" height="64" loading="lazy" decoding="async" /></li>
+          <li class="logo-item"><img src="/lp/img/partners/logo-08.webp" alt="" width="64" height="64" loading="lazy" decoding="async" /></li>
+          <li class="logo-item"><img src="/lp/img/partners/logo-09.webp" alt="" width="64" height="64" loading="lazy" decoding="async" /></li>
+          <li class="logo-item"><img src="/lp/img/partners/logo-10.webp" alt="" width="64" height="64" loading="lazy" decoding="async" /></li>
+          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-01.webp" alt="" width="64" height="64" loading="lazy" decoding="async" /></li>
+          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-02.webp" alt="" width="64" height="64" loading="lazy" decoding="async" /></li>
+          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-03.webp" alt="" width="64" height="64" loading="lazy" decoding="async" /></li>
+          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-04.webp" alt="" width="64" height="64" loading="lazy" decoding="async" /></li>
+          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-05.webp" alt="" width="64" height="64" loading="lazy" decoding="async" /></li>
+          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-06.webp" alt="" width="64" height="64" loading="lazy" decoding="async" /></li>
+          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-07.webp" alt="" width="64" height="64" loading="lazy" decoding="async" /></li>
+          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-08.webp" alt="" width="64" height="64" loading="lazy" decoding="async" /></li>
+          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-09.webp" alt="" width="64" height="64" loading="lazy" decoding="async" /></li>
+          <li class="logo-item" aria-hidden="true"><img src="/lp/img/partners/logo-10.webp" alt="" width="64" height="64" loading="lazy" decoding="async" /></li>
         </ul>
       </div>
     </section>
 
-    <section id="servicos">
-      <div class="container">
-        <div class="section-head reveal">
-          <p class="eyebrow">O que fazemos</p>
-          <h2>Engenharia que protege o <span class="accent">resultado</span> da sua operação</h2>
-          <p class="lead">Não vendemos serviço solto. Entregamos continuidade: menos falha crítica, infraestrutura confiável e decisão técnica alinhada ao que a planta precisa produzir.</p>
-        </div>
-        <div class="offer-grid">
-          <div class="offer-visual reveal">
-            <img id="offerImg" src="/lp/img/foto-oficina.webp" alt="" />
-            <div class="offer-caption" id="offerCaption">Manutenção Mecânica</div>
-          </div>
-          <div class="offer-list" id="offerList">
-            <article class="offer-item is-active" data-img="/lp/img/foto-oficina.webp" data-title="Manutenção Mecânica">
-              <div class="offer-ico" aria-hidden="true"><svg class="ico"><use href="#ico-wrench"></use></svg></div>
-              <div>
-                <h3>Manutenção Mecânica</h3>
-                <p>Você ganha máquina disponível: menos parada surpresa e ativo produzindo pelo tempo que foi comprado para produzir.</p>
-              </div>
-            </article>
-            <article class="offer-item" data-img="/lp/img/foto-eletrica.webp" data-title="Instalação e Manutenção Elétrica">
-              <div class="offer-ico" aria-hidden="true"><svg class="ico"><use href="#ico-bolt"></use></svg></div>
-              <div>
-                <h3>Instalação e Manutenção Elétrica</h3>
-                <p>Você ganha energia estável e segura: instalação normativa, risco operacional menor e rede pronta para a demanda real.</p>
-              </div>
-            </article>
-            <article class="offer-item" data-img="/lp/img/foto-campo.webp" data-title="Obra Civil">
-              <div class="offer-ico" aria-hidden="true"><svg class="ico"><use href="#ico-hardhat"></use></svg></div>
-              <div>
-                <h3>Obra Civil</h3>
-                <p>Você ganha base industrial sólida: passagem técnica organizada, estrutura que aguenta o ritmo e obra sem retrabalho.</p>
-              </div>
-            </article>
-            <article class="offer-item" data-img="/lp/img/foto-oficina.webp" data-title="Proteções e Estruturas Metálicas">
-              <div class="offer-ico" aria-hidden="true"><svg class="ico"><use href="#ico-structure"></use></svg></div>
-              <div>
-                <h3>Proteções e Estruturas Metálicas</h3>
-                <p>Você ganha segurança de gente e patrimônio: proteções sob medida e estruturas feitas para ambiente severo.</p>
-              </div>
-            </article>
-            <article class="offer-item" data-img="/lp/img/foto-automacao.webp" data-title="Engenharia Sob Medida">
-              <div class="offer-ico" aria-hidden="true"><svg class="ico"><use href="#ico-gear"></use></svg></div>
-              <div>
-                <h3>Engenharia Sob Medida</h3>
-                <p>Você ganha projeto que cabe no seu processo: automação e controle desenhados para o seu setor, não para catálogo genérico.</p>
-              </div>
-            </article>
-          </div>
-        </div>
-      </div>
-
-      <div class="areas">
-        <div class="container section-head reveal" style="margin-bottom:18px">
-          <p class="eyebrow">Capacidade completa</p>
-          <h2>Tudo que a planta precisa, <span class="accent-y">sem fragmentar</span> o fornecedor</h2>
-        </div>
-        <div class="marquee marquee--ltr">
-          <div class="marquee-track">
-            <div class="area-card"><img src="/lp/img/foto-oficina-sm.webp" loading="lazy" decoding="async" width="560" height="340" alt="" /><div class="body"><h3>Manutenção Preditiva</h3><p>Inspeções que antecipam falhas e reduzem custo de reparo.</p></div></div>
-            <div class="area-card"><img src="/lp/img/foto-eletrica-sm.webp" loading="lazy" decoding="async" width="560" height="340" alt="" /><div class="body"><h3>Instalação Elétrica</h3><p>Segurança, padronização e conformidade normativa.</p></div></div>
-            <div class="area-card"><img src="/lp/img/foto-automacao-sm.webp" loading="lazy" decoding="async" width="560" height="340" alt="" /><div class="body"><h3>Projetos Sob Medida</h3><p>Painéis e sistemas elétricos com foco em eficiência.</p></div></div>
-            <div class="area-card"><img src="/lp/img/foto-campo-sm.webp" loading="lazy" decoding="async" width="560" height="340" alt="" /><div class="body"><h3>Inspeções com Drones</h3><p>Acesso seguro e ágil a áreas de difícil alcance.</p></div></div>
-            <div class="area-card"><img src="/lp/img/foto-campo-sm.webp" loading="lazy" decoding="async" width="560" height="340" alt="" /><div class="body"><h3>Obra Civil</h3><p>Passagens técnicas e estruturas para demanda industrial.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-oficina.webp" alt="" /><div class="body"><h3>Manutenção Preditiva</h3><p>Inspeções que antecipam falhas e reduzem custo de reparo.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-eletrica.webp" alt="" /><div class="body"><h3>Instalação Elétrica</h3><p>Segurança, padronização e conformidade normativa.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-automacao.webp" alt="" /><div class="body"><h3>Projetos Sob Medida</h3><p>Painéis e sistemas elétricos com foco em eficiência.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-campo.webp" alt="" /><div class="body"><h3>Inspeções com Drones</h3><p>Acesso seguro e ágil a áreas de difícil alcance.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-campo.webp" alt="" /><div class="body"><h3>Obra Civil</h3><p>Passagens técnicas e estruturas para demanda industrial.</p></div></div>
-          </div>
-        </div>
-        <div class="marquee marquee--rtl">
-          <div class="marquee-track">
-            <div class="area-card"><img src="/lp/img/foto-automacao-sm.webp" loading="lazy" decoding="async" width="560" height="340" alt="" /><div class="body"><h3>Monitoramento Energético</h3><p>Consumo em tempo real para cortar desperdício.</p></div></div>
-            <div class="area-card"><img src="/lp/img/foto-oficina-sm.webp" loading="lazy" decoding="async" width="560" height="340" alt="" /><div class="body"><h3>Logística Integrada</h3><p>Movimentação de equipamentos com menos custo.</p></div></div>
-            <div class="area-card"><img src="/lp/img/foto-eletrica-sm.webp" loading="lazy" decoding="async" width="560" height="340" alt="" /><div class="body"><h3>SPDA</h3><p>Proteção contra descargas atmosféricas.</p></div></div>
-            <div class="area-card"><img src="/lp/img/foto-campo-sm.webp" loading="lazy" decoding="async" width="560" height="340" alt="" /><div class="body"><h3>Gestão de Obras</h3><p>Prazo, compliance e qualidade na execução.</p></div></div>
-            <div class="area-card"><img src="/lp/img/foto-campo-sm.webp" loading="lazy" decoding="async" width="560" height="340" alt="" /><div class="body"><h3>Infraestrutura</h3><p>Base pronta para expansões sem retrabalho.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-automacao.webp" alt="" /><div class="body"><h3>Monitoramento Energético</h3><p>Consumo em tempo real para cortar desperdício.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-oficina.webp" alt="" /><div class="body"><h3>Logística Integrada</h3><p>Movimentação de equipamentos com menos custo.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-eletrica.webp" alt="" /><div class="body"><h3>SPDA</h3><p>Proteção contra descargas atmosféricas.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-campo.webp" alt="" /><div class="body"><h3>Gestão de Obras</h3><p>Prazo, compliance e qualidade na execução.</p></div></div>
-            <div class="area-card" aria-hidden="true"><img src="/lp/img/foto-campo.webp" alt="" /><div class="body"><h3>Infraestrutura</h3><p>Base pronta para expansões sem retrabalho.</p></div></div>
-          </div>
-        </div>
-        <div class="container" style="margin-top:8px">
-          <a class="btn-wa js-wa" href="#" data-msg="Quero entender como a Power Volt pode reduzir risco e parada na minha operação">
+    <section class="viz-section" id="vr">
+      <div class="container viz-layout">
+        <div class="viz-copy reveal">
+          <p class="eyebrow">Visualize seu projeto</p>
+          <h2>Em <span class="accent">realidade</span> virtual</h2>
+          <p class="lead">Gire, dê zoom e explore o modelo 3D antes de investir. Menos surpresa na execução, mais confiança na aprovação.</p>
+          <a class="btn-wa red js-wa" href="#" data-msg="Quero visualizar meu projeto em 3D / VR com a Power Volt">
             <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
-            Quero reduzir risco na minha operação
+            Quero ver meu projeto em 3D
           </a>
+    </div>
+        <div class="model-shell reveal" id="modelShell">
+          <model-viewer
+            id="pvModel"
+            data-src="/lp/img/modern_building.glb"
+            alt="Modelo 3D do projeto"
+            camera-controls
+            touch-action="pan-y"
+            interaction-prompt="auto"
+            shadow-intensity="0.9"
+            exposure="1.05"
+            environment-image="neutral"
+            loading="lazy"
+            reveal="manual"
+          ></model-viewer>
+          <button type="button" class="model-load" id="modelLoadBtn" aria-label="Carregar modelo 3D">
+            Ver em 3D
+          </button>
+          <div class="model-hint">Arraste · Pinch para zoom</div>
+          <button type="button" class="model-fs" id="modelFullscreen" aria-label="Tela cheia">
+            <svg viewBox="0 0 512 512" aria-hidden="true"><path d="m104 72h48a24 24 0 0 0 24-24 24 24 0 0 0 -24-24h-104a24 24 0 0 0 -24 24v104a24 24 0 0 0 48 0v-48l116 116a22.627 22.627 0 0 0 32 0 22.627 22.627 0 0 0 0-32z"/><path d="m220 292a22.627 22.627 0 0 0 -32 0l-116 116v-48a24 24 0 0 0 -48 0v104a24 24 0 0 0 24 24h104a24 24 0 0 0 24-24 24 24 0 0 0 -24-24h-48l116-116a22.627 22.627 0 0 0 0-32z"/><path d="m464 24h-104a24 24 0 0 0 -24 24 24 24 0 0 0 24 24h48l-116 116a22.627 22.627 0 0 0 0 32 22.627 22.627 0 0 0 32 0l116-116v48a24 24 0 0 0 48 0v-104a24 24 0 0 0 -24-24z"/><path d="m464 336a24 24 0 0 0 -24 24v48l-116-116a22.627 22.627 0 0 0 -32 0 22.627 22.627 0 0 0 0 32l116 116h-48a24 24 0 0 0 -24 24 24 24 0 0 0 24 24h104a24 24 0 0 0 24-24v-104a24 24 0 0 0 -24-24z"/></svg>
+          </button>
         </div>
       </div>
     </section>
 
+    <section class="compare-section" id="comparativo">
+      <div class="container compare-layout">
+        <div class="compare-copy reveal">
+          <p class="eyebrow">Prova visual</p>
+          <h2>Do técnico ao <span class="accent">entregue</span></h2>
+          <p class="lead">Compare o rascunho com a visão integrada. É assim que evitamos escopo aberto e expectativa desalinhada.</p>
+          <a class="btn-wa red js-wa" href="#" data-msg="Quero um comparativo técnico do meu projeto com a Power Volt">
+            <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+            Solicitar análise do meu projeto
+          </a>
+        </div>
+        <div class="compare-wrap reveal">
+          <div class="compare" id="compare" role="img" aria-label="Comparativo antes e depois do projeto">
+            <img src="/lp/img/compare-antes.webp" alt="Antes: rascunho BIM" width="1200" height="900" loading="lazy" decoding="async" draggable="false" />
+            <img class="compare-after" id="compareAfter" src="/lp/img/compare-depois.webp" alt="Depois: modelo integrado" width="1200" height="900" loading="lazy" decoding="async" draggable="false" />
+            <span class="compare-label before">Antes</span>
+            <span class="compare-label after">Depois</span>
+            <div class="compare-handle" id="compareHandle">
+              <div class="compare-knob" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M8 12H3M21 12h-5M8 12l3-3M8 12l3 3M16 12l-3-3M16 12l-3 3" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
+          </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </section>
+
+    
     <section class="integrate" id="integracao" aria-label="Integração multidisciplinar">
       <div class="container">
         <div class="section-head reveal">
@@ -1967,37 +2183,40 @@
           <h2>Disciplinas que <span class="accent">convergem</span> em um só responsável</h2>
           <p class="lead">Manutenção, elétrica, obra e engenharia deixam de ser pedaços soltos e passam a um fluxo único, com menos ruído e mais entrega.</p>
         </div>
-        <div class="integrate-stage reveal">
-          <div class="integrate-icons" aria-hidden="true">
-            <div class="integrate-ico"><svg class="ico"><use href="#ico-gear"></use></svg></div>
-            <div class="integrate-ico"><svg class="ico"><use href="#ico-shield"></use></svg></div>
-            <div class="integrate-ico is-hot"><svg class="ico"><use href="#ico-structure"></use></svg></div>
-            <div class="integrate-ico is-hot"><svg class="ico"><use href="#ico-cube"></use></svg></div>
-            <div class="integrate-ico is-hot"><svg class="ico"><use href="#ico-bolt"></use></svg></div>
-            <div class="integrate-ico is-hot"><svg class="ico"><use href="#ico-wrench"></use></svg></div>
+        <div class="integrate-stage reveal" id="integrateStage">
+          <div class="integrate-icons">
+            <button type="button" class="integrate-ico" aria-label="Manutenção">
+              <span class="integrate-tip">Manutenção</span>
+              <svg class="ico" aria-hidden="true"><use href="#ico-gear"></use></svg>
+            </button>
+            <button type="button" class="integrate-ico" aria-label="Segurança e conformidade">
+              <span class="integrate-tip">Segurança</span>
+              <svg class="ico" aria-hidden="true"><use href="#ico-shield"></use></svg>
+            </button>
+            <button type="button" class="integrate-ico is-hot" aria-label="Obra e estruturas">
+              <span class="integrate-tip">Obra</span>
+              <svg class="ico" aria-hidden="true"><use href="#ico-structure"></use></svg>
+            </button>
+            <button type="button" class="integrate-ico is-hot" aria-label="Engenharia">
+              <span class="integrate-tip">Engenharia</span>
+              <svg class="ico" aria-hidden="true"><use href="#ico-cube"></use></svg>
+            </button>
+            <button type="button" class="integrate-ico is-hot" aria-label="Elétrica">
+              <span class="integrate-tip">Elétrica</span>
+              <svg class="ico" aria-hidden="true"><use href="#ico-bolt"></use></svg>
+            </button>
+            <button type="button" class="integrate-ico is-hot" aria-label="Instalação mecânica">
+              <span class="integrate-tip">Mecânica</span>
+              <svg class="ico" aria-hidden="true"><use href="#ico-wrench"></use></svg>
+            </button>
           </div>
 
-          <div class="integrate-wires" aria-hidden="true">
-            <svg viewBox="0 0 1000 280" preserveAspectRatio="none">
-              <path class="wire-base" d="M85 8 C85 150 500 110 500 272"/>
-              <path class="wire-flow is-y" pathLength="100" d="M85 8 C85 150 500 110 500 272"/>
-              <path class="wire-base" d="M250 8 C250 140 500 120 500 272"/>
-              <path class="wire-flow" pathLength="100" d="M250 8 C250 140 500 120 500 272"/>
-              <path class="wire-base" d="M415 8 C415 125 500 140 500 272"/>
-              <path class="wire-flow is-y" pathLength="100" d="M415 8 C415 125 500 140 500 272"/>
-              <path class="wire-base" d="M585 8 C585 125 500 140 500 272"/>
-              <path class="wire-flow" pathLength="100" d="M585 8 C585 125 500 140 500 272"/>
-              <path class="wire-base" d="M750 8 C750 140 500 120 500 272"/>
-              <path class="wire-flow is-y" pathLength="100" d="M750 8 C750 140 500 120 500 272"/>
-              <path class="wire-base" d="M915 8 C915 150 500 110 500 272"/>
-              <path class="wire-flow" pathLength="100" d="M915 8 C915 150 500 110 500 272"/>
-            </svg>
-          </div>
+          <svg class="integrate-wires" id="integrateWires" aria-hidden="true" preserveAspectRatio="none"></svg>
 
           <div class="integrate-tag t1">
             <span class="badge">Integração Multidisciplinar</span>
             <span class="pin" aria-hidden="true"></span>
-          </div>
+        </div>
           <div class="integrate-tag t2">
             <span class="pin" aria-hidden="true"></span>
             <span class="badge">Fluxo Unificado de Serviços</span>
@@ -2005,11 +2224,32 @@
           <div class="integrate-tag t3">
             <span class="badge">Eficiência Operacional</span>
             <span class="pin" aria-hidden="true"></span>
-          </div>
+        </div>
 
-          <div class="integrate-hub">
-            <img src="/lp/img/foto-campo.webp" alt="Equipe Power Volt em campo" loading="lazy" />
+          <button type="button" class="integrate-hub" id="integrateHub" aria-label="Power Volt">
+            <span class="hub-face">
+              <img src="/lp/img/logo-hub.webp" alt="" width="160" height="160" loading="lazy" decoding="async" />
+            </span>
+            <span class="integrate-tip">Power Volt</span>
+          </button>
+        </div>
+
+        <div class="cert-block reveal">
+          <div class="cert-head">
+            <p class="eyebrow">Certificações e conformidade</p>
+            <h3>Qualidade profissional com base em <span class="accent">norma</span></h3>
+            <p class="lead">Equipe treinada e reciclada nas Normas Regulamentadoras e alinhada a padrões ISO. Segurança, rastreabilidade e execução que passam em auditoria.</p>
           </div>
+          <div class="cert-marquee" aria-label="ISOs e Normas Regulamentadoras">
+            <div class="cert-track" id="certTrack"></div>
+          </div>
+        </div>
+
+        <div class="integrate-cta reveal">
+          <a class="btn-wa js-wa" href="#" data-msg="Quero entender como a Power Volt pode reduzir risco e parada na minha operação">
+            <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+            Quero reduzir risco na minha operação
+          </a>
         </div>
       </div>
     </section>
@@ -2034,7 +2274,7 @@
           </div>
           <div class="metric reveal">
             <div class="metric-ico" aria-hidden="true"><svg class="ico"><use href="#ico-speed"></use></svg></div>
-            <b>02</b><div><h3>Você reduz risco jurídico e humano</h3><p>Execução alinhada a normas, proteção de equipe e infraestrutura que passa em auditoria.</p></div>
+            <b>02</b><div><h3>Você reduz risco jurídico e humano</h3><p>Execução rigorosa dentro das Normas Regulamentadoras (NRs) e NBRs da ABNT. Proteção total da equipe, infraestrutura que passa em qualquer auditoria e corpo técnico 100% qualificado e certificado.</p></div>
           </div>
           <div class="metric reveal">
             <div class="metric-ico" aria-hidden="true"><svg class="ico"><use href="#ico-box"></use></svg></div>
@@ -2052,7 +2292,7 @@
       <div class="container">
         <div class="section-head reveal">
           <p class="eyebrow">Credibilidade em número</p>
-          <h2>O que o cliente <span class="accent-y">ganha</span> na prática</h2>
+          <h2>O que o cliente <span class="accent">ganha</span> na prática</h2>
           <p class="lead">Parceria técnica se prova em disponibilidade, menos crise operacional e projeto que chega no prazo, não em discurso.</p>
         </div>
         <div class="stats-row">
@@ -2079,28 +2319,29 @@
     <section class="process" id="processo">
       <div class="container section-head reveal">
         <p class="eyebrow">Como a parceria funciona</p>
-        <h2>Do problema à <span class="accent-y">operação previsível</span></h2>
+        <h2>Do problema à <span class="accent">operação previsível</span></h2>
         <p class="lead">Método simples, transparência em cada marco e entrega pensada para a planta continuar rodando.</p>
       </div>
       <div class="process-pin" id="processPin">
         <div class="process-track" id="processTrack">
           <article class="process-card">
-            <img src="/lp/img/foto-campo.webp" alt="" />
+            <img src="/lp/img/process-01-diagnostico.webp" alt="Diagnóstico técnico de risco na planta" width="800" height="1000" loading="lazy" decoding="async" />
             <div class="inner"><div class="n">01 <svg class="ico" aria-hidden="true"><use href="#ico-search"></use></svg></div><h3>Entendemos o risco</h3><p>Diagnóstico objetivo: onde a falha custa caro, o que está fora de norma e o que trava a produtividade.</p></div>
           </article>
           <article class="process-card">
-            <img src="/lp/img/foto-automacao.webp" alt="" />
+            <img src="/lp/img/process-02-projeto.webp" alt="Projeto de engenharia sob medida" width="800" height="1000" loading="lazy" decoding="async" />
             <div class="inner"><div class="n">02 <svg class="ico" aria-hidden="true"><use href="#ico-blueprint"></use></svg></div><h3>Desenhamos a solução</h3><p>Projeto sob medida (elétrica, mecânica ou civil), alinhado ao seu processo e ao retorno esperado.</p></div>
           </article>
           <article class="process-card">
-            <img src="/lp/img/foto-oficina.webp" alt="" />
-            <div class="inner"><div class="n">03 <svg class="ico" aria-hidden="true"><use href="#ico-tools"></use></svg></div><h3>Executamos com controle</h3><p>Obra e instalação com prazo, compliance e mínimo impacto na produção. Sem “vai virando”.</p></div>
+            <img src="/lp/img/foto-oficina.webp" alt="Execução na oficina Power Volt com equipe qualificada" width="800" height="1000" loading="lazy" decoding="async" />
+            <div class="inner"><div class="n">03 <svg class="ico" aria-hidden="true"><use href="#ico-tools"></use></svg></div><h3>Executamos com controle</h3><p>Obra e instalação executadas por colaboradores qualificados, seguindo rigidamente o compliance técnico das NRs e NBRs, com mínimo impacto na sua produção. Sem “vai virando”.</p></div>
           </article>
           <article class="process-card">
-            <img src="/lp/img/foto-campo.webp" alt="" />
+            <img src="/lp/img/process-04-sustentacao.webp" alt="Monitoramento e manutenção para sustentar o resultado" width="800" height="1000" loading="lazy" decoding="async" />
             <div class="inner"><div class="n">04 <svg class="ico" aria-hidden="true"><use href="#ico-trend"></use></svg></div><h3>Sustentamos o resultado</h3><p>Manutenção, monitoramento e relatório técnico para o ganho não evaporar depois da entrega.</p></div>
           </article>
         </div>
+        <div class="process-hint" aria-hidden="true">Role para ver as etapas →</div>
       </div>
     </section>
 
@@ -2113,16 +2354,16 @@
         </div>
         <div class="turnkey-grid">
           <div class="big-visual reveal">
-            <img src="/lp/img/foto-oficina.webp" alt="Integração de serviços Power Volt" />
+            <img src="/lp/img/valor-caixa.webp" alt="Operação previsível: menos parada e mais resultado no caixa" width="960" height="720" loading="lazy" decoding="async" />
           </div>
           <div class="reveal">
             <h3 class="display" style="font-size:34px;margin-bottom:10px">O valor que o cliente sente no caixa</h3>
             <p class="lead">Menos hora parada, menos retrabalho, menos risco de não conformidade, e mais vida útil nos ativos que já pagaram caro para estar na planta.</p>
             <div class="kpi-row">
-              <div class="kpi"><strong>−</strong><span>paradas não programadas</span></div>
-              <div class="kpi"><strong>+</strong><span>vida útil dos ativos</span></div>
-              <div class="kpi"><strong>✓</strong><span>conformidade normativa</span></div>
-              <div class="kpi"><strong>1</strong><span>ponto de responsabilidade</span></div>
+              <div class="kpi"><strong data-count="40" data-prefix="−" data-suffix="%">0%</strong><span>paradas não programadas</span></div>
+              <div class="kpi"><strong data-count="30" data-prefix="+" data-suffix="%">0%</strong><span>vida útil / produtividade</span></div>
+              <div class="kpi"><strong data-count="100" data-suffix="%">0%</strong><span>projetos personalizados</span></div>
+              <div class="kpi"><strong data-count="1">0</strong><span>ponto de responsabilidade</span></div>
             </div>
             <a class="btn-wa js-wa" href="#" data-msg="Quero um plano integrado com a Power Volt para minha planta">
               <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
@@ -2132,78 +2373,17 @@
               <blockquote class="quote">
                 <p>“Não vendemos peça solta. Vendemos operação que continua rodando, com segurança e prazo que o cliente consegue planejar.”</p>
                 <div class="quote-person">
-                  <img src="/lp/img/lp-leandro.webp" alt="Leandro Oliveira" />
+                  <img src="/lp/img/lp-leandro.webp" alt="Leandro Oliveira" width="56" height="56" loading="lazy" decoding="async" />
                   <div><strong>Leandro Oliveira</strong><span>CEO, Power Volt</span></div>
                 </div>
               </blockquote>
               <blockquote class="quote">
                 <p>“Quando manutenção, elétrica e infraestrutura falam a mesma língua, o cliente ganha previsibilidade. É nisso que a gente compete.”</p>
                 <div class="quote-person">
-                  <img src="/lp/img/lp-anderson.webp" alt="Anderson Cardoso" />
+                  <img src="/lp/img/lp-anderson.webp" alt="Anderson Cardoso" width="56" height="56" loading="lazy" decoding="async" />
                   <div><strong>Anderson Cardoso</strong><span>Co-Diretor, Power Volt</span></div>
                 </div>
               </blockquote>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="viz-section" id="vr">
-      <div class="container viz-layout">
-        <div class="viz-copy reveal">
-          <p class="eyebrow">Visualize seu projeto</p>
-          <h2>Em <span class="accent">realidade</span> virtual</h2>
-          <p class="lead">Gire, dê zoom e explore o modelo 3D antes de investir. Menos surpresa na execução, mais confiança na aprovação.</p>
-          <a class="btn-wa red js-wa" href="#" data-msg="Quero visualizar meu projeto em 3D / VR com a Power Volt">
-            <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
-            Quero ver meu projeto em 3D
-          </a>
-        </div>
-        <div class="model-shell reveal" id="modelShell">
-          <model-viewer
-            id="pvModel"
-            data-src="/lp/img/modern_building.glb"
-            alt="Modelo 3D do projeto"
-            camera-controls
-            touch-action="pan-y"
-            interaction-prompt="auto"
-            shadow-intensity="0.9"
-            exposure="1.05"
-            environment-image="neutral"
-            loading="lazy"
-            reveal="manual"
-            poster="/lp/img/foto-automacao.webp"
-          ></model-viewer>
-          <div class="model-hint">Arraste · Scroll/pinch para zoom</div>
-          <button type="button" class="model-fs" id="modelFullscreen" aria-label="Tela cheia">
-            <svg viewBox="0 0 512 512" aria-hidden="true"><path d="m104 72h48a24 24 0 0 0 24-24 24 24 0 0 0 -24-24h-104a24 24 0 0 0 -24 24v104a24 24 0 0 0 48 0v-48l116 116a22.627 22.627 0 0 0 32 0 22.627 22.627 0 0 0 0-32z"/><path d="m220 292a22.627 22.627 0 0 0 -32 0l-116 116v-48a24 24 0 0 0 -48 0v104a24 24 0 0 0 24 24h104a24 24 0 0 0 24-24 24 24 0 0 0 -24-24h-48l116-116a22.627 22.627 0 0 0 0-32z"/><path d="m464 24h-104a24 24 0 0 0 -24 24 24 24 0 0 0 24 24h48l-116 116a22.627 22.627 0 0 0 0 32 22.627 22.627 0 0 0 32 0l116-116v48a24 24 0 0 0 48 0v-104a24 24 0 0 0 -24-24z"/><path d="m464 336a24 24 0 0 0 -24 24v48l-116-116a22.627 22.627 0 0 0 -32 0 22.627 22.627 0 0 0 0 32l116 116h-48a24 24 0 0 0 -24 24 24 24 0 0 0 24 24h104a24 24 0 0 0 24-24v-104a24 24 0 0 0 -24-24z"/></svg>
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <section class="compare-section" id="comparativo">
-      <div class="container compare-layout">
-        <div class="compare-copy reveal">
-          <p class="eyebrow">Prova visual</p>
-          <h2>Do técnico ao <span class="accent">entregue</span></h2>
-          <p class="lead">Compare o rascunho com a visão integrada. É assim que evitamos escopo aberto e expectativa desalinhada.</p>
-          <a class="btn-wa red js-wa" href="#" data-msg="Quero um comparativo técnico do meu projeto com a Power Volt">
-            <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
-            Solicitar análise do meu projeto
-          </a>
-        </div>
-        <div class="compare-wrap reveal">
-          <div class="compare" id="compare" role="img" aria-label="Comparativo antes e depois do projeto">
-            <img src="/lp/img/compare-antes.webp" alt="Antes: rascunho BIM" draggable="false" />
-            <img class="compare-after" id="compareAfter" src="/lp/img/compare-depois.webp" alt="Depois: modelo integrado" draggable="false" />
-            <span class="compare-label before">Antes</span>
-            <span class="compare-label after">Depois</span>
-            <div class="compare-handle" id="compareHandle">
-              <div class="compare-knob" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M8 12H3M21 12h-5M8 12l3-3M8 12l3 3M16 12l-3-3M16 12l-3 3" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
-              </div>
             </div>
           </div>
         </div>
@@ -2214,17 +2394,19 @@
       <div class="container">
         <div class="section-head reveal">
           <p class="eyebrow">FAQ Power Volt</p>
-          <h2>Perguntas <span class="accent-y">frequentes</span></h2>
+          <h2>Perguntas <span class="accent">frequentes</span></h2>
         </div>
         <div class="faq-layout">
           <aside class="faq-cta-card reveal">
-            <p class="eyebrow" style="color:var(--wa)">Próximo passo</p>
-            <h3>Quer validar se faz sentido?</h3>
-            <p class="lead" style="margin-bottom:18px">Conte o desafio da planta. Em minutos alinhamos se a Power Volt é o parceiro certo, e qual o caminho técnico.</p>
-            <a class="btn-wa js-wa" href="#" data-msg="Quero validar se a Power Volt faz sentido para a minha operação">
-              <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
+            <div class="faq-cta-copy">
+              <p class="eyebrow" style="color:var(--wa)">Próximo passo</p>
+              <h3>Quer validar se faz sentido?</h3>
+              <p class="lead" style="margin-bottom:14px">Conte o desafio da planta. Em minutos alinhamos se a Power Volt é o parceiro certo, e qual o caminho técnico.</p>
+              <a class="faq-cta-link js-wa" href="#" data-msg="Quero validar se a Power Volt faz sentido para a minha operação">
               Tirar dúvida no WhatsApp
+                <svg class="ico" aria-hidden="true"><use href="#ico-ext"></use></svg>
             </a>
+            </div>
           </aside>
           <div class="faq-list reveal" id="faqList">
             <div class="faq-item is-open">
@@ -2248,6 +2430,10 @@
               <div class="ans"><p>Sim. Usamos drones em locais de difícil acesso para inspeções industriais com mais segurança e agilidade, com relatórios técnicos sob medida.</p></div>
             </div>
             <div class="faq-item">
+              <button type="button"><span>Os profissionais são qualificados e a empresa segue as normas técnicas?</span><span>+</span></button>
+              <div class="ans"><p>Sim. Toda a equipe técnica é composta por profissionais devidamente qualificados, treinados e reciclados nas Normas Regulamentadoras (NRs) pertinentes ao setor industrial (como NR-10, NR-35, entre outras). Projetos de engenharia, elétrica e civil são desenhados e executados em conformidade com as NBRs da ABNT, garantindo segurança jurídica e operacional da sua planta.</p></div>
+            </div>
+            <div class="faq-item">
               <button type="button"><span>Como solicito um orçamento?</span><span>+</span></button>
               <div class="ans"><p>Pelo WhatsApp: descreva a necessidade, enviamos o próximo passo e alinhamos visita ou briefing técnico.</p></div>
             </div>
@@ -2265,7 +2451,7 @@
         </div>
         <div class="news-grid">
           <article class="news-card reveal">
-            <img src="/lp/img/foto-oficina.webp" alt="" />
+            <img src="/lp/img/foto-automacao-sm.webp" srcset="/lp/img/foto-automacao-sm.webp 480w, /lp/img/foto-automacao.webp 960w" sizes="(max-width: 960px) 92vw, 360px" alt="Manutenção preditiva com monitoramento em painel" width="640" height="400" loading="lazy" decoding="async" />
             <div class="body">
               <time>Você ganha</time>
               <h3>Manutenção preditiva automatizada</h3>
@@ -2277,7 +2463,7 @@
             </div>
           </article>
           <article class="news-card reveal">
-            <img src="/lp/img/foto-campo.webp" alt="" />
+            <img src="/lp/img/foto-campo-sm.webp" srcset="/lp/img/foto-campo-sm.webp 480w, /lp/img/foto-campo.webp 960w" sizes="(max-width: 960px) 92vw, 360px" alt="Inspeção industrial com drones" width="640" height="400" loading="lazy" decoding="async" />
             <div class="body">
               <time>Você ganha</time>
               <h3>Inspeções com drones</h3>
@@ -2289,7 +2475,7 @@
             </div>
           </article>
           <article class="news-card reveal">
-            <img src="/lp/img/foto-eletrica.webp" alt="" />
+            <img src="/lp/img/foto-eletrica-sm.webp" srcset="/lp/img/foto-eletrica-sm.webp 480w, /lp/img/foto-eletrica.webp 960w" sizes="(max-width: 960px) 92vw, 360px" alt="SPDA e monitoramento energético" width="640" height="400" loading="lazy" decoding="async" />
             <div class="body">
               <time>Você ganha</time>
               <h3>SPDA e monitoramento energético</h3>
@@ -2307,7 +2493,7 @@
     <section class="final-cta" id="orcamento">
       <div class="container">
         <div class="final-box reveal">
-          <img src="/lp/img/foto-campo.webp" alt="" />
+          <img src="/lp/img/valor-caixa.webp" alt="Operação previsível Power Volt — parceria com resultado no caixa" width="1200" height="700" loading="lazy" decoding="async" />
           <div class="final-inner">
             <p class="eyebrow">Pronto para operar com mais controle?</p>
             <h2>Vamos estruturar a parceria</h2>
@@ -2323,18 +2509,8 @@
   </main>
 
   <footer>
-    <div class="container footer-row">
-      <div>© 2026 Grupo Power · Power Volt</div>
-      <div class="footer-links">
-        <a href="https://powervoltinstalacoes.com.br/" target="_blank" rel="noopener">
-          <svg class="ico" aria-hidden="true"><use href="#ico-ext"></use></svg>
-          Site institucional
-        </a>
-        <a class="js-wa" href="#" data-msg="Olá, Power Volt!">
-          <svg class="ico ico--fill" aria-hidden="true" style="width:16px;height:16px"><use href="#ico-wa"></use></svg>
-          WhatsApp
-        </a>
-      </div>
+    <div class="container">
+      <p class="footer-copy">© 2026 Grupo Power · Grupo Power</p>
     </div>
   </footer>
 
@@ -2342,9 +2518,22 @@
     <svg aria-hidden="true"><use href="#ico-wa"></use></svg>
   </a>
 
-  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
   <script defer>
+    (function buildCertTrack() {
+      const track = document.getElementById("certTrack");
+      if (!track) return;
+      const isos = ["ISO 9001", "ISO 14001", "ISO 45001"];
+      const nrs = Array.from({ length: 36 }, (_, i) => `NR-${String(i + 1).padStart(2, "0")}`);
+      const items = [
+        ...isos.map((label) => ({ label, iso: true })),
+        ...nrs.map((label) => ({ label, iso: false }))
+      ];
+      const render = (list) => list.map(({ label, iso }) =>
+        `<span class="cert-chip ${iso ? "is-iso" : "is-nr"}">${label}</span>`
+      ).join("");
+      track.innerHTML = render(items) + render(items);
+    })();
+
     function waUrl(msg) {
       const n = String(window.PV_WA || "").replace(/\D/g, "");
       const text = encodeURIComponent(msg || window.PV_WA_MSG || "");
@@ -2358,62 +2547,30 @@
     });
 
     const header = document.getElementById("header");
-    const navToggle = document.getElementById("navToggle");
-    const navBackdrop = document.getElementById("navBackdrop");
-    const closeNav = () => {
-      header?.classList.remove("is-open");
-      navToggle?.setAttribute("aria-expanded", "false");
-      navToggle?.setAttribute("aria-label", "Abrir menu");
-      navBackdrop?.classList.remove("is-on");
-      document.body.style.overflow = "";
-    };
-    const openNav = () => {
-      header?.classList.add("is-open");
-      navToggle?.setAttribute("aria-expanded", "true");
-      navToggle?.setAttribute("aria-label", "Fechar menu");
-      navBackdrop?.classList.add("is-on");
-      document.body.style.overflow = "hidden";
-    };
-    if (navToggle && header) {
-      navToggle.addEventListener("click", () => {
-        if (header.classList.contains("is-open")) closeNav();
-        else openNav();
-      });
-      navBackdrop?.addEventListener("click", closeNav);
-      header.querySelectorAll(".nav-links a").forEach((a) => a.addEventListener("click", closeNav));
-      window.addEventListener("keydown", (e) => { if (e.key === "Escape") closeNav(); });
-      window.addEventListener("resize", () => { if (window.innerWidth > 960) closeNav(); });
-    }
     if (header) {
-      const onScrollHeader = () => header.classList.toggle("is-scrolled", window.scrollY > 40);
-      onScrollHeader();
-      window.addEventListener("scroll", onScrollHeader, { passive: true });
+    const onScrollHeader = () => header.classList.toggle("is-scrolled", window.scrollY > 40);
+    onScrollHeader();
+    window.addEventListener("scroll", onScrollHeader, { passive: true });
     }
-
-    const offerImg = document.getElementById("offerImg");
-    const offerCaption = document.getElementById("offerCaption");
-    document.querySelectorAll("#offerList .offer-item").forEach((item) => {
-      item.addEventListener("click", () => {
-        document.querySelectorAll("#offerList .offer-item").forEach((i) => i.classList.remove("is-active"));
-        item.classList.add("is-active");
-        if (offerImg) {
-          offerImg.src = item.dataset.img;
-          if (offerCaption) offerCaption.textContent = item.dataset.title;
-        }
-      });
-    });
 
     document.querySelectorAll("#faqList .faq-item").forEach((item) => {
       const btn = item.querySelector("button");
+      const ans = item.querySelector(".ans");
+      if (item.classList.contains("is-open") && ans) {
+        ans.style.maxHeight = ans.scrollHeight + "px";
+      }
       btn.addEventListener("click", () => {
         const open = item.classList.contains("is-open");
         document.querySelectorAll("#faqList .faq-item").forEach((i) => {
           i.classList.remove("is-open");
           i.querySelector("button span:last-child").textContent = "+";
+          const a = i.querySelector(".ans");
+          if (a) a.style.maxHeight = "0px";
         });
         if (!open) {
           item.classList.add("is-open");
           btn.querySelector("span:last-child").textContent = "−";
+          if (ans) ans.style.maxHeight = ans.scrollHeight + "px";
         }
       });
     });
@@ -2421,8 +2578,13 @@
     (function lazyModelViewer() {
       const shell = document.getElementById("modelShell");
       const mv = document.getElementById("pvModel");
+      const loadBtn = document.getElementById("modelLoadBtn");
       if (!shell || !mv) return;
+      let booted = false;
       const boot = () => {
+        if (booted) return;
+        booted = true;
+        shell.classList.add("is-loading");
         const s = document.createElement("script");
         s.type = "module";
         s.src = "https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js";
@@ -2431,26 +2593,148 @@
             mv.src = mv.dataset.src;
             mv.removeAttribute("data-src");
           }
-          try { mv.dismissPoster?.(); } catch (_) {}
+          const markLoaded = () => {
+            shell.classList.remove("is-loading");
+            shell.classList.add("is-loaded");
+            if (typeof mv.dismissPoster === "function") mv.dismissPoster();
+          };
+          mv.addEventListener("load", markLoaded, { once: true });
+          setTimeout(markLoaded, 12000);
+        };
+        s.onerror = () => {
+          shell.classList.remove("is-loading");
+          booted = false;
         };
         document.head.appendChild(s);
       };
-      if ("IntersectionObserver" in window) {
+      if (loadBtn) loadBtn.addEventListener("click", boot);
+      else if ("IntersectionObserver" in window) {
         const io = new IntersectionObserver((entries) => {
           if (entries.some((e) => e.isIntersecting)) {
             io.disconnect();
             boot();
           }
-        }, { rootMargin: "240px" });
+        }, { rootMargin: "80px" });
         io.observe(shell);
-      } else boot();
+      }
     })();
 
     document.querySelectorAll("img").forEach((img) => {
       if (img.closest(".hero-media") || img.closest(".brand")) return;
       if (!img.getAttribute("loading")) img.setAttribute("loading", "lazy");
-      img.setAttribute("decoding", "async");
+      if (!img.getAttribute("decoding")) img.setAttribute("decoding", "async");
     });
+
+    const wantsMotion = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isDesktop = window.matchMedia("(min-width: 961px)").matches;
+    const shouldLoadGsap = wantsMotion && isDesktop;
+
+    function loadScript(src) {
+      return new Promise((resolve, reject) => {
+        const s = document.createElement("script");
+        s.src = src;
+        s.onload = resolve;
+        s.onerror = reject;
+        document.head.appendChild(s);
+      });
+    }
+
+    function revealOnScroll() {
+      const els = document.querySelectorAll(".reveal");
+      if (!("IntersectionObserver" in window)) {
+        els.forEach((el) => el.classList.add("is-shown"));
+        return;
+      }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-shown");
+          io.unobserve(entry.target);
+        });
+      }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+      els.forEach((el) => io.observe(el));
+    }
+
+    (function integrateTips() {
+      const stage = document.getElementById("integrateStage");
+      if (!stage) return;
+      const items = stage.querySelectorAll(".integrate-ico, .integrate-hub");
+      const closeAll = (except) => {
+        items.forEach((el) => {
+          if (el !== except) el.classList.remove("is-open");
+        });
+      };
+      items.forEach((el) => {
+        el.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const open = el.classList.contains("is-open");
+          closeAll();
+          if (!open) el.classList.add("is-open");
+        });
+      });
+      document.addEventListener("click", () => closeAll());
+    })();
+
+    (function integrateWires() {
+      const stage = document.getElementById("integrateStage");
+      const svg = document.getElementById("integrateWires");
+      const hub = document.getElementById("integrateHub");
+      if (!stage || !svg || !hub) return;
+
+      const NS = "http://www.w3.org/2000/svg";
+      const draw = () => {
+        const icons = [...stage.querySelectorAll(".integrate-ico")];
+        if (!icons.length) return;
+        const sr = stage.getBoundingClientRect();
+        const hr = hub.getBoundingClientRect();
+        const w = sr.width;
+        const h = sr.height;
+        svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
+        svg.setAttribute("width", String(w));
+        svg.setAttribute("height", String(h));
+        svg.innerHTML = "";
+
+        const endX = hr.left + hr.width / 2 - sr.left;
+        const endY = hr.top - sr.top + 4;
+
+        icons.forEach((ico, i) => {
+          const r = ico.getBoundingClientRect();
+          const x1 = r.left + r.width / 2 - sr.left;
+          const y1 = r.bottom - sr.top;
+          const midY = y1 + (endY - y1) * 0.55;
+          const d = `M ${x1.toFixed(1)} ${y1.toFixed(1)} C ${x1.toFixed(1)} ${midY.toFixed(1)} ${endX.toFixed(1)} ${midY.toFixed(1)} ${endX.toFixed(1)} ${endY.toFixed(1)}`;
+
+          const base = document.createElementNS(NS, "path");
+          base.setAttribute("d", d);
+          base.setAttribute("class", "wire-base");
+          svg.appendChild(base);
+
+          const flow = document.createElementNS(NS, "path");
+          flow.setAttribute("d", d);
+          flow.setAttribute("class", `wire-flow${i % 2 ? "" : " is-y"}`);
+          flow.setAttribute("pathLength", "100");
+          svg.appendChild(flow);
+        });
+      };
+
+      const run = () => requestAnimationFrame(draw);
+      run();
+      window.addEventListener("resize", run, { passive: true });
+      if (document.fonts?.ready) document.fonts.ready.then(run);
+      if ("ResizeObserver" in window) {
+        const ro = new ResizeObserver(run);
+        ro.observe(stage);
+        ro.observe(hub);
+      }
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver((entries) => {
+          if (entries.some((e) => e.isIntersecting)) run();
+        }, { threshold: 0.2 });
+        io.observe(stage);
+      }
+      // redraw after GSAP reveal settles
+      setTimeout(run, 900);
+    })();
 
     /* Fullscreen 3D */
     const modelShell = document.getElementById("modelShell");
@@ -2497,7 +2781,47 @@
     function revealAll() {
       document.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-shown"));
       document.getElementById("header")?.classList.add("is-ready");
+      document.querySelectorAll("[data-count]").forEach((el) => {
+        el.textContent = `${el.dataset.prefix || ""}${el.dataset.count || "0"}${el.dataset.suffix || ""}`;
+        el.dataset.counted = "1";
+      });
     }
+
+    function animateStatCounts() {
+      document.querySelectorAll("[data-count]").forEach((el) => {
+        const target = Number(el.dataset.count) || 0;
+        const prefix = el.dataset.prefix || "";
+        const suffix = el.dataset.suffix || "";
+        const run = () => {
+          if (el.dataset.counted === "1") return;
+          el.dataset.counted = "1";
+          if (typeof gsap === "undefined") {
+            el.textContent = `${prefix}${target}${suffix}`;
+            return;
+          }
+        const obj = { v: 0 };
+            gsap.to(obj, {
+              v: target,
+            duration: 1.5,
+              ease: "power2.out",
+            onUpdate: () => { el.textContent = `${prefix}${Math.round(obj.v)}${suffix}`; },
+            onComplete: () => { el.textContent = `${prefix}${target}${suffix}`; }
+          });
+        };
+        const trigger = el.closest(".stat") || el;
+        if ("IntersectionObserver" in window) {
+          const io = new IntersectionObserver((entries) => {
+            if (entries.some((e) => e.isIntersecting)) {
+              io.disconnect();
+              run();
+            }
+          }, { threshold: 0.25, rootMargin: "0px 0px -8% 0px" });
+          io.observe(trigger);
+        } else {
+          run();
+              }
+            });
+          }
 
     function showReveal(el) {
       el.classList.add("is-shown");
@@ -2522,10 +2846,28 @@
       });
     }
 
-    if (typeof gsap === "undefined") {
-      document.documentElement.classList.add("gsap-fail");
-      revealAll();
-    } else {
+    animateStatCounts();
+
+    (async function initMotion() {
+      if (!shouldLoadGsap) {
+        document.documentElement.classList.add("gsap-fail");
+        revealOnScroll();
+        return;
+      }
+      try {
+        await loadScript("https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js");
+        await loadScript("https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js");
+      } catch (err) {
+        document.documentElement.classList.add("gsap-fail");
+        revealOnScroll();
+        return;
+      }
+      if (typeof gsap === "undefined") {
+        document.documentElement.classList.add("gsap-fail");
+        revealOnScroll();
+        return;
+      }
+
       gsap.registerPlugin(ScrollTrigger);
       gsap.defaults({ ease: "power3.out", overwrite: "auto" });
 
@@ -2594,13 +2936,11 @@
         });
 
         [
-          ["#offerList .offer-item", { y: 30, opacity: 0 }],
           [".metric", { y: 40, opacity: 0, scale: 0.95 }],
           [".kpi", { y: 24, opacity: 0 }],
           [".quote", { y: 36, opacity: 0, x: -20 }],
           [".news-card", { y: 50, opacity: 0 }],
-          ["#faqList .faq-item", { y: 24, opacity: 0 }],
-          [".process-card", { y: 60, opacity: 0, scale: 0.9 }]
+          ["#faqList .faq-item", { y: 24, opacity: 0 }]
         ].forEach(([sel, from]) => {
           const nodes = gsap.utils.toArray(sel);
           if (!nodes.length) return;
@@ -2636,26 +2976,6 @@
             scrollTrigger: { trigger: ".stats", start: "top 80%", once: true }
           }
         );
-
-        document.querySelectorAll("[data-count]").forEach((el) => {
-          const target = Number(el.dataset.count);
-          const suffix = el.dataset.suffix || "";
-          const obj = { v: 0 };
-          ScrollTrigger.create({
-            trigger: el,
-            start: "top 90%",
-            once: true,
-            onEnter: () => {
-              gsap.to(obj, {
-                v: target,
-                duration: 1.6,
-                ease: "power2.out",
-                onUpdate: () => { el.textContent = `${Math.round(obj.v)}${suffix}`; }
-              });
-            }
-          });
-        });
-
         gsap.utils.toArray(".btn-wa").forEach((btn) => {
           if (btn.closest(".hero") || btn.closest(".site-header")) return;
           gsap.fromTo(btn,
@@ -2674,42 +2994,79 @@
           { scale: 1, opacity: 1, duration: 0.55, ease: "power2.out", delay: mobile ? 0.6 : 1.2 }
         );
 
-        if (!mobile) {
-          const track = document.getElementById("processTrack");
-          const pin = document.getElementById("processPin");
-          if (track && pin) {
-            const getScroll = () => Math.max(0, track.scrollWidth - window.innerWidth);
-            gsap.to(track, {
-              x: () => -getScroll(),
-              ease: "none",
-              scrollTrigger: {
-                trigger: pin,
-                start: "top top",
-                end: () => `+=${getScroll()}`,
-                scrub: 1,
-                pin: true,
-                anticipatePin: 1,
-                invalidateOnRefresh: true
+      const track = document.getElementById("processTrack");
+      const pin = document.getElementById("processPin");
+        const processHint = pin?.querySelector(".process-hint");
+        let killProcessPin = null;
+      if (track && pin) {
+          gsap.set(".process-card", { clearProps: "opacity,transform,filter" });
+          gsap.set(track, { x: 0, clearProps: "transform" });
+
+          if (!mobile) {
+            const getDistance = () => {
+              const dist = track.scrollWidth - pin.clientWidth;
+              return dist > 40 ? dist : Math.max(track.scrollWidth - window.innerWidth + 48, window.innerWidth * 1.6);
+            };
+
+            const tween = gsap.to(track, {
+              x: () => -getDistance(),
+          ease: "none",
+          scrollTrigger: {
+                id: "processHorizontal",
+            trigger: pin,
+            start: "top top",
+                end: () => `+=${getDistance() * 1.15}`,
+                scrub: 0.8,
+            pin: true,
+                pinSpacing: true,
+            anticipatePin: 1,
+                invalidateOnRefresh: true,
+                fastScrollEnd: true,
+                onUpdate: (self) => {
+                  if (processHint) processHint.style.opacity = self.progress > 0.08 ? "0" : "1";
+                }
               }
             });
-          }
 
-          gsap.to(".hero-media img", {
-            yPercent: 18,
-            ease: "none",
-            scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true }
-          });
-        } else {
-          // mobile: horizontal swipe instead of pin scroll
-          const track = document.getElementById("processTrack");
-          if (track) {
-            track.style.overflowX = "auto";
-            track.style.webkitOverflowScrolling = "touch";
-            track.style.scrollSnapType = "x mandatory";
-            track.querySelectorAll(".process-card").forEach((c) => {
-              c.style.scrollSnapAlign = "center";
+            const refreshPin = () => {
+              requestAnimationFrame(() => {
+                ScrollTrigger.refresh();
+              });
+            };
+            window.addEventListener("load", refreshPin, { once: true });
+            track.querySelectorAll("img").forEach((img) => {
+              if (!img.complete) img.addEventListener("load", refreshPin, { once: true });
+              else refreshPin();
             });
+            if (typeof ResizeObserver !== "undefined") {
+              const ro = new ResizeObserver(refreshPin);
+              ro.observe(track);
+              ro.observe(pin);
+            }
+            setTimeout(refreshPin, 100);
+            setTimeout(refreshPin, 500);
+            setTimeout(refreshPin, 1200);
+
+            killProcessPin = () => {
+              tween.scrollTrigger?.kill();
+              tween.kill();
+              gsap.set(track, { clearProps: "transform" });
+            };
+          } else {
+            pin.style.cursor = "grab";
+            if (processHint) {
+              processHint.textContent = "Deslize para ver as etapas →";
+              processHint.style.display = "block";
+            }
           }
+        }
+
+        if (!mobile) {
+      gsap.to(".hero-media img", {
+            yPercent: 18,
+        ease: "none",
+        scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true }
+      });
         }
 
         if (!mobile) {
@@ -2724,14 +3081,17 @@
             }
           );
         }
+
+        return () => {
+          killProcessPin?.();
+        };
       });
-    }
+    })();
 
     setTimeout(() => {
       document.querySelectorAll(".reveal:not(.is-shown)").forEach((el) => {
         if (getComputedStyle(el).opacity === "0") el.classList.add("is-shown");
       });
-      document.getElementById("header")?.classList.add("is-ready");
     }, 2500);
   </script>
 </body>
